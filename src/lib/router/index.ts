@@ -51,19 +51,19 @@ const routes: any = [
     ],
   },
   {
-    path: '/secret_key',
+    path: '/OkxKey',
     isLogin: true,
-    component: () => import('@/pages/SecretKey/IndexPage.vue'),
+    component: () => import('@/pages/OkxKey/IndexPage.vue'),
     children: [
       {
         path: '',
         description: 'list',
-        component: () => import('@/pages/SecretKey/ListPage.vue'),
+        component: () => import('@/pages/OkxKey/ListPage.vue'),
       },
       {
         path: 'add',
         description: '新增 密钥',
-        component: () => import('@/pages/SecretKey/AddPage.vue'),
+        component: () => import('@/pages/OkxKey/AddPage.vue'),
       },
     ],
   },
