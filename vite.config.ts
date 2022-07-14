@@ -14,33 +14,17 @@ const PwaConfig = {
     sourcemap: true,
   },
   manifest: {
-    name: 'Hunter',
-    short_name: 'Hunter',
+    name: 'AIFund',
+    short_name: 'AIFund',
     theme_color: '#F0B90B',
-    description: 'Hunter, 像猎手一样去做交易',
+    description: 'AIFund, 个人智能 AI 基金',
     lang: 'zh',
     icons: [
       {
-        src: '//file.mo7.cc/hunter/logo/android-chrome-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-      },
-      {
-        src: '//file.mo7.cc/hunter/logo/android-chrome-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-      },
-      {
-        src: '//file.mo7.cc/hunter/logo/android-chrome-maskable-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'maskable',
-      },
-      {
-        src: '//file.mo7.cc/hunter/logo/android-chrome-maskable-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'maskable',
+        src: '//file.mo7.cc/AIFund/logo/app.svg', //inside the scope!
+        sizes: '48x48 72x72 96x96 128x128 256x256', //see the size in the devtools, not in editor. I've set up size 1200x1200 in Illustrator, but Chrome says it's 150x150. Also, "sizes":"any" not work.
+        type: 'image/svg+xml', //not image/svg which is still visible in web
+        purpose: 'any', //not "maskable any" as you may see there in answers.
       },
     ],
     start_url: './?mode=pwa',
