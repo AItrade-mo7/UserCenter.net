@@ -36,7 +36,7 @@ export function NewSocket(opt: WssType) {
   }
 
   if (opt.Host) {
-    pathname = `/AIFund_net/wss?host=${opt.Host}`;
+    pathname = `/CoinServe/wss?host=${opt.Host}`;
   }
 
   const socketUrl = protocol + host + pathname;

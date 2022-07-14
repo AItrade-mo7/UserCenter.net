@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NewSocket } from '@/utils/wss';
+import { NewSocket } from '@/api/CoinServe/CoinServeWss';
 import { onMounted, onUnmounted } from 'vue';
 const props = defineProps({
   config: Object,

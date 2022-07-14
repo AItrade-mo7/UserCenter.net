@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mStorage } from '@/utils/tools';
 import { useRouter } from 'vue-router';
-import { GetAIFundConfig } from '@/api/AIFund_net';
+import { GetAIFundConfig } from '@/api/CoinServe';
 import { $lcg } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
@@ -27,7 +27,7 @@ const GetConfig = () => {
 };
 
 if (AIFund_host.length < 6) {
-  window.$message.warning('缺少 AIFund_host');
+  window.$message.warning('缺少 CoinServeHost');
   $router.replace('/AIFund_serve');
 } else {
   // 开始
