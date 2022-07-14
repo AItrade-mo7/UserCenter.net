@@ -44,9 +44,9 @@ const routes: any = [
         component: () => import('@/pages/About/OkxKey.vue'),
       },
       {
-        path: 'AIFund_server',
-        description: 'AIFundServe 说明',
-        component: () => import('@/pages/About/AIFundServe.vue'),
+        path: 'FundServer',
+        description: 'FundServer 说明',
+        component: () => import('@/pages/About/FundServe.vue'),
       },
     ],
   },
@@ -68,24 +68,24 @@ const routes: any = [
     ],
   },
   {
-    path: '/AIFund_serve',
+    path: '/CoinServe',
     isLogin: true,
-    component: () => import('@/pages/AIFundServer/IndexPage.vue'),
+    component: () => import('@/pages/CoinServe/IndexPage.vue'),
     children: [
       {
         path: '',
         description: 'list',
-        component: () => import('@/pages/AIFundServer/ListPage.vue'),
+        component: () => import('@/pages/CoinServe/ListPage.vue'),
       },
       {
         path: 'add',
         description: '新增 服务',
-        component: () => import('@/pages/AIFundServer/AddPage.vue'),
+        component: () => import('@/pages/CoinServe/AddPage.vue'),
       },
       {
         path: 'info',
         description: '查看详情',
-        component: () => import('@/pages/AIFundServer/InfoPage.vue'),
+        component: () => import('@/pages/CoinServe/InfoPage.vue'),
       },
     ],
   },
