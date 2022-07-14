@@ -10,7 +10,7 @@
     "vue:build": "vite build",
     "vue:check": "vue-tsc --noEmit",
     "git": "./_shell/gitSet.sh",
-    "sync": "./_shell/sync_git.sh",
+    "sync": "./_shell/gitSync.sh",
     "deploy": "./_shell/deploy.sh"
   },
   "dependencies": {
