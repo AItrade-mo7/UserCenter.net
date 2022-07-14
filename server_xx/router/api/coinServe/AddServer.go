@@ -20,7 +20,7 @@ import (
 )
 
 func AddServer(c *fiber.Ctx) error {
-	var json apiType.CreateAIFundServerParam
+	var json apiType.CreateCoinServerParam
 	mFiber.Parser(c, &json)
 
 	// 检查端口
