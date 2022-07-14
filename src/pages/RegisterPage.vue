@@ -37,7 +37,7 @@ const Submit = async () => {
       meta: res.Data,
       content: res.Msg,
       onClose() {
-        $router.replace('/login');
+        $router.replace('/Login');
       },
     });
   }

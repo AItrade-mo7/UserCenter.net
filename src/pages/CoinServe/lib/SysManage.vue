@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cloneDeep } from '@/utils/tools';
-import { ReStart, Remove } from '@/api/AIFund_net/sys';
+import { ReStart, Remove } from '@/api/CoinServe/sys';
 import AuthModal from '@/lib/AuthModal';
 import { mStorage } from '@/utils/tools';
 
@@ -54,8 +54,8 @@ const SendStop = async (Info) => {
   });
   window.$message.success('删除指令已发送!', {
     onAfterLeave() {
-      mStorage.remove('AIFund_host');
-      window.location.replace('/AIFund_serve');
+      mStorage.remove('FundServeHost');
+      window.location.replace('/CoinServe');
     },
   });
 };
@@ -70,8 +70,8 @@ const SendReStart = async (Info) => {
 
   window.$message.success('重启指令已发送!', {
     onAfterLeave() {
-      mStorage.remove('AIFund_host');
-      window.location.replace('/AIFund_serve');
+      mStorage.remove('FundServeHost');
+      window.location.replace('/CoinServe');
     },
   });
 };

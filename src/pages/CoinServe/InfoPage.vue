@@ -11,13 +11,13 @@ const InfoNot = defineAsyncComponent(() => import('./lib/InfoNot.vue'));
 const SysManage = defineAsyncComponent(() => import('./lib/SysManage.vue'));
 
 const $router = useRouter();
-const AIFund_host = mStorage.get('AIFund_host');
+const FundServeHost = mStorage.get('FundServeHost');
 let AIFund_config = $ref({});
 
 const GetConfig = () => {
   GetAIFundConfig({
     ServerInfo: {
-      Host: AIFund_host,
+      Host: FundServeHost,
     },
   }).then((res) => {
     if (res.Code > 0) {
@@ -26,9 +26,9 @@ const GetConfig = () => {
   });
 };
 
-if (AIFund_host.length < 6) {
-  window.$message.warning('缺少 CoinServeHost');
-  $router.replace('/AIFund_serve');
+if (FundServeHost.length < 6) {
+  window.$message.warning('缺少 FundServeHost');
+  $router.replace('/');
 } else {
   // 开始
   GetConfig();
@@ -43,7 +43,7 @@ const OpenSet = () => {
 
 <template>
   <PageTitle>
-    {{ AIFund_host }}
+    {{ FundServeHost }}
     <template #after v-if="AIFund_config.AppInfo">
       <n-badge
         class="AIFundServer__dotNet"

@@ -17,7 +17,7 @@ export const login = (data: loginType) => {
 
 export const logout = () => {
   removeToken();
-  window.location.replace('/login');
+  window.location.replace('/Login');
 };
 
 export const getUserInfo = () => {

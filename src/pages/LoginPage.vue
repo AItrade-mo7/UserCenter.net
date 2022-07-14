@@ -36,7 +36,7 @@ const Submit = async () => {
     window.$message.success(res.Msg);
     UserInfoStore.update(InfoRes.Data);
     TopBarStore.open();
-    $router.replace('/AIFund_serve');
+    $router.replace('/CoinServe');
   }
   SubmitStatus = false;
 };

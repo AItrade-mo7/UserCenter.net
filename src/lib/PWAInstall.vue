@@ -12,7 +12,7 @@ const installPwa = async () => {
       window.deferredPrompt = null;
     }
   } else {
-    $router.push('/about/pwa');
+    $router.push('/About/PWA');
   }
 };
 </script>

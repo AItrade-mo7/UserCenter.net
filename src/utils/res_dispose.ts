@@ -8,7 +8,7 @@ export const res_dispose = (response: resType): resDataType => {
   if (data.Code == -7) {
     window.$message.warning(data.Msg, {
       onLeave() {
-        window.location.replace('/register');
+        window.location.replace('/Register');
       },
     });
     return data;

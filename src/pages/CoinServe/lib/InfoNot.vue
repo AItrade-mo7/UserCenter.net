@@ -5,14 +5,14 @@ import { mStorage } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const ShellAbout = defineAsyncComponent(() => import('./ShellAbout.vue'));
 
-const AIFund_host = mStorage.get('AIFund_host');
+const FundServeHost = mStorage.get('FundServeHost');
 let Url = $ref('');
 const deployFunc = () => {
   AuthModal({
     IsPassword: true,
     async OkBack(param) {
       return GetDeployShell({
-        AIFundServerID: AIFund_host,
+        AIFundServerID: FundServeHost,
         Password: param.Password,
       }).then((res) => {
         Url = res.Data.Src;

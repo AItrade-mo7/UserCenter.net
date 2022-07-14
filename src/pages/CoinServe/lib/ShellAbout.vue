@@ -3,11 +3,11 @@ import { CopyText } from '@/utils/tools';
 import { mStorage } from '@/utils/tools';
 import { GetAIFundConfig } from '@/api/AIFund_net';
 
-const AIFund_host = mStorage.get('AIFund_host');
+const FundServeHost = mStorage.get('FundServeHost');
 
 let Port = '';
-if (AIFund_host) {
-  const host_arr = AIFund_host.split(':');
+if (FundServeHost) {
+  const host_arr = FundServeHost.split(':');
   Port = host_arr[1];
 }
 
@@ -22,7 +22,7 @@ const wgetSh = `wget -qO- ${props.Src} | sudo bash`;
 const getConfig = () => {
   GetAIFundConfig({
     ServerInfo: {
-      Host: AIFund_host,
+      Host: FundServeHost,
     },
   })
     .then((res) => {
@@ -52,7 +52,7 @@ const getConfig = () => {
       复制该指令，并在 ip 为
       <div className="ShellAbout_desc-ip">
         <code>
-          <a :href="`http://${AIFund_host}`" target="_blank"> {{ AIFund_host }} </a>
+          <a :href="`http://${FundServeHost}`" target="_blank"> {{ FundServeHost }} </a>
         </code>
       </div>
       的主机上执行。

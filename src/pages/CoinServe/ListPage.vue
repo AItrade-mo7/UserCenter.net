@@ -72,8 +72,8 @@ function GetKey(KeyId: string): any {
 }
 
 const OpenServerDetail = (id: string) => {
-  mStorage.set('AIFund_host', id);
-  $router.push('/AIFund_serve/info');
+  mStorage.set('FundServeHost', id);
+  $router.push('/CoinServe/Info');
 };
 
 const delServer = (item) => {
