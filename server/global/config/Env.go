@@ -1,0 +1,48 @@
+package config
+
+import (
+	"fmt"
+
+	"github.com/EasyGolang/goTools/mJson"
+	"github.com/spf13/viper"
+)
+
+var AppInfo struct {
+	Name    string `json:"name"`
+	Version string `json:"version"`
+	Port    int    `json:"Port"`
+}
+
+var SysEnv struct {
+	LocalIP       string
+	MongoAddress  string
+	MongoPassword string
+	MongoUserName string
+	RunMod        int // 0 则为正常模式 ， 1 则为数据模拟模式
+}
+
+func LoadSysEnv(envPath string) {
+	viper.SetConfigFile(envPath)
+	err := viper.ReadInConfig()
+	if err != nil {
+		errStr := fmt.Errorf("sys_env.yaml 读取配置文件出错: %+v", err)
+		LogErr(errStr)
+		panic(errStr)
+	}
+	viper.Unmarshal(&SysEnv)
+	Log.Println("加载配置：SysEnv", mJson.JsonFormat(mJson.ToJson(SysEnv)))
+}
+
+type EmailInfo struct {
+	Account  string
+	Password string
+	To       []string
+}
+
+var Email = EmailInfo{
+	Account:  "hunter@mo7.cc",
+	Password: "1HojqIGQN1wPPebX",
+	To: []string{
+		"meichangliang@mo7.cc",
+	},
+}
