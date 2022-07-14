@@ -7,15 +7,15 @@ const routes: any = [
     component: () => import('@/pages/HomePage.vue'),
   },
   {
-    path: '/login',
+    path: '/Login',
     component: () => import('@/pages/LoginPage.vue'),
   },
   {
-    path: '/register',
+    path: '/Register',
     component: () => import('@/pages/RegisterPage.vue'),
   },
   {
-    path: '/about',
+    path: '/About',
     component: () => import('@/pages/About/IndexPage.vue'),
     children: [
       {
@@ -24,28 +24,28 @@ const routes: any = [
         component: () => import('@/pages/About/ListPage.vue'),
       },
       {
-        path: 'pwa',
+        path: 'PWA',
         description: 'PWA应用安装指南',
         component: () => import('@/pages/About/PWA.vue'),
       },
       {
-        path: 'duty',
+        path: 'Duty',
         description: '用户协议',
         component: () => import('@/pages/About/DutyPage.vue'),
       },
       {
-        path: 'release_notes',
+        path: 'ReleaseNotes',
         description: '版本说明',
         component: () => import('@/pages/About/ReleaseNotes.vue'),
       },
       {
-        path: 'okxkey',
+        path: 'OkxKey',
         description: 'Okx 密钥',
         component: () => import('@/pages/About/OkxKey.vue'),
       },
       {
-        path: 'FundServer',
-        description: 'FundServer 说明',
+        path: 'FundServe',
+        description: 'FundServe 说明',
         component: () => import('@/pages/About/FundServe.vue'),
       },
     ],
@@ -61,7 +61,7 @@ const routes: any = [
         component: () => import('@/pages/OkxKey/ListPage.vue'),
       },
       {
-        path: 'add',
+        path: 'Add',
         description: '新增 密钥',
         component: () => import('@/pages/OkxKey/AddPage.vue'),
       },
@@ -74,33 +74,33 @@ const routes: any = [
     children: [
       {
         path: '',
-        description: 'list',
+        description: 'List',
         component: () => import('@/pages/CoinServe/ListPage.vue'),
       },
       {
-        path: 'add',
+        path: 'Add',
         description: '新增 服务',
         component: () => import('@/pages/CoinServe/AddPage.vue'),
       },
       {
-        path: 'info',
+        path: 'Info',
         description: '查看详情',
         component: () => import('@/pages/CoinServe/InfoPage.vue'),
       },
     ],
   },
   {
-    path: '/personal',
+    path: '/Personal',
     isLogin: true,
     component: () => import('@/pages/PersonalPage.vue'),
   },
   {
-    path: '/edit_profile',
+    path: '/EditProfile',
     isLogin: true,
     component: () => import('@/pages/EditProfile.vue'),
   },
   {
-    path: '/change_password',
+    path: '/ChangePassword',
     component: () => import('@/pages/ChangePassword.vue'),
   },
   {
@@ -120,7 +120,7 @@ router.beforeEach((to) => {
     for (const route of routes) {
       if (to.path.indexOf(route.path) > -1) {
         if (route.isLogin) {
-          return { path: '/login' };
+          return { path: '/Login' };
         }
       }
     }
