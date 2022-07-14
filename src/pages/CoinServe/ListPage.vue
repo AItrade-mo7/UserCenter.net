@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { GetServerList, DelServer } from '@/api/AIFundServer';
-import { GetOkxKeyList } from '@/api/okxKey';
+import { GetServerList, DelServer } from '@/api/AIFundServe';
+import { GetOkxKeyList } from '@/api/OkxKey';
 import { DateFormat } from '@/utils/filters';
-import { AIFundPing } from '@/api/AIFund_net';
+import { AIFundPing } from '@/api/CoinServe';
 import { $lcg, mStorage, cloneDeep } from '@/utils/tools';
 import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';

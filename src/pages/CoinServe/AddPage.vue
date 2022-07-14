@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { cloneDeep } from '@/utils/tools';
-import { CreateServer } from '@/api/AIFundServer';
+import { CreateServer } from '@/api/AIFundServe';
 import AuthModal from '@/lib/AuthModal';
 import { useRouter } from 'vue-router';
-import { GetOkxKeyList } from '@/api/okxKey';
+import { GetOkxKeyList } from '@/api/OkxKey';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const XIcon = defineAsyncComponent(() => import('@/lib/XIcon.vue'));
