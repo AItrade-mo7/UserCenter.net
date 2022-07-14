@@ -6,7 +6,7 @@ AIFund 的数据中心,用来进行用户账户的数据管理
 
 ```yaml
 # IP
-LocalIP: '120.131.10.146'
+LocalIP: '50.18.29.218'
 # Mongodb
 MongoAddress: 'fund.mo7.cc:17017'
 MongoUserName: 'mo7'
