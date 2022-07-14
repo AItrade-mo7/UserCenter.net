@@ -31,14 +31,14 @@ func (dbObj *AccountType) Register(email string) (resErr error) {
 	newPwd := mEncrypt.RandStr(8) // 生成密码
 
 	var Body dbType.AccountTable
-	Body.Email = email                                      // 插入邮箱
-	Body.UserID = mEncrypt.GetUUID()                        // 生成 UserID
-	Body.Password = mEncrypt.MD5(newPwd)                    // 密码加密存储
-	Body.Avatar = "//file.mo7.cc/AIFund/default_avatar.png" // 生成默认头像
-	Body.CreateTime = mTime.GetUnixInt64()                  // 生成创建时间
-	Body.UpdateTime = mTime.GetUnixInt64()                  // 生成更新时间
-	Body.NickName = "AIFund用户"                              // 生成昵称,昵称应该为邮箱前缀
-	Body.SecurityCode = "fund.mo7.cc" + Body.NickName       // 防伪标识符
+	Body.Email = email                                // 插入邮箱
+	Body.UserID = mEncrypt.GetUUID()                  // 生成 UserID
+	Body.Password = mEncrypt.MD5(newPwd)              // 密码加密存储
+	Body.Avatar = "//file.mo7.cc/AIFund/avatar.png"   // 生成默认头像
+	Body.CreateTime = mTime.GetUnixInt64()            // 生成创建时间
+	Body.UpdateTime = mTime.GetUnixInt64()            // 生成更新时间
+	Body.NickName = "AIFund用户"                        // 生成昵称,昵称应该为邮箱前缀
+	Body.SecurityCode = "fund.mo7.cc" + Body.NickName // 防伪标识符
 
 	str_arr := strings.Split(email, `@`)
 	if len(str_arr) > 0 {

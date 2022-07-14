@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router';
 let aboutListPage = [];
 
 for (const item of routes) {
-  if (item.path == '/about') {
+  if (item.path == '/About') {
     aboutListPage = item.children;
   }
 }

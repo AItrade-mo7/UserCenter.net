@@ -95,7 +95,7 @@ const Submit = async () => {
       </n-form-item>
 
       <n-form-item class="myForm__item">
-        <n-button class="Submit" :disabled="SubmitStatus" type="primary" @click="Submit"> 注册 </n-button>
+        <n-button class="Submit" :disabled="SubmitStatus" type="primary" @click="Submit"> 提交 </n-button>
       </n-form-item>
     </n-form>
   </div>
