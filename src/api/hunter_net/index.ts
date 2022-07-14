@@ -10,7 +10,7 @@ interface AIFundNetParam {
 
 export const AIFundPing = (data: AIFundNetParam) => {
   return ajax_json({
-    url: '/AIFund_net/ping',
+    url: '/CoinServe/ping',
     data: null,
     method: 'get',
     AIFundNet: data.ServerInfo,
@@ -19,7 +19,7 @@ export const AIFundPing = (data: AIFundNetParam) => {
 
 export const GetAIFundConfig = (data: AIFundNetParam): Promise<any> => {
   return ajax_json({
-    url: '/AIFund_net/config',
+    url: '/CoinServe/config',
     data: null,
     method: 'get',
     AIFundNet: data.ServerInfo,

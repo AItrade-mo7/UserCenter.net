@@ -23,7 +23,7 @@ export const ReStart = (param: SysParam) => {
   };
 
   return ajax_json({
-    url: '/AIFund_net/sys/restart',
+    url: '/CoinServe/sys/restart',
     data,
     method: 'post',
     AIFundNet: data.ServerInfo,
@@ -38,7 +38,7 @@ export const Remove = (param: SysParam): Promise<any> => {
   };
 
   return ajax_json({
-    url: '/AIFund_net/sys/remove',
+    url: '/CoinServe/sys/remove',
     data,
     method: 'post',
     AIFundNet: data.ServerInfo,
