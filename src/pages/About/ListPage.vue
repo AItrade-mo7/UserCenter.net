@@ -15,7 +15,7 @@ for (const item of routes) {
   <div class="list">
     <template v-for="item in aboutListPage" :key="item.name">
       <div v-if="item.path">
-        <RouterLink :to="'/about/' + item.path">
+        <RouterLink :to="'/About/' + item.path">
           <n-button class="a_link" text> {{ item.description }} </n-button>
         </RouterLink>
       </div>

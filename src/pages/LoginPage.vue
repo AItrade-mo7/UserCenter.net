@@ -75,7 +75,7 @@ const Submit = async () => {
       </n-form-item>
 
       <div class="change_password">
-        <RouterLink to="/change_password"> 忘记密码? </RouterLink>
+        <RouterLink to="/ChangePassword"> 忘记密码? </RouterLink>
       </div>
 
       <n-form-item class="myForm__item">

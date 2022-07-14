@@ -95,7 +95,7 @@ const SendReStart = async (Info) => {
           建议执行
           <span className="lineHeight-success">更新并重启</span>
           操作或查看
-          <RouterLink to="/about/release_notes" className="lineHeight">更新日志</RouterLink>
+          <RouterLink to="/About/ReleaseNotes" className="lineHeight">更新日志</RouterLink>
         </div>
         <div v-else>程序将 7*24 小时监听您的账户,并根据您的设置自动执行交易。</div>
       </div>

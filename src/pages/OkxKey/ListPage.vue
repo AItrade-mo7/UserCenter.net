@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GetOkxKeyList, DelOkxkey } from '@/api/okxKey';
+import { GetOkxKeyList, DelOkxkey } from '@/api/OkxKey';
 import { DateFormat } from '@/utils/filters';
 import { getUrlParams, cloneDeep } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
@@ -103,7 +103,7 @@ const delKey = (item) => {
     <n-empty description="你什么也找不到" v-else> </n-empty>
 
     <div class="AddBnt__wrapper">
-      <RouterLink to="/secret_key/add">
+      <RouterLink to="/OkxKey/Add">
         <n-button size="small" type="primary"> 新增一个秘钥 </n-button>
       </RouterLink>
     </div>

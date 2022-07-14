@@ -20,7 +20,7 @@ const routes: any = [
     children: [
       {
         path: '',
-        description: 'list',
+        description: 'List',
         component: () => import('@/pages/About/ListPage.vue'),
       },
       {

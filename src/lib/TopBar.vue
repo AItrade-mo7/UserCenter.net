@@ -28,14 +28,14 @@ const showDrawer = () => {
     >
       <n-drawer-content class="TopBarDrawer">
         <template #header>
-          <RouterLink to="/personal" class="UserInfo">
+          <RouterLink to="/Personal" class="UserInfo">
             <n-avatar round :size="50" :src="UserInfoStore.value.Avatar" />
             <div className="TopBar__NickName">{{ UserInfoStore.value.NickName }}</div>
           </RouterLink>
         </template>
         <div className="TopBar__ul">
           <div className="TopBar__item">
-            <RouterLink to="/about" class="item_btn">
+            <RouterLink to="/About" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
                   <XIcon name="InfoCircleOutlined" />
@@ -46,7 +46,7 @@ const showDrawer = () => {
           </div>
 
           <div className="TopBar__item" v-if="!UserInfoStore.value.UserID">
-            <RouterLink to="/login" class="item_btn">
+            <RouterLink to="/Login" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
                   <XIcon name="LoginOutlined" />
@@ -57,7 +57,7 @@ const showDrawer = () => {
           </div>
 
           <div className="TopBar__item" v-if="!UserInfoStore.value.UserID">
-            <RouterLink to="/register" class="item_btn">
+            <RouterLink to="/Register" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
                   <XIcon name="UserAddOutlined" />
@@ -68,7 +68,7 @@ const showDrawer = () => {
           </div>
 
           <div className="TopBar__item" v-if="UserInfoStore.value.UserID">
-            <RouterLink to="/secret_key" class="item_btn">
+            <RouterLink to="/OkxKey" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
                   <XIcon name="KeyOutlined" />
@@ -79,7 +79,7 @@ const showDrawer = () => {
           </div>
 
           <div className="TopBar__item" v-if="UserInfoStore.value.UserID">
-            <RouterLink to="/AIFund_serve" class="item_btn">
+            <RouterLink to="/CoinServe" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
                   <XIcon name="AIFundLogo" />

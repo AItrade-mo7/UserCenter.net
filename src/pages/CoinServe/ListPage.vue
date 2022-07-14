@@ -129,7 +129,7 @@ const delServer = (item) => {
           <span class="Server__label"> 密钥 </span>
           <span class="Server__val">
             {{ GetKey(item.OkxKeyID).Name }}
-            <RouterLink :to="'/secret_key?id=' + item.OkxKeyID" class="Server__link"> 【查看】 </RouterLink>
+            <RouterLink :to="'/OkxKey?id=' + item.OkxKeyID" class="Server__link"> 【查看】 </RouterLink>
           </span>
         </div>
 
@@ -160,10 +160,10 @@ const delServer = (item) => {
     <n-empty description="你什么也找不到" v-else> </n-empty>
 
     <div class="AddBnt__wrapper">
-      <RouterLink to="/AIFund_serve/add" class="item_btn" v-if="KeyList.length > 0">
+      <RouterLink to="/CoinServe/Add" class="item_btn" v-if="KeyList.length > 0">
         <n-button size="small" type="primary"> 创建一个新的服务 </n-button>
       </RouterLink>
-      <RouterLink to="/secret_key/add" class="item_btn" v-else>
+      <RouterLink to="/OkxKey/Add" class="item_btn" v-else>
         <n-button size="small" type="primary"> 创建一个Key </n-button>
       </RouterLink>
     </div>

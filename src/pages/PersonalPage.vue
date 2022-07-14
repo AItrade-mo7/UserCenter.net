@@ -17,7 +17,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
     </div>
 
     <div className="Personal__link">
-      <RouterLink to="/edit_profile">
+      <RouterLink to="/EditProfile">
         <n-button type="primary">
           <template #icon>
             <XIcon name="EditOutlined" />
@@ -26,7 +26,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
         </n-button>
       </RouterLink>
       <br />
-      <RouterLink to="/change_password">
+      <RouterLink to="/ChangePassword">
         <n-button>
           <template #icon>
             <XIcon name="KeyOutlined" />
@@ -35,7 +35,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
         </n-button>
       </RouterLink>
       <br />
-      <RouterLink to="/about/duty">
+      <RouterLink to="/About/Duty">
         <n-button type="error">
           <template #icon>
             <XIcon name="DeleteOutlined" />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { cloneDeep, ParseOkxKey } from '@/utils/tools';
-import { CreateOkxKey } from '@/api/okxKey';
+import { CreateOkxKey } from '@/api/OkxKey';
 import AuthModal from '@/lib/AuthModal';
 import { useRouter } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
@@ -63,7 +63,7 @@ const readPlate = async () => {
   <PageTitle>
     新增 okx 密钥组
     <template #after>
-      <RouterLink to="/about/okxkey" className="CreateOkxKey__about">
+      <RouterLink to="/About/OkxKey" className="CreateOkxKey__about">
         <n-button circle quaternary size="tiny" class="About__btn">
           <template #icon> <XIcon name="QuestionCircleOutlined" /> </template>
         </n-button>

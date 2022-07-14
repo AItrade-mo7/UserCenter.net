@@ -66,7 +66,7 @@ const Submit = async () => {
   <PageTitle>
     注册 AIFund 服务
     <template #after>
-      <RouterLink to="/about/AIFund_server" className="CreateOkxKey__about">
+      <RouterLink to="/About/FundServe" className="CreateOkxKey__about">
         <n-button circle quaternary size="tiny" class="About__btn">
           <template #icon> <XIcon name="QuestionCircleOutlined" /> </template>
         </n-button>
@@ -90,7 +90,7 @@ const Submit = async () => {
 
       <n-alert type="warning" class="Alert" v-if="!options.length">
         发现您还没有 okx 秘钥，无法创建服务，点击按钮，新增一个 Key
-        <RouterLink to="/secret_key/add">
+        <RouterLink to="/OkxKey/Add">
           <n-button size="tiny" type="primary"> 新增一个Key </n-button>
         </RouterLink>
       </n-alert>
