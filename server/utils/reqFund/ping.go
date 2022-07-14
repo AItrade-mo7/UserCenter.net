@@ -40,7 +40,7 @@ func Ping(opt PingOpt) (resErr error) {
 		opt.ServerInfo.CoinServeID,
 	)
 
-	reqData := NewRest(NewRestOpt{
+	reqData := NewRest(RestOpt{
 		Origin: pingBaseUrl,
 		UserID: opt.AccountData.UserID,
 		Path:   "/AIFund_net/ping",

@@ -20,7 +20,7 @@ fmt.Println(mStr.ToStr(resData))
 
 */
 
-type NewRestOpt struct {
+type RestOpt struct {
 	Origin string
 	UserID string
 	Path   string
@@ -28,7 +28,7 @@ type NewRestOpt struct {
 	Data   map[string]any
 }
 
-func NewRest(opt NewRestOpt) []byte {
+func NewRest(opt RestOpt) []byte {
 	Token := mEncrypt.NewToken(mEncrypt.NewTokenOpt{
 		SecretKey: config.SecretKey,              // key
 		ExpiresAt: time.Now().Add(time.Hour / 2), // 过期时间 半小时
@@ -37,7 +37,7 @@ func NewRest(opt NewRestOpt) []byte {
 		Subject:   "UserToken",
 	}).Generate()
 
-	UserAgent := "AIFundTrading.net"
+	UserAgent := "AIFund.net"
 
 	fetch := mFetch.NewHttp(mFetch.HttpOpt{
 		Origin: opt.Origin,
