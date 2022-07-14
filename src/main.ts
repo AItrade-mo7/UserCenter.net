@@ -1,4 +1,4 @@
-import '@/assets/js/HunterTrading.net';
+import '@/assets/js/AIFundTrading.net';
 import 'normalize.css';
 import '@/assets/css/global.less';
 

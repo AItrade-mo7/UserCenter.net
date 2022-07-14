@@ -1,11 +1,11 @@
-package hunterServer
+package coinServe
 
 import (
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
-	"DataCenter.net/server/utils/ReqHunterNet"
 	"DataCenter.net/server/utils/dbUser"
+	"DataCenter.net/server/utils/reqFund"
 	"github.com/EasyGolang/goTools/mRes/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +13,7 @@ import (
 )
 
 type DelParam struct {
-	HunterServerID string `bson:"HunterServerID"`
+	AIFundServerID string `bson:"AIFundServerID"`
 	Password       string `bson:"Password"`
 }
 
@@ -39,26 +39,26 @@ func Del(c *fiber.Ctx) error {
 	}
 
 	// 在这里验证 当前服务的运行状态
-	ServerDB, err := LineHunterServer()
+	ServerDB, err := LineCoinServerDB()
 	if err != nil {
 		ServerDB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 
 	FK := bson.D{{
-		Key:   "HunterServerID",
-		Value: json.HunterServerID,
+		Key:   "AIFundServerID",
+		Value: json.AIFundServerID,
 	}}
 
-	var ServerData dbType.HunterServer
+	var ServerData dbType.CoinServeTable
 
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerData)
 
-	if len(ServerData.HunterServerID) < 6 {
+	if len(ServerData.CoinServeID) < 6 {
 		return c.JSON(result.Fail.WithMsg("该服务不存在"))
 	}
 
-	err = ReqHunterNet.Ping(ReqHunterNet.PingOpt{
+	err = reqFund.Ping(reqFund.PingOpt{
 		ServerInfo:  ServerData,
 		AccountData: UserInfo.AccountData,
 	})
@@ -68,8 +68,8 @@ func Del(c *fiber.Ctx) error {
 	}
 
 	FK = bson.D{{
-		Key:   "HunterServerID",
-		Value: json.HunterServerID,
+		Key:   "AIFundServerID",
+		Value: json.AIFundServerID,
 	}}
 	_, err = ServerDB.Table.DeleteOne(ServerDB.Ctx, FK)
 	if err != nil {

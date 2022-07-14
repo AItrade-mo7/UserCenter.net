@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { CopyText } from '@/utils/tools';
 import { mStorage } from '@/utils/tools';
-import { GetHunterConfig } from '@/api/hunter_net';
+import { GetAIFundConfig } from '@/api/AIFund_net';
 
-const hunter_host = mStorage.get('hunter_host');
+const AIFund_host = mStorage.get('AIFund_host');
 
 let Port = '';
-if (hunter_host) {
-  const host_arr = hunter_host.split(':');
+if (AIFund_host) {
+  const host_arr = AIFund_host.split(':');
   Port = host_arr[1];
 }
 
@@ -20,9 +20,9 @@ const props = defineProps({
 const wgetSh = `wget -qO- ${props.Src} | sudo bash`;
 
 const getConfig = () => {
-  GetHunterConfig({
+  GetAIFundConfig({
     ServerInfo: {
-      Host: hunter_host,
+      Host: AIFund_host,
     },
   })
     .then((res) => {
@@ -41,7 +41,7 @@ const getConfig = () => {
 
 <template>
   <div class="ShellAbout">
-    <h3>Hunter.net 部署文档</h3>
+    <h3>AIFund.net 部署文档</h3>
     <div className="ShellAbout_hint">系统已为您生成了一键部署指令:</div>
     <div className="ShellAbout__urlBox">
       <n-code :code="wgetSh" word-wrap> </n-code>
@@ -52,7 +52,7 @@ const getConfig = () => {
       复制该指令，并在 ip 为
       <div className="ShellAbout_desc-ip">
         <code>
-          <a :href="`http://${hunter_host}`" target="_blank"> {{ hunter_host }} </a>
+          <a :href="`http://${AIFund_host}`" target="_blank"> {{ AIFund_host }} </a>
         </code>
       </div>
       的主机上执行。

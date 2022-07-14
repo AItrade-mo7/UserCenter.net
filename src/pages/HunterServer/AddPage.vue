@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { cloneDeep } from '@/utils/tools';
-import { CreateServer } from '@/api/HunterServer';
+import { CreateServer } from '@/api/AIFundServer';
 import AuthModal from '@/lib/AuthModal';
 import { useRouter } from 'vue-router';
 import { GetOkxKeyList } from '@/api/okxKey';
@@ -64,9 +64,9 @@ const Submit = async () => {
 
 <template>
   <PageTitle>
-    注册 Hunter 服务
+    注册 AIFund 服务
     <template #after>
-      <RouterLink to="/about/hunter_server" className="CreateOkxKey__about">
+      <RouterLink to="/about/AIFund_server" className="CreateOkxKey__about">
         <n-button circle quaternary size="tiny" class="About__btn">
           <template #icon> <XIcon name="QuestionCircleOutlined" /> </template>
         </n-button>

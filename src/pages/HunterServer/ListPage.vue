@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { GetServerList, DelServer } from '@/api/HunterServer';
+import { GetServerList, DelServer } from '@/api/AIFundServer';
 import { GetOkxKeyList } from '@/api/okxKey';
 import { DateFormat } from '@/utils/filters';
-import { HunterPing } from '@/api/hunter_net';
+import { AIFundPing } from '@/api/AIFund_net';
 import { $lcg, mStorage, cloneDeep } from '@/utils/tools';
 import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';
@@ -23,18 +23,18 @@ const GetKeyList = async () => {
 };
 
 let ServerList = $ref([]);
-const HunterNetPing = (id: string) => {
+const AIFundNetPing = (id: string) => {
   if (id) {
-    HunterPing({
+    AIFundPing({
       ServerInfo: {
         Host: id,
       },
     }).then((res) => {
       const label = $lcg(res, 'Data.AppInfo.name', '');
-      if (label == 'hunter-net') {
+      if (label == 'AIFund-net') {
         for (let i = 0; i < ServerList.length; i++) {
           const item = ServerList[i];
-          if (item.HunterServerID == id) {
+          if (item.AIFundServerID == id) {
             ServerList[i].Status = true;
             break;
           }
@@ -50,7 +50,7 @@ const GetList = async () => {
     ServerList = res.Data || [];
 
     for (const item of ServerList) {
-      HunterNetPing(item.HunterServerID);
+      AIFundNetPing(item.AIFundServerID);
     }
   }
 };
@@ -72,8 +72,8 @@ function GetKey(KeyId: string): any {
 }
 
 const OpenServerDetail = (id: string) => {
-  mStorage.set('hunter_host', id);
-  $router.push('/hunter_serve/info');
+  mStorage.set('AIFund_host', id);
+  $router.push('/AIFund_serve/info');
 };
 
 const delServer = (item) => {
@@ -82,7 +82,7 @@ const delServer = (item) => {
     IsPassword: true,
     async OkBack(param) {
       return DelServer({
-        HunterServerID: data.HunterServerID,
+        AIFundServerID: data.AIFundServerID,
         Password: param.Password,
       }).then((res) => {
         if (res.Code > 0) {
@@ -95,13 +95,13 @@ const delServer = (item) => {
 </script>
 
 <template>
-  <PageTitle>HunterServer</PageTitle>
-  <div class="PageWrapper HunterServerList">
+  <PageTitle>AIFundServer</PageTitle>
+  <div class="PageWrapper AIFundServerList">
     <div v-if="ServerList.length > 0 && KeyList.length > 0" class="ListWrapper">
       <n-card
         v-for="item in ServerList"
-        :key="item.HunterServerID"
-        :title="item.HunterServerID"
+        :key="item.AIFundServerID"
+        :title="item.AIFundServerID"
         embedded
         hoverable
         size="small"
@@ -146,10 +146,10 @@ const delServer = (item) => {
         </div>
         <template #footer>
           <div class="card_footer">
-            <n-button size="small" v-if="item.Status" type="success" @click="OpenServerDetail(item.HunterServerID)">
+            <n-button size="small" v-if="item.Status" type="success" @click="OpenServerDetail(item.AIFundServerID)">
               服务正在运行【查看】
             </n-button>
-            <n-button size="small" v-else type="error" @click="OpenServerDetail(item.HunterServerID)">
+            <n-button size="small" v-else type="error" @click="OpenServerDetail(item.AIFundServerID)">
               服务尚未运行【去部署】
             </n-button>
           </div>
@@ -160,7 +160,7 @@ const delServer = (item) => {
     <n-empty description="你什么也找不到" v-else> </n-empty>
 
     <div class="AddBnt__wrapper">
-      <RouterLink to="/hunter_serve/add" class="item_btn" v-if="KeyList.length > 0">
+      <RouterLink to="/AIFund_serve/add" class="item_btn" v-if="KeyList.length > 0">
         <n-button size="small" type="primary"> 创建一个新的服务 </n-button>
       </RouterLink>
       <RouterLink to="/secret_key/add" class="item_btn" v-else>

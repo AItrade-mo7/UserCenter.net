@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cloneDeep } from '@/utils/tools';
-import { ReStart, Remove } from '@/api/hunter_net/sys';
+import { ReStart, Remove } from '@/api/AIFund_net/sys';
 import AuthModal from '@/lib/AuthModal';
 import { mStorage } from '@/utils/tools';
 
@@ -49,13 +49,13 @@ const SendStop = async (Info) => {
   await Remove({
     ...Info,
     ServerInfo: {
-      Host: props.config.AppEnv.HunterServerID,
+      Host: props.config.AppEnv.AIFundServerID,
     },
   });
   window.$message.success('删除指令已发送!', {
     onAfterLeave() {
-      mStorage.remove('hunter_host');
-      window.location.replace('/hunter_serve');
+      mStorage.remove('AIFund_host');
+      window.location.replace('/AIFund_serve');
     },
   });
 };
@@ -64,14 +64,14 @@ const SendReStart = async (Info) => {
   await ReStart({
     ...Info,
     ServerInfo: {
-      Host: props.config.AppEnv.HunterServerID,
+      Host: props.config.AppEnv.AIFundServerID,
     },
   });
 
   window.$message.success('重启指令已发送!', {
     onAfterLeave() {
-      mStorage.remove('hunter_host');
-      window.location.replace('/hunter_serve');
+      mStorage.remove('AIFund_host');
+      window.location.replace('/AIFund_serve');
     },
   });
 };
@@ -82,7 +82,7 @@ const SendReStart = async (Info) => {
     <div className="SysManage__hint">当前版本：{{ nowVersion }}</div>
     <div className="SysManage__hint new">
       最新版本：{{ newVersion }}
-      <a href="https://github.com/mo7static/Hunter.net" target="_blank" class="lineHeight">(GitHub)</a>
+      <a href="https://github.com/mo7static/AIFund.net" target="_blank" class="lineHeight">(GitHub)</a>
     </div>
 
     <div class="btn-wrapper">
@@ -101,7 +101,7 @@ const SendReStart = async (Info) => {
       </div>
       <div v-if="BtnStatus == 1">
         将会从
-        <a href="https://github.com/mo7static/Hunter.net" target="_blank" class="lineHeight">GitHub</a>
+        <a href="https://github.com/mo7static/AIFund.net" target="_blank" class="lineHeight">GitHub</a>
         下载最新代码,并完成
         <span class="lineHeight-warn">冷重启</span>
         ,建议检查并清理您当前的仓位

@@ -9,9 +9,9 @@ let wssData = $ref({});
 let socketObj: any;
 
 onMounted(() => {
-  if (props.config.AppEnv.HunterServerID) {
+  if (props.config.AppEnv.AIFundServerID) {
     socketObj = NewSocket({
-      Host: props.config.AppEnv.HunterServerID,
+      Host: props.config.AppEnv.AIFundServerID,
       MessageEvent(res) {
         if (res.Response.Code == 1) {
           wssData = res.Response.Data;

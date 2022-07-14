@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mStorage } from '@/utils/tools';
 import { useRouter } from 'vue-router';
-import { GetHunterConfig } from '@/api/hunter_net';
+import { GetAIFundConfig } from '@/api/AIFund_net';
 import { $lcg } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
@@ -11,24 +11,24 @@ const InfoNot = defineAsyncComponent(() => import('./lib/InfoNot.vue'));
 const SysManage = defineAsyncComponent(() => import('./lib/SysManage.vue'));
 
 const $router = useRouter();
-const hunter_host = mStorage.get('hunter_host');
-let hunter_config = $ref({});
+const AIFund_host = mStorage.get('AIFund_host');
+let AIFund_config = $ref({});
 
 const GetConfig = () => {
-  GetHunterConfig({
+  GetAIFundConfig({
     ServerInfo: {
-      Host: hunter_host,
+      Host: AIFund_host,
     },
   }).then((res) => {
     if (res.Code > 0) {
-      hunter_config = res.Data;
+      AIFund_config = res.Data;
     }
   });
 };
 
-if (hunter_host.length < 6) {
-  window.$message.warning('缺少 hunter_host');
-  $router.replace('/hunter_serve');
+if (AIFund_host.length < 6) {
+  window.$message.warning('缺少 AIFund_host');
+  $router.replace('/AIFund_serve');
 } else {
   // 开始
   GetConfig();
@@ -43,11 +43,11 @@ const OpenSet = () => {
 
 <template>
   <PageTitle>
-    {{ hunter_host }}
-    <template #after v-if="hunter_config.AppInfo">
+    {{ AIFund_host }}
+    <template #after v-if="AIFund_config.AppInfo">
       <n-badge
-        class="HunterServer__dotNet"
-        :dot="$lcg(hunter_config, 'AppInfo.version', '') != $lcg(hunter_config, 'GithubInfo.version', '')"
+        class="AIFundServer__dotNet"
+        :dot="$lcg(AIFund_config, 'AppInfo.version', '') != $lcg(AIFund_config, 'GithubInfo.version', '')"
       >
         <n-button size="tiny" quaternary @click="OpenSet">
           <template #icon>
@@ -59,21 +59,21 @@ const OpenSet = () => {
   </PageTitle>
 
   <n-drawer v-model:show="drawerStatus" placement="top">
-    <n-drawer-content class="HunterServer__drawer-content">
-      <SysManage v-if="drawerStatus" :config="hunter_config" />
+    <n-drawer-content class="AIFundServer__drawer-content">
+      <SysManage v-if="drawerStatus" :config="AIFund_config" />
     </n-drawer-content>
   </n-drawer>
 
   <div class="PageWrapper">
-    <InfoOk v-if="hunter_config.AppInfo" :config="hunter_config" />
-    <InfoNot v-if="!hunter_config.AppInfo" />
+    <InfoOk v-if="AIFund_config.AppInfo" :config="AIFund_config" />
+    <InfoNot v-if="!AIFund_config.AppInfo" />
   </div>
 </template>
 
 <style lang="less">
 @import '@/config/constant.less';
 
-.n-badge.n-badge--dot.HunterServer__dotNet {
+.n-badge.n-badge--dot.AIFundServer__dotNet {
   position: relative;
   .n-badge-sup {
     position: absolute;
@@ -85,7 +85,7 @@ const OpenSet = () => {
     min-width: 5px;
   }
 }
-.n-drawer .HunterServer__drawer-content .n-drawer-body-content-wrapper {
+.n-drawer .AIFundServer__drawer-content .n-drawer-body-content-wrapper {
   padding: 16px;
 }
 </style>

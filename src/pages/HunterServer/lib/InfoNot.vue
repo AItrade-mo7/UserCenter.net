@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import AuthModal from '@/lib/AuthModal';
-import { GetDeployShell } from '@/api/HunterServer';
+import { GetDeployShell } from '@/api/AIFundServer';
 import { mStorage } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const ShellAbout = defineAsyncComponent(() => import('./ShellAbout.vue'));
 
-const hunter_host = mStorage.get('hunter_host');
+const AIFund_host = mStorage.get('AIFund_host');
 let Url = $ref('');
 const deployFunc = () => {
   AuthModal({
     IsPassword: true,
     async OkBack(param) {
       return GetDeployShell({
-        HunterServerID: hunter_host,
+        AIFundServerID: AIFund_host,
         Password: param.Password,
       }).then((res) => {
         Url = res.Data.Src;

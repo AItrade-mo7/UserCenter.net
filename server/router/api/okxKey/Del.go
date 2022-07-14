@@ -5,7 +5,7 @@ import (
 
 	"DataCenter.net/server/global"
 	"DataCenter.net/server/global/dbType"
-	"DataCenter.net/server/router/api/hunterServer"
+	"DataCenter.net/server/router/api/coinServe"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/dbUser"
@@ -42,7 +42,7 @@ func Del(c *fiber.Ctx) error {
 	}
 
 	// 查询当前 Key 是否正在被使用
-	ServerDB, err := hunterServer.LineHunterServer()
+	ServerDB, err := coinServe.LineCoinServerDB()
 	if err != nil {
 		ServerDB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
@@ -53,11 +53,11 @@ func Del(c *fiber.Ctx) error {
 		Value: json.OkxKeyID,
 	}}
 
-	var ServerData dbType.HunterServer
+	var ServerData dbType.CoinServeTable
 
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerData)
 
-	if len(ServerData.HunterServerID) > 6 {
+	if len(ServerData.CoinServeID) > 6 {
 		return c.JSON(result.Fail.WithMsg("有服务正在使用此Key"))
 	}
 
@@ -70,7 +70,7 @@ func Del(c *fiber.Ctx) error {
 	}
 
 	List := UserDB.AccountData.OkxKeyList
-	NewList := []dbType.OkxKey{}
+	NewList := []dbType.OkxKeyTable{}
 	for _, val := range List {
 		if val.OkxKeyID != json.OkxKeyID {
 			NewList = append(NewList, val)

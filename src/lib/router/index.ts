@@ -44,9 +44,9 @@ const routes: any = [
         component: () => import('@/pages/About/OkxKey.vue'),
       },
       {
-        path: 'hunter_server',
-        description: 'HunterServe 说明',
-        component: () => import('@/pages/About/HunterServe.vue'),
+        path: 'AIFund_server',
+        description: 'AIFundServe 说明',
+        component: () => import('@/pages/About/AIFundServe.vue'),
       },
     ],
   },
@@ -68,24 +68,24 @@ const routes: any = [
     ],
   },
   {
-    path: '/hunter_serve',
+    path: '/AIFund_serve',
     isLogin: true,
-    component: () => import('@/pages/HunterServer/IndexPage.vue'),
+    component: () => import('@/pages/AIFundServer/IndexPage.vue'),
     children: [
       {
         path: '',
         description: 'list',
-        component: () => import('@/pages/HunterServer/ListPage.vue'),
+        component: () => import('@/pages/AIFundServer/ListPage.vue'),
       },
       {
         path: 'add',
         description: '新增 服务',
-        component: () => import('@/pages/HunterServer/AddPage.vue'),
+        component: () => import('@/pages/AIFundServer/AddPage.vue'),
       },
       {
         path: 'info',
         description: '查看详情',
-        component: () => import('@/pages/HunterServer/InfoPage.vue'),
+        component: () => import('@/pages/AIFundServer/InfoPage.vue'),
       },
     ],
   },

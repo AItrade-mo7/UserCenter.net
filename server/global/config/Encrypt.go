@@ -7,7 +7,7 @@ import (
 	"github.com/EasyGolang/goTools/mStr"
 )
 
-var SecretKey = mEncrypt.MD5("HunterTrading.net from mo7")
+var SecretKey = mEncrypt.MD5("AIFundTrading.net from mo7")
 
 func Encrypt(msg string) string {
 	now := time.Now().Unix() / 30 // 30秒一验证

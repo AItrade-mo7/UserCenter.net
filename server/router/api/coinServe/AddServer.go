@@ -1,4 +1,4 @@
-package hunterServer
+package coinServe
 
 import (
 	"fmt"
@@ -20,20 +20,20 @@ import (
 )
 
 func AddServer(c *fiber.Ctx) error {
-	var json apiType.CreateHunterServerParam
+	var json apiType.CreateAIFundServerParam
 	mFiber.Parser(c, &json)
 
 	// 检查端口
 	if mCount.Le(json.Port, "79") < 0 || mCount.Le(json.Port, "60000") > 0 {
-		return c.JSON(result.ErrAddHunterServer.WithMsg("端口号不合法"))
+		return c.JSON(result.ErrAddAIFundServer.WithMsg("端口号不合法"))
 	}
 
 	if len(json.OkxKeyID) < 10 {
-		return c.JSON(result.ErrAddHunterServer.WithMsg("请选择有效的秘钥"))
+		return c.JSON(result.ErrAddAIFundServer.WithMsg("请选择有效的秘钥"))
 	}
 
 	if len(json.Note) < 3 {
-		return c.JSON(result.ErrAddHunterServer.WithMsg("备注不能少于3个字"))
+		return c.JSON(result.ErrAddAIFundServer.WithMsg("备注不能少于3个字"))
 	}
 
 	UserID, err := middle.TokenAuth(c)
@@ -55,11 +55,11 @@ func AddServer(c *fiber.Ctx) error {
 	}
 
 	if len(UserDB.AccountData.OkxKeyList) < 1 {
-		return c.JSON(result.ErrAddHunterServer.WithMsg("账户中没有秘钥"))
+		return c.JSON(result.ErrAddAIFundServer.WithMsg("账户中没有秘钥"))
 	}
 
 	// 查找秘钥
-	OkxKey := dbType.OkxKey{}
+	OkxKey := dbType.OkxKeyTable{}
 	for _, val := range UserDB.AccountData.OkxKeyList {
 		if val.OkxKeyID == json.OkxKeyID {
 			OkxKey = val
@@ -67,53 +67,53 @@ func AddServer(c *fiber.Ctx) error {
 	}
 
 	if len(OkxKey.OkxKeyID) < 10 {
-		return c.JSON(result.ErrAddHunterServer.WithMsg("该秘钥不存在"))
+		return c.JSON(result.ErrAddAIFundServer.WithMsg("该秘钥不存在"))
 	}
 	UserDB.DB.Close()
 
-	// 构建 HunterServer 数据结构
-	HunterServerData := dbType.HunterServer{}
-	HunterServerData.Host = OkxKey.IP
-	HunterServerData.Port = json.Port
-	HunterServerData.OkxKeyID = OkxKey.OkxKeyID
-	HunterServerData.UserID = UserDB.UserID
-	HunterServerData.Note = json.Note
-	HunterServerData.CreateTime = mTime.GetUnixInt64()
-	HunterServerData.HunterServerID = mStr.Join(
+	// 构建 CoinServe 数据结构
+	AIFundServerData := dbType.CoinServeTable{}
+	AIFundServerData.Host = OkxKey.IP
+	AIFundServerData.Port = json.Port
+	AIFundServerData.OkxKeyID = OkxKey.OkxKeyID
+	AIFundServerData.UserID = UserDB.UserID
+	AIFundServerData.Note = json.Note
+	AIFundServerData.CreateTime = mTime.GetUnixInt64()
+	AIFundServerData.CoinServeID = mStr.Join(
 		OkxKey.IP, ":", json.Port,
 	)
 
-	// 连接 HunterServer 表
-	ServerDB, err := LineHunterServer()
+	// 连接 AIFundServer 表
+	ServerDB, err := LineCoinServerDB()
 	if err != nil {
 		ServerDB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 
-	// 检查服务是否存在  --  HunterServerID
+	// 检查服务是否存在  --  AIFundServerID
 	FK := bson.D{{
-		Key:   "HunterServerID",
-		Value: HunterServerData.HunterServerID,
+		Key:   "CoinServeID",
+		Value: AIFundServerData.CoinServeID,
 	}}
-	var ServerDB_data dbType.HunterServer
+	var ServerDB_data dbType.CoinServeTable
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerDB_data)
-	if len(ServerDB_data.HunterServerID) > 2 {
-		return c.JSON(result.ErrAddHunterServer.With("该服务已存在", "建议更换端口"))
+	if len(ServerDB_data.CoinServeID) > 2 {
+		return c.JSON(result.ErrAddAIFundServer.With("该服务已存在", "建议更换端口"))
 	}
 
 	// 检查服务是否存在  --  OkxKeyID
 	FK = bson.D{{
 		Key:   "OkxKeyID",
-		Value: HunterServerData.OkxKeyID,
+		Value: AIFundServerData.OkxKeyID,
 	}}
-	ServerDB_data = dbType.HunterServer{}
+	ServerDB_data = dbType.CoinServeTable{}
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerDB_data)
-	if len(ServerDB_data.HunterServerID) > 2 {
-		return c.JSON(result.ErrAddHunterServer.With("秘钥已被使用", "建议更换其它密钥"))
+	if len(ServerDB_data.CoinServeID) > 2 {
+		return c.JSON(result.ErrAddAIFundServer.With("秘钥已被使用", "建议更换其它密钥"))
 	}
 
 	// 插入数据
-	_, err = ServerDB.Table.InsertOne(ServerDB.Ctx, HunterServerData)
+	_, err = ServerDB.Table.InsertOne(ServerDB.Ctx, AIFundServerData)
 	if err != nil {
 		errStr := fmt.Errorf("注册,插入数据失败 %+v", err)
 		global.LogErr(errStr)
@@ -121,17 +121,17 @@ func AddServer(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
 
-	return c.JSON(result.Succeed.WithData(HunterServerData))
+	return c.JSON(result.Succeed.WithData(AIFundServerData))
 }
 
-func LineHunterServer() (resDB *mMongo.DB, resErr error) {
+func LineCoinServerDB() (resDB *mMongo.DB, resErr error) {
 	resErr = nil
 	resDB = mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "Hunter",
-	}).Connect().Collection("HunterServer")
+		DBName:   "AIFund",
+	}).Connect().Collection("CoinServe")
 
 	err := resDB.Ping()
 	if err != nil {

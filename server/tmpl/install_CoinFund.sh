@@ -1,9 +1,9 @@
 #!/bin/bash
 
-port="{{.Port}}"
-userID="{{.UserID}}"
-hunterServerID="{{.HunterServerID}}"
-startName="Hunter.net-"${port}
+Port="{{.Port}}"
+UserID="{{.UserID}}"
+CoinServeID="{{.CoinServeID}}"
+startName="CoinFund.net-"${port}
 
 rm -rf ${startName}
 mkdir ${startName}
@@ -57,10 +57,10 @@ fi
 
 SystemType=$(arch)
 
-downLoadPath="https://raw.githubusercontent.com/mo7static/Hunter.net/main/Hunter.net_x86_64"
+downLoadPath="https://raw.githubusercontent.com/mo7static/CoinFund.net/main/CoinFund.net_x86_64"
 
 if [[ ${SystemType} =~ "aarch64" ]]; then
-  downLoadPath="https://raw.githubusercontent.com/mo7static/Hunter.net/main/Hunter.net_aarch64"
+  downLoadPath="https://raw.githubusercontent.com/mo7static/CoinFund.net/main/CoinFund.net_aarch64"
 fi
 
 ################ 启动脚本 ##########################
@@ -110,9 +110,9 @@ echo "
 
 sudo cat >${configFilePath} <<END
 
-Port: "${port}"
-UserID: "${userID}"
-HunterServerID: "${hunterServerID}"
+Port: "${Port}"
+UserID: "${UserID}"
+CoinServeID: "${CoinServeID}"
 
 END
 sudo chmod 777 ${configFilePath}

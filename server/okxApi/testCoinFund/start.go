@@ -1,4 +1,4 @@
-package testHunterServer
+package testCoinFund
 
 import "fmt"
 

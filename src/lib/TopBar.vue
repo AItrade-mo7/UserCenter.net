@@ -79,12 +79,12 @@ const showDrawer = () => {
           </div>
 
           <div className="TopBar__item" v-if="UserInfoStore.value.UserID">
-            <RouterLink to="/hunter_serve" class="item_btn">
+            <RouterLink to="/AIFund_serve" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
-                  <XIcon name="HunterLogo" />
+                  <XIcon name="AIFundLogo" />
                 </template>
-                HunterServer
+                AIFundServer
               </n-button>
             </RouterLink>
           </div>

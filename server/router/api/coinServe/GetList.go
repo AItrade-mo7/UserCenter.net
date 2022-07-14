@@ -1,4 +1,4 @@
-package hunterServer
+package coinServe
 
 import (
 	"DataCenter.net/server/global/dbType"
@@ -15,7 +15,7 @@ func GetList(c *fiber.Ctx) error {
 		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
 	}
 
-	ServerDB, err := LineHunterServer()
+	ServerDB, err := LineCoinServerDB()
 	if err != nil {
 		ServerDB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
@@ -31,9 +31,9 @@ func GetList(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
 
-	var List []dbType.HunterServer
+	var List []dbType.CoinServeTable
 	for cur.Next(ServerDB.Ctx) {
-		var result dbType.HunterServer
+		var result dbType.CoinServeTable
 		cur.Decode(&result)
 		List = append(List, result)
 	}

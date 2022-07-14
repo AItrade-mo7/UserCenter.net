@@ -57,10 +57,10 @@ const ajax_json = (param: axiosParam): Promise<resDataType> => {
     ...param,
   };
 
-  if (param.HunterNet?.Host) {
-    const ServerInfo = param.HunterNet;
-    delete config.HunterNet;
-    config.headers['Hunter-Net-Host'] = ServerInfo.Host;
+  if (param.AIFundNet?.Host) {
+    const ServerInfo = param.AIFundNet;
+    delete config.AIFundNet;
+    config.headers['AIFund-Net-Host'] = ServerInfo.Host;
   }
 
   // 请求参数转换

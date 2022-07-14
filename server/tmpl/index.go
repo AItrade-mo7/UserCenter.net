@@ -33,11 +33,11 @@ type RegisterSucceedParam struct {
 	SecurityCode string
 }
 
-//go:embed install_hunter.sh
-var InstallHunter string
+//go:embed install_CoinFund.sh
+var InstCoinServe string
 
-type InstallHunterParam struct {
-	Port           string
-	UserID         string
-	HunterServerID string
+type InstCoinServeParam struct {
+	Port        string
+	UserID      string
+	CoinServeID string
 }

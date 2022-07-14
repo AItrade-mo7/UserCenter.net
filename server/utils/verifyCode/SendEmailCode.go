@@ -35,7 +35,7 @@ func CheckAndSendCode(opt SendCodeParam) (resErr error) {
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "Hunter",
+		DBName:   "AIFund",
 	}).Connect().Collection("EmailCode")
 
 	err := db.Ping()
@@ -154,7 +154,7 @@ func SendCode(opt SendCodeParam) (vCode string, resErr error) {
 	vCode = ""
 	resErr = nil
 
-	SecurityCode := "hunt.mo7.cc-System"
+	SecurityCode := "fund.mo7.cc-System"
 
 	if len(opt.SecurityCode) > 0 {
 		SecurityCode = opt.SecurityCode

@@ -1,11 +1,11 @@
-package hunterServer
+package coinServe
 
 import (
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/dbUser"
-	"DataCenter.net/server/utils/hunterNetShell"
+	"DataCenter.net/server/utils/installShell"
 	"github.com/EasyGolang/goTools/mRes/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
@@ -13,7 +13,7 @@ import (
 )
 
 type StartParam struct {
-	HunterServerID string `bson:"HunterServerID"`
+	AIFundServerID string `bson:"AIFundServerID"`
 	Password       string `bson:"Password"`
 }
 
@@ -22,11 +22,11 @@ func DeployShell(c *fiber.Ctx) error {
 	mFiber.Parser(c, &json)
 
 	if len(json.Password) < 3 {
-		return c.JSON(result.ErrStartHunterServer.WithMsg("需要密码"))
+		return c.JSON(result.ErrStartAIFundServer.WithMsg("需要密码"))
 	}
 
-	if len(json.HunterServerID) < 3 {
-		return c.JSON(result.ErrStartHunterServer.WithMsg("HunterServerID 不能为空"))
+	if len(json.AIFundServerID) < 3 {
+		return c.JSON(result.ErrStartAIFundServer.WithMsg("AIFundServerID 不能为空"))
 	}
 
 	UserID, err := middle.TokenAuth(c)
@@ -47,33 +47,33 @@ func DeployShell(c *fiber.Ctx) error {
 		return c.JSON(result.ErrLogin.WithMsg(err))
 	}
 
-	// 连接 HunterServer 表
-	ServerDB, err := LineHunterServer()
+	// 连接 AIFundServer 表
+	ServerDB, err := LineCoinServerDB()
 	if err != nil {
 		ServerDB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
-	// 检查服务是否存在  --  HunterServerID
+	// 检查服务是否存在  --  AIFundServerID
 	FK := bson.D{{
-		Key:   "HunterServerID",
-		Value: json.HunterServerID,
+		Key:   "AIFundServerID",
+		Value: json.AIFundServerID,
 	}}
-	var ServerData dbType.HunterServer
+	var ServerData dbType.CoinServeTable
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerData)
-	if len(ServerData.HunterServerID) < 3 {
+	if len(ServerData.CoinServeID) < 3 {
 		ServerDB.Close()
-		return c.JSON(result.ErrStartHunterServerNot.WithData("该服务尚未注册"))
+		return c.JSON(result.ErrStartAIFundServerNot.WithData("该服务尚未注册"))
 	}
 	if ServerData.UserID != UserID {
 		ServerDB.Close()
-		return c.JSON(result.ErrStartHunterServer.WithMsg("当前账户没有权限"))
+		return c.JSON(result.ErrStartAIFundServer.WithMsg("当前账户没有权限"))
 	}
 	ServerDB.Close()
 
-	ShellUrl, err := hunterNetShell.GenerateShell(hunterNetShell.InstShellOpt{
-		Port:           ServerData.Port,
-		UserID:         ServerData.UserID,
-		HunterServerID: ServerData.HunterServerID,
+	ShellUrl, err := installShell.CoinFund(installShell.InstShellOpt{
+		Port:        ServerData.Port,
+		UserID:      ServerData.UserID,
+		CoinServeID: ServerData.CoinServeID,
 	})
 	if err != nil {
 		ServerDB.Close()

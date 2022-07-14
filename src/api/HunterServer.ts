@@ -9,14 +9,14 @@ export const GetServerList = () => {
   });
 };
 
-interface AddHunterServerParam {
+interface AddAIFundServerParam {
   OkxKeyID: string;
   Host: string;
   Port: string;
   Note: string;
   Password: string;
 }
-export const CreateServer = (param: AddHunterServerParam) => {
+export const CreateServer = (param: AddAIFundServerParam) => {
   const data = {
     ...param,
     Password: Md5(param.Password),
@@ -29,7 +29,7 @@ export const CreateServer = (param: AddHunterServerParam) => {
   });
 };
 
-export const GetDeployShell = (data: { HunterServerID: string; Password: string }) => {
+export const GetDeployShell = (data: { AIFundServerID: string; Password: string }) => {
   const param = {
     ...data,
   };
@@ -45,7 +45,7 @@ export const GetDeployShell = (data: { HunterServerID: string; Password: string 
 };
 
 interface DelServerParam {
-  HunterServerID: string;
+  AIFundServerID: string;
   Password: string;
 }
 

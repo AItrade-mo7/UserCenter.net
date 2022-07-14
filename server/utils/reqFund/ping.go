@@ -1,4 +1,4 @@
-package ReqHunterNet
+package reqFund
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/EasyGolang/goTools/mStr"
 )
 
-type HunterPingData struct {
+type AIFundPingData struct {
 	AppInfo struct {
 		Name    string `json:"name"`
 		Version string `json:"version"`
@@ -21,14 +21,14 @@ type HunterPingData struct {
 	UserAgent   string   `json:"UserAgent"`
 }
 
-type HunterPingResult struct {
+type AIFundPingResult struct {
 	Code int            `json:"Code"`
-	Data HunterPingData `json:"Data"`
+	Data AIFundPingData `json:"Data"`
 	Msg  string         `json:"Msg"`
 }
 
 type PingOpt struct {
-	ServerInfo  dbType.HunterServer
+	ServerInfo  dbType.CoinServeTable
 	AccountData dbType.AccountTable
 }
 
@@ -37,13 +37,13 @@ func Ping(opt PingOpt) (resErr error) {
 
 	pingBaseUrl := mStr.Join(
 		"http://",
-		opt.ServerInfo.HunterServerID,
+		opt.ServerInfo.CoinServeID,
 	)
 
 	reqData := NewRest(NewRestOpt{
 		Origin: pingBaseUrl,
 		UserID: opt.AccountData.UserID,
-		Path:   "/hunter_net/ping",
+		Path:   "/AIFund_net/ping",
 		Method: "GET",
 	})
 

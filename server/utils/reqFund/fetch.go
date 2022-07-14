@@ -1,4 +1,4 @@
-package ReqHunterNet
+package reqFund
 
 import (
 	"time"
@@ -37,7 +37,7 @@ func NewRest(opt NewRestOpt) []byte {
 		Subject:   "UserToken",
 	}).Generate()
 
-	UserAgent := "HunterTrading.net"
+	UserAgent := "AIFundTrading.net"
 
 	fetch := mFetch.NewHttp(mFetch.HttpOpt{
 		Origin: opt.Origin,

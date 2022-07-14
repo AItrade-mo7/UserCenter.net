@@ -109,7 +109,7 @@ const winUpLoad = (res): any => {
         :on-finish="winUpLoad"
         action="//file.mo7.cc/api/public/upload"
         :headers="{
-          'File-Path': 'hunter/' + UserInfoStore.value.UserID,
+          'File-Path': 'AIFund/' + UserInfoStore.value.UserID,
           'Auth-File': UpLoadFileEncrypt(),
         }"
         class="Edit_avatar"

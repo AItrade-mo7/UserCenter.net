@@ -1,18 +1,18 @@
 import { ajax_json } from '@/utils/http';
 import { Md5 } from '@/utils/tools';
 
-export interface HunterServer {
+export interface AIFundServer {
   Host: string;
 }
 
-interface HunterNetParam {
-  ServerInfo: HunterServer;
+interface AIFundNetParam {
+  ServerInfo: AIFundServer;
 }
 
 interface SysParam {
   Password: string;
   Code: string;
-  ServerInfo: HunterNetParam;
+  ServerInfo: AIFundNetParam;
 }
 
 export const ReStart = (param: SysParam) => {
@@ -23,10 +23,10 @@ export const ReStart = (param: SysParam) => {
   };
 
   return ajax_json({
-    url: '/hunter_net/sys/restart',
+    url: '/AIFund_net/sys/restart',
     data,
     method: 'post',
-    HunterNet: data.ServerInfo,
+    AIFundNet: data.ServerInfo,
   });
 };
 
@@ -38,9 +38,9 @@ export const Remove = (param: SysParam): Promise<any> => {
   };
 
   return ajax_json({
-    url: '/hunter_net/sys/remove',
+    url: '/AIFund_net/sys/remove',
     data,
     method: 'post',
-    HunterNet: data.ServerInfo,
+    AIFundNet: data.ServerInfo,
   });
 };

@@ -53,8 +53,8 @@ func Start() {
 		Output:     logFile,
 	}), middle.Public, compress.New(), favicon.New())
 
-	// hunter_net
-	app.All("/hunter_net/*", api.HunterNetProxy)
+	// AIFund_net
+	app.All("/AIFund_net/*", api.AIFundNetProxy)
 
 	// api
 	r_api := app.Group("/api")

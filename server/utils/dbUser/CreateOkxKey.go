@@ -21,7 +21,7 @@ func (dbObj *AccountType) CreateOkxKey(data apiType.CreateOkxKeyParam) (resErr e
 		data.ApiKey, data.SecretKey, data.Passphrase,
 	)
 
-	okxKey := dbType.OkxKey{
+	okxKey := dbType.OkxKeyTable{
 		OkxKeyID:   mEncrypt.MD5(OkxKeyID),
 		ApiKey:     data.ApiKey,
 		Name:       data.Name,
@@ -34,7 +34,7 @@ func (dbObj *AccountType) CreateOkxKey(data apiType.CreateOkxKeyParam) (resErr e
 
 	// 创建数组,并将数据库中的数组 copy
 	size := len(dbObj.AccountData.OkxKeyList)
-	okxKeyList := make([]dbType.OkxKey, size)
+	okxKeyList := make([]dbType.OkxKeyTable, size)
 	copy(okxKeyList, dbObj.AccountData.OkxKeyList)
 
 	ifThere := false

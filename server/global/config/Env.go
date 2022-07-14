@@ -30,7 +30,7 @@ func LoadSysEnv(envPath string) {
 		panic(errStr)
 	}
 	viper.Unmarshal(&SysEnv)
-	Log.Println("加载配置：SysEnv", mJson.JsonFormat(mJson.ToJson(SysEnv)))
+	Log.Println("加载配置:SysEnv", mJson.JsonFormat(mJson.ToJson(SysEnv)))
 }
 
 type EmailInfo struct {
@@ -40,8 +40,8 @@ type EmailInfo struct {
 }
 
 var Email = EmailInfo{
-	Account:  "hunter@mo7.cc",
-	Password: "1HojqIGQN1wPPebX",
+	Account:  "AIFund@mo7.cc",
+	Password: "tIYyIWgyl3tYuIb7",
 	To: []string{
 		"meichangliang@mo7.cc",
 	},

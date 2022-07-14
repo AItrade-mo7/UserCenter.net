@@ -8,19 +8,20 @@ import (
 )
 
 type DirType struct {
-	Home     string // Home 根目录
-	App      string // APP 根目录
-	Log      string // 日志文件目录
-	FilePath string // Hunter 目录
+	Home      string // Home 根目录
+	App       string // APP 根目录
+	Log       string // 日志文件目录
+	AIFund    string // AIFund 目录
+	File      string // AIFund 目录
+	FilRemote string // 静态文件服务器域名
 }
 
 var Dir DirType
 
 type FileType struct {
-	SysEnv       string // /root/sys_env.yaml
-	LocalSysEnv  string // ./sys_env.yaml
-	AppEnv       string // ./app_env.yaml
-	StaticOrigin string // 静态文件服务器域名
+	SysEnv      string // /root/sys_env.yaml
+	LocalSysEnv string // ./sys_env.yaml
+	AppEnv      string // ./app_env.yaml
 }
 
 var File FileType
@@ -36,7 +37,7 @@ func DirInit() {
 		"logs",
 	)
 
-	Dir.FilePath = mStr.Join(
+	Dir.File = mStr.Join(
 		Dir.Home,
 		mStr.ToStr(os.PathSeparator),
 		"ProdProject",
@@ -44,7 +45,13 @@ func DirInit() {
 		"file.mo7.cc",
 	)
 
-	File.StaticOrigin = "https://file.mo7.cc"
+	Dir.AIFund = mStr.Join(
+		Dir.File,
+		mStr.ToStr(os.PathSeparator),
+		"AIFund",
+	)
+
+	Dir.FilRemote = "//file.mo7.cc"
 
 	File.SysEnv = mStr.Join(
 		Dir.Home,

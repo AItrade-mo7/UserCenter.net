@@ -1,4 +1,4 @@
-package hunterNetShell
+package installShell
 
 import (
 	"bytes"
@@ -16,23 +16,21 @@ import (
 
 // 生成外部脚本
 type InstShellOpt struct {
-	Port           string
-	UserID         string
-	HunterServerID string
+	Port        string
+	UserID      string
+	CoinServeID string
 }
 
 type ShellUrl struct {
 	Src string
 }
 
-func GenerateShell(opt InstShellOpt) (resData ShellUrl, resErr error) {
+func CoinFund(opt InstShellOpt) (resData ShellUrl, resErr error) {
 	resErr = nil
 	resData = ShellUrl{}
 
 	savePath := mStr.Join(
-		config.Dir.FilePath,
-		mStr.ToStr(os.PathSeparator),
-		"hunter",
+		config.Dir.AIFund,
 		mStr.ToStr(os.PathSeparator),
 		"install",
 	)
@@ -58,18 +56,18 @@ func GenerateShell(opt InstShellOpt) (resData ShellUrl, resErr error) {
 
 	// 生成文件
 	Body := new(bytes.Buffer)
-	Tmpl := template.Must(template.New("").Parse(tmpl.InstallHunter))
-	Tmpl.Execute(Body, tmpl.InstallHunterParam{
-		Port:           opt.Port,
-		UserID:         opt.UserID,
-		HunterServerID: opt.HunterServerID,
+	Tmpl := template.Must(template.New("").Parse(tmpl.InstCoinServe))
+	Tmpl.Execute(Body, tmpl.InstCoinServeParam{
+		Port:        opt.Port,
+		UserID:      opt.UserID,
+		CoinServeID: opt.CoinServeID,
 	})
 	Cont := Body.String()
 
 	// 写入文件
 	mFile.Write(filePath, Cont)
 
-	remoteUrl := strings.Replace(filePath, config.Dir.FilePath, config.File.StaticOrigin, 1)
+	remoteUrl := strings.Replace(filePath, config.Dir.File, config.Dir.FilRemote, 1)
 
 	resData.Src = remoteUrl
 
