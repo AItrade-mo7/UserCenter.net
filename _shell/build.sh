@@ -8,13 +8,14 @@ rm -rf ${staticPath}
 mv ${outPutPath} ${staticPath}
 
 echo " =========== 写入文件 =========== "
-sudo cat >${staticPath}"/index.go" <<END
+sudo cat >${staticPath}"/Index.go" <<END
 package www
 
 import "embed"
 
 //go:embed *
 var Static embed.FS
+
 END
 
 echo " =========== go build  =========== "
