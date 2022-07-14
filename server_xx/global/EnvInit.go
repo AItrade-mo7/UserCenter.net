@@ -7,7 +7,7 @@ import (
 	"github.com/EasyGolang/goTools/mPath"
 )
 
-func ServerEnvInt() {
+func ServerEnvInit() {
 	isLocalSysEnvFile := mPath.Exists(config.File.LocalSysEnv)
 	isSysEnvFile := mPath.Exists(config.File.SysEnv)
 

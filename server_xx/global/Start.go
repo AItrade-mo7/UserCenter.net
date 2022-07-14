@@ -13,11 +13,11 @@ func Start() {
 
 	// 初始化日志系统 保证日志可用
 	mCycle.New(mCycle.Opt{
-		Func:      LogInt,
+		Func:      LogInit,
 		SleepTime: time.Hour * 8,
 	}).Start()
 
-	ServerEnvInt()
+	ServerEnvInit()
 
 	Log.Println(`系统初始化完成`)
 }
