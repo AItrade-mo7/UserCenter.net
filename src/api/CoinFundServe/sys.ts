@@ -1,18 +1,10 @@
 import { ajax_json } from '@/utils/http';
 import { Md5 } from '@/utils/tools';
 
-export interface AIFundServer {
-  Host: string;
-}
-
-interface AIFundNetParam {
-  ServerInfo: AIFundServer;
-}
-
 interface SysParam {
   Password: string;
   Code: string;
-  ServerInfo: AIFundNetParam;
+  CoinServeID: string;
 }
 
 export const ReStart = (param: SysParam) => {
@@ -26,7 +18,7 @@ export const ReStart = (param: SysParam) => {
     url: '/CoinFundServe/sys/restart',
     data,
     method: 'post',
-    AIFundNet: data.ServerInfo,
+    CoinServeID: data.CoinServeID,
   });
 };
 
@@ -41,6 +33,6 @@ export const Remove = (param: SysParam): Promise<any> => {
     url: '/CoinFundServe/sys/remove',
     data,
     method: 'post',
-    AIFundNet: data.ServerInfo,
+    CoinServeID: data.CoinServeID,
   });
 };

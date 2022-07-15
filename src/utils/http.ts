@@ -57,10 +57,8 @@ const ajax_json = (param: axiosParam): Promise<resDataType> => {
     ...param,
   };
 
-  if (param.AIFundNet?.Host) {
-    const ServerInfo = param.AIFundNet;
-    delete config.AIFundNet;
-    config.headers['AIFund-Net-Host'] = ServerInfo.Host;
+  if (param?.data?.CoinServeID) {
+    config.headers['Coin-Serve-ID'] = param.data.CoinServeID;
   }
 
   // 请求参数转换

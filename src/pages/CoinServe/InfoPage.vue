@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mStorage } from '@/utils/tools';
 import { useRouter } from 'vue-router';
-import { GetAIFundConfig } from '@/api/CoinFundServe';
+import { GetCoinFundConfig } from '@/api/CoinFundServe';
 import { $lcg } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
@@ -11,14 +11,12 @@ const InfoNot = defineAsyncComponent(() => import('./lib/InfoNot.vue'));
 const SysManage = defineAsyncComponent(() => import('./lib/SysManage.vue'));
 
 const $router = useRouter();
-const FundServeHost = mStorage.get('FundServeHost');
+const CoinServeID = mStorage.get('CoinServeID');
 let AIFund_config = $ref({});
 
 const GetConfig = () => {
-  GetAIFundConfig({
-    ServerInfo: {
-      Host: FundServeHost,
-    },
+  GetCoinFundConfig({
+    CoinServeID,
   }).then((res) => {
     if (res.Code > 0) {
       AIFund_config = res.Data;
@@ -26,8 +24,8 @@ const GetConfig = () => {
   });
 };
 
-if (FundServeHost.length < 6) {
-  window.$message.warning('缺少 FundServeHost');
+if (CoinServeID.length < 6) {
+  window.$message.warning('缺少 CoinServeID');
   $router.replace('/');
 } else {
   // 开始
@@ -43,7 +41,7 @@ const OpenSet = () => {
 
 <template>
   <PageTitle>
-    {{ FundServeHost }}
+    {{ CoinServeID }}
     <template #after v-if="AIFund_config.AppInfo">
       <n-badge
         class="AIFundServer__dotNet"

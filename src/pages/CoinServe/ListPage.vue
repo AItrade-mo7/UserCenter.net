@@ -2,7 +2,7 @@
 import { GetServerList, DelServer } from '@/api/AIFundServe';
 import { GetOkxKeyList } from '@/api/OkxKey';
 import { DateFormat } from '@/utils/filters';
-import { AIFundPing } from '@/api/CoinFundServe';
+import { CoinFundPing } from '@/api/CoinFundServe';
 import { $lcg, mStorage, cloneDeep } from '@/utils/tools';
 import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';
@@ -25,10 +25,8 @@ const GetKeyList = async () => {
 let ServerList = $ref([]);
 const AIFundNetPing = (id: string) => {
   if (id) {
-    AIFundPing({
-      ServerInfo: {
-        Host: id,
-      },
+    CoinFundPing({
+      CoinServeID: id,
     }).then((res) => {
       const label = $lcg(res, 'Data.AppInfo.name', '');
       if (label == 'AIFund-net') {
@@ -72,7 +70,7 @@ function GetKey(KeyId: string): any {
 }
 
 const OpenServerDetail = (id: string) => {
-  mStorage.set('FundServeHost', id);
+  mStorage.set('CoinServeID', id);
   $router.push('/CoinServe/Info');
 };
 
@@ -146,10 +144,10 @@ const delServer = (item) => {
         </div>
         <template #footer>
           <div class="card_footer">
-            <n-button size="small" v-if="item.Status" type="success" @click="OpenServerDetail(item.AIFundServerID)">
+            <n-button size="small" v-if="item.Status" type="success" @click="OpenServerDetail(item.CoinServeID)">
               服务正在运行【查看】
             </n-button>
-            <n-button size="small" v-else type="error" @click="OpenServerDetail(item.AIFundServerID)">
+            <n-button size="small" v-else type="error" @click="OpenServerDetail(item.CoinServeID)">
               服务尚未运行【去部署】
             </n-button>
           </div>
