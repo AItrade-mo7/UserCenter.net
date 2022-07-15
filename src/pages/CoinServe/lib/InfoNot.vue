@@ -12,7 +12,7 @@ const deployFunc = () => {
     IsPassword: true,
     async OkBack(param) {
       return GetDeployShell({
-        AIFundServerID: FundServeHost,
+        CoinServeID: FundServeHost,
         Password: param.Password,
       }).then((res) => {
         Url = res.Data.Src;

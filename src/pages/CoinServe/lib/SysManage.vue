@@ -49,7 +49,7 @@ const SendStop = async (Info) => {
   await Remove({
     ...Info,
     ServerInfo: {
-      Host: props.config.AppEnv.AIFundServerID,
+      Host: props.config.AppEnv.CoinServeID,
     },
   });
   window.$message.success('删除指令已发送!', {
@@ -64,7 +64,7 @@ const SendReStart = async (Info) => {
   await ReStart({
     ...Info,
     ServerInfo: {
-      Host: props.config.AppEnv.AIFundServerID,
+      Host: props.config.AppEnv.CoinServeID,
     },
   });
 

@@ -8,6 +8,7 @@ import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';
 
 import { defineAsyncComponent } from 'vue';
+import { flatMap } from 'lodash';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const XIcon = defineAsyncComponent(() => import('@/lib/XIcon.vue'));
 
@@ -23,16 +24,17 @@ const GetKeyList = async () => {
 };
 
 let ServerList = $ref([]);
+
 const AIFundNetPing = (id: string) => {
   if (id) {
     CoinFundPing({
       CoinServeID: id,
     }).then((res) => {
       const label = $lcg(res, 'Data.AppInfo.name', '');
-      if (label == 'AIFund-net') {
+      if (label == 'coin-fund') {
         for (let i = 0; i < ServerList.length; i++) {
           const item = ServerList[i];
-          if (item.AIFundServerID == id) {
+          if (item.CoinServeID == id) {
             ServerList[i].Status = true;
             break;
           }
@@ -48,7 +50,7 @@ const GetList = async () => {
     ServerList = res.Data || [];
 
     for (const item of ServerList) {
-      AIFundNetPing(item.AIFundServerID);
+      AIFundNetPing(item.CoinServeID);
     }
   }
 };
@@ -80,7 +82,7 @@ const delServer = (item) => {
     IsPassword: true,
     async OkBack(param) {
       return DelServer({
-        AIFundServerID: data.AIFundServerID,
+        CoinServeID: data.CoinServeID,
         Password: param.Password,
       }).then((res) => {
         if (res.Code > 0) {
@@ -98,8 +100,8 @@ const delServer = (item) => {
     <div v-if="ServerList.length > 0 && KeyList.length > 0" class="ListWrapper">
       <n-card
         v-for="item in ServerList"
-        :key="item.AIFundServerID"
-        :title="item.AIFundServerID"
+        :key="item.CoinServeID"
+        :title="item.CoinServeID"
         embedded
         hoverable
         size="small"

@@ -29,7 +29,7 @@ export const CreateServer = (param: AddAIFundServerParam) => {
   });
 };
 
-export const GetDeployShell = (data: { AIFundServerID: string; Password: string }) => {
+export const GetDeployShell = (data: { CoinServeID: string; Password: string }) => {
   const param = {
     ...data,
   };
@@ -45,7 +45,7 @@ export const GetDeployShell = (data: { AIFundServerID: string; Password: string 
 };
 
 interface DelServerParam {
-  AIFundServerID: string;
+  CoinServeID: string;
   Password: string;
 }
 

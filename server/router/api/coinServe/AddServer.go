@@ -90,7 +90,7 @@ func AddServer(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 
-	// 检查服务是否存在  --  AIFundServerID
+	// 检查服务是否存在  --  CoinServeID
 	FK := bson.D{{
 		Key:   "CoinServeID",
 		Value: AIFundServerData.CoinServeID,

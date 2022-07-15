@@ -13,8 +13,8 @@ import (
 )
 
 type StartParam struct {
-	AIFundServerID string `bson:"AIFundServerID"`
-	Password       string `bson:"Password"`
+	CoinServeID string `bson:"CoinServeID"`
+	Password    string `bson:"Password"`
 }
 
 func DeployShell(c *fiber.Ctx) error {
@@ -25,8 +25,8 @@ func DeployShell(c *fiber.Ctx) error {
 		return c.JSON(result.ErrStartAIFundServer.WithMsg("需要密码"))
 	}
 
-	if len(json.AIFundServerID) < 3 {
-		return c.JSON(result.ErrStartAIFundServer.WithMsg("AIFundServerID 不能为空"))
+	if len(json.CoinServeID) < 3 {
+		return c.JSON(result.ErrStartAIFundServer.WithMsg("CoinServeID 不能为空"))
 	}
 
 	UserID, err := middle.TokenAuth(c)
@@ -53,10 +53,10 @@ func DeployShell(c *fiber.Ctx) error {
 		ServerDB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
-	// 检查服务是否存在  --  AIFundServerID
+	// 检查服务是否存在  --  CoinServeID
 	FK := bson.D{{
-		Key:   "AIFundServerID",
-		Value: json.AIFundServerID,
+		Key:   "CoinServeID",
+		Value: json.CoinServeID,
 	}}
 	var ServerData dbType.CoinServeTable
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerData)

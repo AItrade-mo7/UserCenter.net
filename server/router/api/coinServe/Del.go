@@ -13,8 +13,8 @@ import (
 )
 
 type DelParam struct {
-	AIFundServerID string `bson:"AIFundServerID"`
-	Password       string `bson:"Password"`
+	CoinServeID string `bson:"CoinServeID"`
+	Password    string `bson:"Password"`
 }
 
 func Del(c *fiber.Ctx) error {
@@ -46,8 +46,8 @@ func Del(c *fiber.Ctx) error {
 	}
 
 	FK := bson.D{{
-		Key:   "AIFundServerID",
-		Value: json.AIFundServerID,
+		Key:   "CoinServeID",
+		Value: json.CoinServeID,
 	}}
 
 	var ServerData dbType.CoinServeTable
@@ -68,8 +68,8 @@ func Del(c *fiber.Ctx) error {
 	}
 
 	FK = bson.D{{
-		Key:   "AIFundServerID",
-		Value: json.AIFundServerID,
+		Key:   "CoinServeID",
+		Value: json.CoinServeID,
 	}}
 	_, err = ServerDB.Table.DeleteOne(ServerDB.Ctx, FK)
 	if err != nil {
