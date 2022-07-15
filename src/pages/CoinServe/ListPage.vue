@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GetServerList, DelServer } from '@/api/AIFundServe';
+import { GetServerList, DelServer } from '@/api/CoinServe';
 import { GetOkxKeyList } from '@/api/OkxKey';
 import { DateFormat } from '@/utils/filters';
 import { CoinFundPing } from '@/api/CoinFundServe';

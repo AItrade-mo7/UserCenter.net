@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import { cloneDeep } from '@/utils/tools';
-import { CreateServer } from '@/api/AIFundServe';
+import { CreateServer } from '@/api/CoinServe';
 import AuthModal from '@/lib/AuthModal';
 import { useRouter } from 'vue-router';
 import { GetOkxKeyList } from '@/api/OkxKey';
