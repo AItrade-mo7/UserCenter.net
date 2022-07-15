@@ -33,7 +33,7 @@ func NewRest(opt RestOpt) []byte {
 		SecretKey: config.SecretKey,              // key
 		ExpiresAt: time.Now().Add(time.Hour / 2), // 过期时间 半小时
 		Message:   opt.UserID,
-		Issuer:    "mo7.cc",
+		Issuer:    "AIFund.net",
 		Subject:   "UserToken",
 	}).Generate()
 
