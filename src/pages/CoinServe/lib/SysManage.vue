@@ -54,7 +54,7 @@ const SendStop = async (Info) => {
   });
   window.$message.success('删除指令已发送!', {
     onAfterLeave() {
-      mStorage.remove('FundServeHost');
+      mStorage.remove('CoinServeID');
       window.location.replace('/CoinServe');
     },
   });
@@ -70,7 +70,7 @@ const SendReStart = async (Info) => {
 
   window.$message.success('重启指令已发送!', {
     onAfterLeave() {
-      mStorage.remove('FundServeHost');
+      mStorage.remove('CoinServeID');
       window.location.replace('/CoinServe');
     },
   });

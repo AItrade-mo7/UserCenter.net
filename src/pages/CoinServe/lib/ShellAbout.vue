@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { CopyText } from '@/utils/tools';
 import { mStorage } from '@/utils/tools';
-import { GetAIFundConfig } from '@/api/CoinFundServe';
+import { GetCoinFundConfig } from '@/api/CoinFundServe';
 
-const FundServeHost = mStorage.get('FundServeHost');
+const CoinServeID = mStorage.get('CoinServeID');
 
 let Port = '';
-if (FundServeHost) {
-  const host_arr = FundServeHost.split(':');
+if (CoinServeID) {
+  const host_arr = CoinServeID.split(':');
   Port = host_arr[1];
 }
 
@@ -20,10 +20,8 @@ const props = defineProps({
 const wgetSh = `wget -qO- ${props.Src} | sudo bash`;
 
 const getConfig = () => {
-  GetAIFundConfig({
-    ServerInfo: {
-      Host: FundServeHost,
-    },
+  GetCoinFundConfig({
+    CoinServeID,
   })
     .then((res) => {
       if (res.Code > 0) {
@@ -52,7 +50,7 @@ const getConfig = () => {
       复制该指令，并在 ip 为
       <div className="ShellAbout_desc-ip">
         <code>
-          <a :href="`http://${FundServeHost}`" target="_blank"> {{ FundServeHost }} </a>
+          <a :href="`http://${CoinServeID}`" target="_blank"> {{ CoinServeID }} </a>
         </code>
       </div>
       的主机上执行。
