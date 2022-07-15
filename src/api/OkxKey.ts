@@ -1,5 +1,6 @@
 import { ajax_json } from '@/utils/http';
 import { Md5 } from '@/utils/tools';
+import type { AddOkxKeyParam, DelOkxKeyParam } from './api.d';
 
 export const GetOkxKeyList = () => {
   return ajax_json({
@@ -9,15 +10,6 @@ export const GetOkxKeyList = () => {
   });
 };
 
-interface AddOkxKeyParam {
-  ApiKey: string;
-  SecretKey: string;
-  Passphrase: string;
-  IP: string;
-  Name: string;
-  Note: string;
-  Password: string;
-}
 export const CreateOkxKey = (param: AddOkxKeyParam) => {
   const data = {
     ...param,
@@ -31,12 +23,7 @@ export const CreateOkxKey = (param: AddOkxKeyParam) => {
   });
 };
 
-interface DelOkxkeyParam {
-  OkxKeyID: string;
-  Password: string;
-}
-
-export const DelOkxkey = (param: DelOkxkeyParam) => {
+export const DelOkxkey = (param: DelOkxKeyParam) => {
   const data = {
     ...param,
     Password: Md5(param.Password),

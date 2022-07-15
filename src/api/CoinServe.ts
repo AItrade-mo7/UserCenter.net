@@ -1,5 +1,6 @@
 import { ajax_json } from '@/utils/http';
 import { Md5 } from '@/utils/tools';
+import type { AddCoinServerParam, DelCoinServerParam } from './api.d';
 
 export const GetServerList = () => {
   return ajax_json({
@@ -9,14 +10,7 @@ export const GetServerList = () => {
   });
 };
 
-interface AddAIFundServerParam {
-  OkxKeyID: string;
-  Host: string;
-  Port: string;
-  Note: string;
-  Password: string;
-}
-export const CreateServer = (param: AddAIFundServerParam) => {
+export const CreateServer = (param: AddCoinServerParam) => {
   const data = {
     ...param,
     Password: Md5(param.Password),
@@ -44,12 +38,7 @@ export const GetDeployShell = (data: { CoinServeID: string; Password: string }) 
   });
 };
 
-interface DelServerParam {
-  CoinServeID: string;
-  Password: string;
-}
-
-export const DelServer = (param: DelServerParam) => {
+export const DelServer = (param: DelCoinServerParam) => {
   const data = {
     ...param,
     Password: Md5(param.Password),

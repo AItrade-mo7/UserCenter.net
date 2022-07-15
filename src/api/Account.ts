@@ -1,8 +1,8 @@
 import { ajax_json } from '@/utils/http';
 import { Md5, removeToken } from '@/utils/tools';
-import type { loginType } from './api.d';
+import type { LoginParam, RegisterParam, SendCodeParam, ChangePasswordParam, EditProfileParam } from './api.d';
 
-export const login = (data: loginType) => {
+export const login = (data: LoginParam) => {
   const param = {
     ...data,
     Password: Md5(data.Password),
@@ -28,11 +28,7 @@ export const getUserInfo = () => {
   });
 };
 
-interface registerData {
-  Email: string;
-  Code: string;
-}
-export const Register = (data: registerData) => {
+export const Register = (data: RegisterParam) => {
   const param = {
     ...data,
     Code: Md5(data.Code),
@@ -45,11 +41,7 @@ export const Register = (data: registerData) => {
   });
 };
 
-interface sendCodeData {
-  Email: string;
-  Action: string;
-}
-export const fetchSendCode = (data: sendCodeData) => {
+export const fetchSendCode = (data: SendCodeParam) => {
   return ajax_json({
     url: '/api/public/send_code',
     data,
@@ -57,13 +49,7 @@ export const fetchSendCode = (data: sendCodeData) => {
   });
 };
 
-interface editPasswordData {
-  Email: string;
-  Code: string;
-  Password: string;
-  AgainPassword: string;
-}
-export const ChangePassword = (data: editPasswordData) => {
+export const ChangePassword = (data: ChangePasswordParam) => {
   const param = {
     ...data,
     Code: Md5(data.Code),
@@ -78,16 +64,7 @@ export const ChangePassword = (data: editPasswordData) => {
   });
 };
 
-interface editProfileParam {
-  OldEmailCode: string;
-  NewEmail: string;
-  NewEmailCode: string;
-  Avatar: string;
-  NickName: string;
-  SecurityCode: string;
-  Password: string;
-}
-export const EditProfile = (data: editProfileParam) => {
+export const EditProfile = (data: EditProfileParam) => {
   const param = {
     ...data,
     OldEmailCode: Md5(data.OldEmailCode),
