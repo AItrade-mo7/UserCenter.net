@@ -8,7 +8,6 @@ import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';
 
 import { defineAsyncComponent } from 'vue';
-import { flatMap } from 'lodash';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const XIcon = defineAsyncComponent(() => import('@/lib/XIcon.vue'));
 
