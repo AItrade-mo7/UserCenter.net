@@ -18,7 +18,7 @@ func CoinFundProxy(c *fiber.Ctx) error {
 	if findWss {
 		return CoinFundProxy_wss(c)
 	}
-	host := c.Get("AIFund-Net-Host")
+	host := c.Get("Fund-Serve-Host")
 
 	if config.SysEnv.RunMod == 1 && host == "50.18.29.218:9010" {
 		host = "127.0.0.1:9010"

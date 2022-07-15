@@ -54,7 +54,7 @@ func Start() {
 	}), middle.Public, compress.New(), favicon.New())
 
 	// AIFund_net
-	app.All("/CoinFund/*", api.CoinFundProxy)
+	app.All("/CoinFundServe/*", api.CoinFundProxy)
 
 	// api
 	r_api := app.Group("/api")

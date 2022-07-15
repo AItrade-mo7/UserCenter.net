@@ -84,7 +84,7 @@ const showDrawer = () => {
                 <template #icon>
                   <XIcon name="AIFundLogo" />
                 </template>
-                AIFundServer
+                CoinServe
               </n-button>
             </RouterLink>
           </div>

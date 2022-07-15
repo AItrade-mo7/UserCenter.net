@@ -2,7 +2,7 @@
 import { GetServerList, DelServer } from '@/api/AIFundServe';
 import { GetOkxKeyList } from '@/api/OkxKey';
 import { DateFormat } from '@/utils/filters';
-import { AIFundPing } from '@/api/CoinServe';
+import { AIFundPing } from '@/api/CoinFundServe';
 import { $lcg, mStorage, cloneDeep } from '@/utils/tools';
 import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';

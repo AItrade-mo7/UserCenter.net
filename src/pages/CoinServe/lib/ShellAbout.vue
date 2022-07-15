@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CopyText } from '@/utils/tools';
 import { mStorage } from '@/utils/tools';
-import { GetAIFundConfig } from '@/api/CoinServe';
+import { GetAIFundConfig } from '@/api/CoinFundServe';
 
 const FundServeHost = mStorage.get('FundServeHost');
 
