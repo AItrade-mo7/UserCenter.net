@@ -8,7 +8,7 @@ const props = defineProps({
   CoinServeID: String,
 });
 
-let Url = $ref('http://file.mo7.cc/AITrade/install/i-9010_1.sh');
+let Url = $ref('');
 const deployFunc = () => {
   const CoinServeID = props?.CoinServeID;
 
