@@ -39,7 +39,7 @@ const delKey = (item) => {
 </script>
 
 <template>
-  <PageTitle>SecretKey</PageTitle>
+  <PageTitle>OkxKey</PageTitle>
   <div class="PageWrapper SecretKey">
     <div v-if="list.length" class="SecretKey_wrapper">
       <n-card

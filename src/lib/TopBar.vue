@@ -71,9 +71,9 @@ const showDrawer = () => {
             <RouterLink to="/OkxKey" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
-                  <XIcon name="KeyOutlined" />
+                  <XIcon name="OkxLogo" />
                 </template>
-                SecretKey
+                OkxKey
               </n-button>
             </RouterLink>
           </div>
