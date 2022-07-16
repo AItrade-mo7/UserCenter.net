@@ -12,21 +12,22 @@ const SysManage = defineAsyncComponent(() => import('./lib/SysManage.vue'));
 
 const $router = useRouter();
 const CoinServeID = mStorage.get('CoinServeID');
-let AIFund_config = $ref({});
+let CoinServeConfig = $ref({});
 
 const GetConfig = () => {
   GetCoinFundConfig({
     CoinServeID,
   }).then((res) => {
     if (res.Code > 0) {
-      AIFund_config = res.Data;
+      CoinServeConfig = res.Data;
+      CoinServeConfig.CoinServeID = CoinServeID;
     }
   });
 };
 
 if (CoinServeID.length < 6) {
   window.$message.warning('缺少 CoinServeID');
-  $router.replace('/');
+  $router.replace('/CoinServe');
 } else {
   // 开始
   GetConfig();
@@ -42,10 +43,10 @@ const OpenSet = () => {
 <template>
   <PageTitle>
     {{ CoinServeID }}
-    <template #after v-if="AIFund_config.AppInfo">
+    <template #after v-if="CoinServeConfig.AppInfo">
       <n-badge
         class="AIFundServer__dotNet"
-        :dot="$lcg(AIFund_config, 'AppInfo.version', '') != $lcg(AIFund_config, 'GithubInfo.version', '')"
+        :dot="$lcg(CoinServeConfig, 'AppInfo.version', '') != $lcg(CoinServeConfig, 'GithubInfo.version', '')"
       >
         <n-button size="tiny" quaternary @click="OpenSet">
           <template #icon>
@@ -58,13 +59,13 @@ const OpenSet = () => {
 
   <n-drawer v-model:show="drawerStatus" placement="top">
     <n-drawer-content class="AIFundServer__drawer-content">
-      <SysManage v-if="drawerStatus" :config="AIFund_config" />
+      <SysManage v-if="drawerStatus" :config="CoinServeConfig" />
     </n-drawer-content>
   </n-drawer>
 
   <div class="PageWrapper">
-    <InfoOk v-if="AIFund_config.AppInfo" :config="AIFund_config" />
-    <InfoNot v-if="!AIFund_config.AppInfo" />
+    <InfoOk v-if="CoinServeConfig.AppInfo" :config="CoinServeConfig" />
+    <InfoNot v-if="!CoinServeConfig.AppInfo" :config="CoinServeConfig" />
   </div>
 </template>
 

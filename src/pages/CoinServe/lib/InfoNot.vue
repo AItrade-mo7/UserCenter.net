@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import AuthModal from '@/lib/AuthModal';
 import { GetDeployShell } from '@/api/CoinServe';
-import { mStorage } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const ShellAbout = defineAsyncComponent(() => import('./ShellAbout.vue'));
 
-const CoinServeID = mStorage.get('CoinServeID');
+const props = defineProps({
+  config: Object,
+});
+
 let Url = $ref('');
 const deployFunc = () => {
+  const CoinServeID = props?.config?.CoinServeID;
   AuthModal({
     IsPassword: true,
     async OkBack(param) {
       return GetDeployShell({
-        CoinServeID: CoinServeID,
+        CoinServeID,
         Password: param.Password,
       }).then((res) => {
         Url = res.Data.Src;

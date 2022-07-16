@@ -47,7 +47,6 @@ const GetList = async () => {
   const res = await GetServerList();
   if (res.Code > 0) {
     ServerList = res.Data || [];
-
     for (const item of ServerList) {
       AIFundNetPing(item.CoinServeID);
     }
