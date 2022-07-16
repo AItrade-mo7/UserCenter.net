@@ -1,4 +1,4 @@
-package reqFund
+package reqCoinServe
 
 import (
 	"time"

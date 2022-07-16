@@ -54,7 +54,7 @@ func Start() {
 	}), middle.Public, compress.New(), favicon.New())
 
 	// AITrade_net
-	app.All("/CoinAI/*", api.CoinFundProxy)
+	app.All("/CoinAI/*", api.CoinServeProxy)
 
 	// api
 	r_api := app.Group("/api")

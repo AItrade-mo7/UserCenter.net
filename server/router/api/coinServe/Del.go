@@ -5,7 +5,7 @@ import (
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/dbUser"
-	"DataCenter.net/server/utils/reqFund"
+	"DataCenter.net/server/utils/reqCoinServe"
 	"github.com/EasyGolang/goTools/mRes/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
@@ -58,7 +58,7 @@ func Del(c *fiber.Ctx) error {
 		return c.JSON(result.Fail.WithMsg("该服务不存在"))
 	}
 
-	err = reqFund.Ping(reqFund.PingOpt{
+	err = reqCoinServe.Ping(reqCoinServe.PingOpt{
 		ServerInfo:  ServerData,
 		AccountData: UserInfo.AccountData,
 	})

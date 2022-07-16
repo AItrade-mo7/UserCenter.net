@@ -1,4 +1,4 @@
-package reqFund
+package reqCoinServe
 
 import (
 	"fmt"
@@ -43,7 +43,7 @@ func Ping(opt PingOpt) (resErr error) {
 	reqData := NewRest(RestOpt{
 		Origin: pingBaseUrl,
 		UserID: opt.AccountData.UserID,
-		Path:   "/AITrade_net/ping",
+		Path:   "/CoinAI/ping",
 		Method: "GET",
 	})
 
