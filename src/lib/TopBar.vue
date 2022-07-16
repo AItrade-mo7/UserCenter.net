@@ -68,23 +68,23 @@ const showDrawer = () => {
           </div>
 
           <div className="TopBar__item" v-if="UserInfoStore.value.UserID">
-            <RouterLink to="/OkxKey" class="item_btn">
-              <n-button text size="tiny">
-                <template #icon>
-                  <XIcon name="OkxLogo" />
-                </template>
-                OkxKey
-              </n-button>
-            </RouterLink>
-          </div>
-
-          <div className="TopBar__item" v-if="UserInfoStore.value.UserID">
             <RouterLink to="/CoinServe" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
                   <XIcon name="AITradeLogo" />
                 </template>
                 CoinServe
+              </n-button>
+            </RouterLink>
+          </div>
+
+          <div className="TopBar__item" v-if="UserInfoStore.value.UserID">
+            <RouterLink to="/StockServe" class="item_btn">
+              <n-button text size="tiny">
+                <template #icon>
+                  <XIcon name="ZTSLogo" />
+                </template>
+                StockServe
               </n-button>
             </RouterLink>
           </div>

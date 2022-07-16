@@ -23,6 +23,7 @@ const routes: any = [
         description: 'List',
         component: () => import('@/pages/About/ListPage.vue'),
       },
+
       {
         path: 'PWA',
         description: 'PWA应用安装指南',
@@ -46,6 +47,11 @@ const routes: any = [
       {
         path: 'AIServe',
         description: 'AIServe 说明',
+        component: () => import('@/pages/About/AIServe.vue'),
+      },
+      {
+        path: 'CoinServe',
+        description: 'CoinServe 使用说明',
         component: () => import('@/pages/About/AIServe.vue'),
       },
     ],
@@ -86,6 +92,18 @@ const routes: any = [
         path: 'Info',
         description: '查看详情',
         component: () => import('@/pages/CoinServe/InfoPage.vue'),
+      },
+    ],
+  },
+  {
+    path: '/StockServe',
+    isLogin: true,
+    component: () => import('@/pages/StockServe/IndexPage.vue'),
+    children: [
+      {
+        path: '',
+        description: 'List',
+        component: () => import('@/pages/StockServe/ListPage.vue'),
       },
     ],
   },

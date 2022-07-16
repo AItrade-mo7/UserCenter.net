@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Logo } from '@/config/constant';
 import { defineAsyncComponent } from 'vue';
+
 const XIcon = defineAsyncComponent(() => import('@/lib/XIcon.vue'));
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 </script>
@@ -27,7 +28,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
     </div>
     <br />
     <div>
-      <RouterLink to="/CoinServe">
+      <RouterLink to="/StockServe">
         <n-button type="primary" ghost color="#f00">
           <template #icon>
             <XIcon name="ZTSLogo" />

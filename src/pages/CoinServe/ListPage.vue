@@ -93,7 +93,16 @@ const delServer = (item) => {
 </script>
 
 <template>
-  <PageTitle>CoinServe</PageTitle>
+  <PageTitle>
+    CoinServe
+    <template #after>
+      <RouterLink to="/About/CoinServe" className="CoinServe__about">
+        <n-button circle quaternary size="tiny" class="About__btn">
+          <template #icon> <XIcon name="QuestionCircleOutlined" /> </template>
+        </n-button>
+      </RouterLink>
+    </template>
+  </PageTitle>
   <div class="PageWrapper AITradeServerList">
     <div v-if="ServerList.length > 0 && KeyList.length > 0" class="ListWrapper">
       <n-card
@@ -158,12 +167,28 @@ const delServer = (item) => {
     <n-empty description="你什么也找不到" v-else> </n-empty>
 
     <div class="AddBnt__wrapper">
-      <RouterLink to="/CoinServe/Add" class="item_btn" v-if="KeyList.length > 0">
-        <n-button size="small" type="primary"> 创建一个新的服务 </n-button>
-      </RouterLink>
-      <RouterLink to="/OkxKey/Add" class="item_btn" v-else>
-        <n-button size="small" type="primary"> 创建一个Key </n-button>
-      </RouterLink>
+      <div v-if="KeyList.length > 0">
+        <RouterLink to="/OkxKey/Add" class="item_btn">
+          <n-button size="small" type="primary" ghost>
+            <template #icon> <XIcon name="OkxLogo" /> </template>
+            录入一个 OKX 密钥
+          </n-button>
+        </RouterLink>
+        <RouterLink to="/CoinServe/Add" class="item_btn">
+          <n-button size="small" type="primary">
+            <template #icon> <XIcon name="CodeTwotone" /> </template>
+            注册一个 CoinAI
+          </n-button>
+        </RouterLink>
+      </div>
+      <div v-if="KeyList.length < 1">
+        <RouterLink to="/OkxKey/Add" class="item_btn">
+          <n-button size="small" type="primary">
+            <template #icon> <XIcon name="OkxLogo" /> </template>
+            录入一个 OKX 密钥
+          </n-button>
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>
@@ -173,6 +198,9 @@ const delServer = (item) => {
 .AddBnt__wrapper {
   text-align: center;
   margin-top: 24px;
+  .item_btn {
+    margin: 0 6px;
+  }
 }
 .ListWrapper {
   .n-card {
@@ -187,6 +215,15 @@ const delServer = (item) => {
       right: 10px;
       top: 10px;
     }
+  }
+}
+
+.CoinServe__about {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .n-button {
+    color: @mainColor;
   }
 }
 

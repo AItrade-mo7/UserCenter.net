@@ -53,7 +53,8 @@ const MyIconLoad = () => {
       return defineAsyncComponent(() => import('@vicons/antd/FileDoneOutlined'));
     case 'SettingOutlined':
       return defineAsyncComponent(() => import('@vicons/antd/SettingOutlined'));
-
+    case 'CodeTwotone':
+      return defineAsyncComponent(() => import('@vicons/antd/CodeTwotone'));
     default:
       return defineAsyncComponent(() => import('@vicons/antd/Html5Filled'));
   }
