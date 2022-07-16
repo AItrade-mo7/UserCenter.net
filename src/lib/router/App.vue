@@ -4,7 +4,7 @@ import { NConfigProvider, zhCN, dateZhCN } from 'naive-ui';
 import type { GlobalThemeOverrides } from 'naive-ui';
 import { Ping } from '@/api/Ping';
 import { setToken, removeToken } from '@/utils/tools';
-import { PingDataStore, TopBarStore } from '@/store';
+import { PingDataStore } from '@/store';
 
 import { defineAsyncComponent } from 'vue';
 const LoadingView = defineAsyncComponent(() => import('./LoadingView.vue'));
@@ -21,8 +21,6 @@ const fetchPing = async () => {
   } else {
     removeToken();
   }
-
-  TopBarStore.open();
 };
 fetchPing();
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
 import { Logo } from '@/config/constant';
+import { defineAsyncComponent } from 'vue';
+const XIcon = defineAsyncComponent(() => import('@/lib/XIcon.vue'));
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 </script>
 
@@ -12,6 +13,25 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
     <div>
       基于<span class="fundText">大数据</span>和<span class="fundText">深度学习</span> , 打造属于您个人的 AI 基金服务。
     </div>
+
+    <h3>开始：</h3>
+    <RouterLink to="/CoinServe">
+      <n-button type="primary">
+        <template #icon>
+          <XIcon name="OkxLogo" />
+        </template>
+        我是币圈用户
+      </n-button>
+    </RouterLink>
+
+    <RouterLink to="/CoinServe">
+      <n-button type="primary">
+        <template #icon>
+          <XIcon name="OkxLogo" />
+        </template>
+        我是股市用户
+      </n-button>
+    </RouterLink>
   </div>
 </template>
 
