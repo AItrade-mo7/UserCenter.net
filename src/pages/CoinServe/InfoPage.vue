@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mStorage } from '@/utils/tools';
 import { useRouter } from 'vue-router';
-import { GetCoinFundConfig } from '@/api/CoinFundServe';
+import { GetCoinFundConfig } from '@/api/CoinAI';
 import { $lcg } from '@/utils/tools';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));

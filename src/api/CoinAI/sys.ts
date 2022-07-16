@@ -15,7 +15,7 @@ export const ReStart = (param: SysParam) => {
   };
 
   return ajax_json({
-    url: '/CoinFundServe/sys/restart',
+    url: '/CoinAI/sys/restart',
     data,
     method: 'post',
     CoinServeID: data.CoinServeID,
@@ -30,7 +30,7 @@ export const Remove = (param: SysParam): Promise<any> => {
   };
 
   return ajax_json({
-    url: '/CoinFundServe/sys/remove',
+    url: '/CoinAI/sys/remove',
     data,
     method: 'post',
     CoinServeID: data.CoinServeID,

@@ -6,7 +6,7 @@ interface AITradeNetParam {
 
 export const CoinFundPing = (data: AITradeNetParam) => {
   return ajax_json({
-    url: '/CoinFundServe/ping',
+    url: '/CoinAI/ping',
     data,
     method: 'get',
   });
@@ -14,7 +14,7 @@ export const CoinFundPing = (data: AITradeNetParam) => {
 
 export const GetCoinFundConfig = (data: AITradeNetParam): Promise<any> => {
   return ajax_json({
-    url: '/CoinFundServe/config',
+    url: '/CoinAI/config',
     data,
     method: 'get',
   });

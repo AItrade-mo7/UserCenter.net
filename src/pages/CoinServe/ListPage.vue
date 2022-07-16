@@ -2,7 +2,7 @@
 import { GetServerList, DelServer } from '@/api/CoinServe';
 import { GetOkxKeyList } from '@/api/OkxKey';
 import { DateFormat } from '@/utils/filters';
-import { CoinFundPing } from '@/api/CoinFundServe';
+import { CoinFundPing } from '@/api/CoinAI';
 import { $lcg, mStorage, cloneDeep } from '@/utils/tools';
 import { useRouter } from 'vue-router';
 import AuthModal from '@/lib/AuthModal';

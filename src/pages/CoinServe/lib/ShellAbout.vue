@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CopyText } from '@/utils/tools';
-import { GetCoinFundConfig } from '@/api/CoinFundServe';
+import { GetCoinFundConfig } from '@/api/CoinAI';
 
 const props = defineProps({
   Src: String,
@@ -41,7 +41,7 @@ const getConfig = () => {
 
 <template>
   <div class="ShellAbout">
-    <h3>CoinFundServe.net 部署文档</h3>
+    <h3>CoinAI.net 部署文档</h3>
     <div class="ShellAbout_hint">系统已为您生成了专属的部署指令:</div>
     <div class="ShellAbout__urlBox">
       <n-code :code="wgetSh" word-wrap> </n-code>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cloneDeep } from '@/utils/tools';
-import { ReStart, Remove } from '@/api/CoinFundServe/sys';
+import { ReStart, Remove } from '@/api/CoinAI/sys';
 import AuthModal from '@/lib/AuthModal';
 import { mStorage } from '@/utils/tools';
 
