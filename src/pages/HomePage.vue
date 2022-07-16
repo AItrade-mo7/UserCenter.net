@@ -22,7 +22,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
           <template #icon>
             <XIcon name="OkxLogo" />
           </template>
-          我是币圈大佬
+          数字货币 CoinAI ->
         </n-button>
       </RouterLink>
     </div>
@@ -33,7 +33,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
           <template #icon>
             <XIcon name="ZTSLogo" />
           </template>
-          我是炒股大神
+          股票交易 StockAI ->
         </n-button>
       </RouterLink>
     </div>
