@@ -30,7 +30,7 @@ func CoinFund(opt InstShellOpt) (resData ShellUrl, resErr error) {
 	resData = ShellUrl{}
 
 	savePath := mStr.Join(
-		config.Dir.AIFund,
+		config.Dir.AITrade,
 		mStr.ToStr(os.PathSeparator),
 		"install",
 	)

@@ -1,6 +1,6 @@
 package dbType
 
-// 一个虚拟主机的数据库模板 AIFundServer
+// 一个虚拟主机的数据库模板 AITradeServer
 type CoinServeTable struct {
 	CoinServeID string `bson:"CoinServeID"` // 这个ID是唯一的，其值为 IP+端口 的字符串
 	OkxKeyID    string `bson:"OkxKeyID"`    // ApiKey 的 ID 一一对应

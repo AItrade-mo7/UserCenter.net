@@ -25,7 +25,7 @@ func CheckEmailCode(opt CheckEmailCodeParam) (resErr error) {
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "AIFund",
+		DBName:   "AITrade",
 	}).Connect().Collection("EmailCode")
 
 	err := db.Ping()

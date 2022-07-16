@@ -53,7 +53,7 @@ func Start() {
 		Output:     logFile,
 	}), middle.Public, compress.New(), favicon.New())
 
-	// AIFund_net
+	// AITrade_net
 	app.All("/CoinFundServe/*", api.CoinFundProxy)
 
 	// api

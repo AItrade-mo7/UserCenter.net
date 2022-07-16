@@ -44,7 +44,7 @@ export function NewSocket(opt: WssType) {
   // const socketUrl = 'wss://fund.mo7.cc/wss';
   // const socketUrl = 'ws://fund.mo7.cc/wss';
   // const socketUrl = 'ws://localhost:8999/wss';
-  // socketUrl = `ws://50.18.29.218:9010/AIFund_net/wss?host=${opt.Host}`;
+  // socketUrl = `ws://50.18.29.218:9010/AITrade_net/wss?host=${opt.Host}`;
 
   const Auth = {
     Token: getToken(),

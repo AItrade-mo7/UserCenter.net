@@ -54,7 +54,7 @@ export const verifyConfig = (label: string, val: string, val2?: string): string 
   return null;
 };
 
-export const AIFundVerifyConfig = (label: string, val: string): string => {
+export const AITradeVerifyConfig = (label: string, val: string): string => {
   const nickNameReg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{1,12}$/g;
 
   if (label === 'Name') {

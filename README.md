@@ -1,6 +1,6 @@
 # UserCenter
 
-AIFund 的数据中心,用来进行用户账户的数据管理
+AITrade 的数据中心,用来进行用户账户的数据管理
 
 ## sys_env.yaml
 

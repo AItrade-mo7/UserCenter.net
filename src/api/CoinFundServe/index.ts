@@ -1,10 +1,10 @@
 import { ajax_json } from '@/utils/http';
 
-interface AIFundNetParam {
+interface AITradeNetParam {
   CoinServeID: string;
 }
 
-export const CoinFundPing = (data: AIFundNetParam) => {
+export const CoinFundPing = (data: AITradeNetParam) => {
   return ajax_json({
     url: '/CoinFundServe/ping',
     data,
@@ -12,7 +12,7 @@ export const CoinFundPing = (data: AIFundNetParam) => {
   });
 };
 
-export const GetCoinFundConfig = (data: AIFundNetParam): Promise<any> => {
+export const GetCoinFundConfig = (data: AITradeNetParam): Promise<any> => {
   return ajax_json({
     url: '/CoinFundServe/config',
     data,

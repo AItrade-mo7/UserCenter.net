@@ -64,7 +64,7 @@ const Submit = async () => {
 
 <template>
   <PageTitle>
-    注册 AIFund 服务
+    注册 AITrade 服务
     <template #after>
       <RouterLink to="/About/FundServe" className="CreateOkxKey__about">
         <n-button circle quaternary size="tiny" class="About__btn">

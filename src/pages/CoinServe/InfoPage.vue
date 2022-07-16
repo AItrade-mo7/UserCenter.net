@@ -44,7 +44,7 @@ const OpenSet = () => {
     {{ CoinServeID }}
     <template #after v-if="CoinServeConfig.AppInfo">
       <n-badge
-        class="AIFundServer__dotNet"
+        class="AITradeServer__dotNet"
         :dot="$lcg(CoinServeConfig, 'AppInfo.version', '') != $lcg(CoinServeConfig, 'GithubInfo.version', '')"
       >
         <n-button size="tiny" quaternary @click="OpenSet">
@@ -57,7 +57,7 @@ const OpenSet = () => {
   </PageTitle>
 
   <n-drawer v-model:show="drawerStatus" placement="top">
-    <n-drawer-content class="AIFundServer__drawer-content">
+    <n-drawer-content class="AITradeServer__drawer-content">
       <SysManage v-if="drawerStatus" :config="CoinServeConfig" />
     </n-drawer-content>
   </n-drawer>
@@ -71,7 +71,7 @@ const OpenSet = () => {
 <style lang="less">
 @import '@/config/constant.less';
 
-.n-badge.n-badge--dot.AIFundServer__dotNet {
+.n-badge.n-badge--dot.AITradeServer__dotNet {
   position: relative;
   .n-badge-sup {
     position: absolute;
@@ -83,7 +83,7 @@ const OpenSet = () => {
     min-width: 5px;
   }
 }
-.n-drawer .AIFundServer__drawer-content .n-drawer-body-content-wrapper {
+.n-drawer .AITradeServer__drawer-content .n-drawer-body-content-wrapper {
   padding: 16px;
 }
 </style>

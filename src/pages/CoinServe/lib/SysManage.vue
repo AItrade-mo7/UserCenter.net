@@ -82,7 +82,7 @@ const SendReStart = async (Info) => {
     <div className="SysManage__hint">当前版本：{{ nowVersion }}</div>
     <div className="SysManage__hint new">
       最新版本：{{ newVersion }}
-      <a href="https://github.com/mo7static/AIFund.net" target="_blank" class="lineHeight">(GitHub)</a>
+      <a href="https://github.com/mo7static/AITrade.net" target="_blank" class="lineHeight">(GitHub)</a>
     </div>
 
     <div class="btn-wrapper">
@@ -101,7 +101,7 @@ const SendReStart = async (Info) => {
       </div>
       <div v-if="BtnStatus == 1">
         将会从
-        <a href="https://github.com/mo7static/AIFund.net" target="_blank" class="lineHeight">GitHub</a>
+        <a href="https://github.com/mo7static/AITrade.net" target="_blank" class="lineHeight">GitHub</a>
         下载最新代码,并完成
         <span class="lineHeight-warn">冷重启</span>
         ,建议检查并清理您当前的仓位

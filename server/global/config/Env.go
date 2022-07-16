@@ -40,7 +40,7 @@ type EmailInfo struct {
 }
 
 var Email = EmailInfo{
-	Account:  "AIFund@mo7.cc",
+	Account:  "AITrade@mo7.cc",
 	Password: "tIYyIWgyl3tYuIb7",
 	To: []string{
 		"meichangliang@mo7.cc",

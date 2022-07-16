@@ -7,7 +7,7 @@ import (
 	"github.com/EasyGolang/goTools/mStr"
 )
 
-type AIFundPingData struct {
+type AITradePingData struct {
 	AppInfo struct {
 		Name    string `json:"name"`
 		Version string `json:"version"`
@@ -21,10 +21,10 @@ type AIFundPingData struct {
 	UserAgent   string   `json:"UserAgent"`
 }
 
-type AIFundPingResult struct {
-	Code int            `json:"Code"`
-	Data AIFundPingData `json:"Data"`
-	Msg  string         `json:"Msg"`
+type AITradePingResult struct {
+	Code int             `json:"Code"`
+	Data AITradePingData `json:"Data"`
+	Msg  string          `json:"Msg"`
 }
 
 type PingOpt struct {
@@ -43,7 +43,7 @@ func Ping(opt PingOpt) (resErr error) {
 	reqData := NewRest(RestOpt{
 		Origin: pingBaseUrl,
 		UserID: opt.AccountData.UserID,
-		Path:   "/AIFund_net/ping",
+		Path:   "/AITrade_net/ping",
 		Method: "GET",
 	})
 

@@ -17,7 +17,7 @@ func Email(opt EmailOpt) *mEmail.EmailInfo {
 		Account:     config.Email.Account,
 		Password:    config.Email.Password,
 		To:          opt.To,
-		From:        "AIFund 数据中心",
+		From:        "AITrade 数据中心",
 		Subject:     opt.Subject,
 		Port:        "587",
 		Host:        "smtp.feishu.cn",

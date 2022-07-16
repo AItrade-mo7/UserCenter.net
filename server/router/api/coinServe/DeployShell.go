@@ -22,11 +22,11 @@ func DeployShell(c *fiber.Ctx) error {
 	mFiber.Parser(c, &json)
 
 	if len(json.Password) < 3 {
-		return c.JSON(result.ErrStartAIFundServer.WithMsg("需要密码"))
+		return c.JSON(result.ErrStartAITradeServer.WithMsg("需要密码"))
 	}
 
 	if len(json.CoinServeID) < 3 {
-		return c.JSON(result.ErrStartAIFundServer.WithMsg("CoinServeID 不能为空"))
+		return c.JSON(result.ErrStartAITradeServer.WithMsg("CoinServeID 不能为空"))
 	}
 
 	UserID, err := middle.TokenAuth(c)
@@ -47,7 +47,7 @@ func DeployShell(c *fiber.Ctx) error {
 		return c.JSON(result.ErrLogin.WithMsg(err))
 	}
 
-	// 连接 AIFundServer 表
+	// 连接 AITradeServer 表
 	ServerDB, err := LineCoinServerDB()
 	if err != nil {
 		ServerDB.Close()
@@ -62,11 +62,11 @@ func DeployShell(c *fiber.Ctx) error {
 	ServerDB.Table.FindOne(ServerDB.Ctx, FK).Decode(&ServerData)
 	if len(ServerData.CoinServeID) < 3 {
 		ServerDB.Close()
-		return c.JSON(result.ErrStartAIFundServerNot.WithData("该服务尚未注册"))
+		return c.JSON(result.ErrStartAITradeServerNot.WithData("该服务尚未注册"))
 	}
 	if ServerData.UserID != UserID {
 		ServerDB.Close()
-		return c.JSON(result.ErrStartAIFundServer.WithMsg("当前账户没有权限"))
+		return c.JSON(result.ErrStartAITradeServer.WithMsg("当前账户没有权限"))
 	}
 	ServerDB.Close()
 

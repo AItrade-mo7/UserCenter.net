@@ -60,7 +60,7 @@ func Login(c *fiber.Ctx) error {
 		SecretKey: config.SecretKey,
 		ExpiresAt: time.Now().Add(72 * time.Hour),
 		Message:   UserDB.AccountData.UserID,
-		Issuer:    "AIFund.net",
+		Issuer:    "AITrade.net",
 		Subject:   "UserToken",
 	}).Generate()
 

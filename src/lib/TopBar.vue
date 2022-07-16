@@ -82,7 +82,7 @@ const showDrawer = () => {
             <RouterLink to="/CoinServe" class="item_btn">
               <n-button text size="tiny">
                 <template #icon>
-                  <XIcon name="AIFundLogo" />
+                  <XIcon name="AITradeLogo" />
                 </template>
                 CoinServe
               </n-button>
