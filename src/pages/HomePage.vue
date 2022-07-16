@@ -15,23 +15,27 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
     </div>
 
     <h3>开始：</h3>
-    <RouterLink to="/CoinServe">
-      <n-button type="primary">
-        <template #icon>
-          <XIcon name="OkxLogo" />
-        </template>
-        我是币圈用户
-      </n-button>
-    </RouterLink>
-
-    <RouterLink to="/CoinServe">
-      <n-button type="primary">
-        <template #icon>
-          <XIcon name="OkxLogo" />
-        </template>
-        我是股市用户
-      </n-button>
-    </RouterLink>
+    <div>
+      <RouterLink to="/CoinServe">
+        <n-button type="primary">
+          <template #icon>
+            <XIcon name="OkxLogo" />
+          </template>
+          我是币圈大佬
+        </n-button>
+      </RouterLink>
+    </div>
+    <br />
+    <div>
+      <RouterLink to="/CoinServe">
+        <n-button type="primary" ghost color="#f00">
+          <template #icon>
+            <XIcon name="ZTSLogo" />
+          </template>
+          我是炒股大神
+        </n-button>
+      </RouterLink>
+    </div>
   </div>
 </template>
 
