@@ -5,12 +5,13 @@ import { defineAsyncComponent } from 'vue';
 const ShellAbout = defineAsyncComponent(() => import('./ShellAbout.vue'));
 
 const props = defineProps({
-  config: Object,
+  CoinServeID: String,
 });
 
 let Url = $ref('');
 const deployFunc = () => {
-  const CoinServeID = props?.config?.CoinServeID;
+  const CoinServeID = props?.CoinServeID;
+
   AuthModal({
     IsPassword: true,
     async OkBack(param) {
@@ -34,8 +35,8 @@ const deployFunc = () => {
       </div>
     </div>
 
-    <div v-if="Url">
-      <ShellAbout :Src="Url"></ShellAbout>
+    <div v-if="Url && props?.CoinServeID">
+      <ShellAbout :Src="Url" :CoinServeID="props?.CoinServeID"></ShellAbout>
     </div>
   </div>
 </template>

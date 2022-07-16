@@ -20,7 +20,6 @@ const GetConfig = () => {
   }).then((res) => {
     if (res.Code > 0) {
       CoinServeConfig = res.Data;
-      CoinServeConfig.CoinServeID = CoinServeID;
     }
   });
 };
@@ -65,7 +64,7 @@ const OpenSet = () => {
 
   <div class="PageWrapper">
     <InfoOk v-if="CoinServeConfig.AppInfo" :config="CoinServeConfig" />
-    <InfoNot v-if="!CoinServeConfig.AppInfo" :config="CoinServeConfig" />
+    <InfoNot v-if="!CoinServeConfig.AppInfo" :CoinServeID="CoinServeID" />
   </div>
 </template>
 

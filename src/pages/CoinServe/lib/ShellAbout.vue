@@ -1,27 +1,27 @@
 <script setup lang="ts">
 import { CopyText } from '@/utils/tools';
-import { mStorage } from '@/utils/tools';
 import { GetCoinFundConfig } from '@/api/CoinFundServe';
 
-const CoinServeID = mStorage.get('CoinServeID');
+const props = defineProps({
+  Src: String,
+  CoinServeID: String,
+});
 
 let Port = '';
-if (CoinServeID) {
-  const host_arr = CoinServeID.split(':');
+if (props.CoinServeID) {
+  const host_arr = props.CoinServeID.split(':');
   Port = host_arr[1];
 }
 
 const copy = () => {
   CopyText(wgetSh);
 };
-const props = defineProps({
-  Src: String,
-});
+
 const wgetSh = `wget -qO- ${props.Src} | sudo bash`;
 
 const getConfig = () => {
   GetCoinFundConfig({
-    CoinServeID,
+    CoinServeID: props.CoinServeID,
   })
     .then((res) => {
       if (res.Code > 0) {
@@ -50,7 +50,9 @@ const getConfig = () => {
       复制该指令，并在 ip 为
       <div className="ShellAbout_desc-ip">
         <code>
-          <a :href="`http://${CoinServeID}`" target="_blank"> {{ CoinServeID }} </a>
+          <a :href="`http://${props.CoinServeID}`" target="_blank">
+            {{ props.CoinServeID }}
+          </a>
         </code>
       </div>
       的主机上执行。
