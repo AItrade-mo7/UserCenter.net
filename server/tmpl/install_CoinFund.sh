@@ -3,7 +3,7 @@
 Port="{{.Port}}"
 UserID="{{.UserID}}"
 CoinServeID="{{.CoinServeID}}"
-startName="CoinServe.net-"${Port}
+startName="CoinAI.net-"${Port}
 
 rm -rf ${startName}
 mkdir ${startName}
@@ -57,10 +57,10 @@ fi
 
 SystemType=$(arch)
 
-downLoadPath="https://raw.githubusercontent.com/mo7static/CoinServe.net/main/CoinServe.net_x86_64"
+downLoadPath="https://raw.githubusercontent.com/mo7static/CoinAI.net/main/CoinAI.net_x86_64"
 
 if [[ ${SystemType} =~ "aarch64" ]]; then
-  downLoadPath="https://raw.githubusercontent.com/mo7static/CoinServe.net/main/CoinServe.net_aarch64"
+  downLoadPath="https://raw.githubusercontent.com/mo7static/CoinAI.net/main/CoinAI.net_aarch64"
 fi
 
 ################ 启动脚本 ##########################
