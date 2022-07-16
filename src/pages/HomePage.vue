@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { TopBarStore, UserInfoStore, PingDataStore } from '@/store';
 import { Logo } from '@/config/constant';
 import { defineAsyncComponent } from 'vue';
 
@@ -14,8 +15,9 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
     <div>
       基于<span class="fundText">大数据</span>和<span class="fundText">深度学习</span> , 打造属于您个人的 AI 交易服务。
     </div>
+    <br />
 
-    <h3>开始：</h3>
+    <br />
     <div>
       <RouterLink to="/CoinServe">
         <n-button type="primary">
@@ -34,6 +36,17 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
             <XIcon name="ZTSLogo" />
           </template>
           股票交易 StockAI ->
+        </n-button>
+      </RouterLink>
+    </div>
+    <br />
+    <div>
+      <RouterLink to="/About">
+        <n-button type="success" @click="TopBarStore.open()">
+          <template #icon>
+            <XIcon name="MenuFoldOutlined" />
+          </template>
+          开始
         </n-button>
       </RouterLink>
     </div>
