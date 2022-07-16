@@ -16,4 +16,4 @@ outPutPath=${path}"/dist"
 staticPath=${path}"/www"
 
 # 部署目录
-deployPath="/root/ProdProject/fund.mo7.cc"
+deployPath="/root/ProdProject/trade.mo7.cc"

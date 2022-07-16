@@ -18,7 +18,7 @@ interface WssType {
 
 export function NewSocket(opt: WssType) {
   let protocol = 'wss://';
-  let host = 'fund.mo7.cc';
+  let host = 'trade.mo7.cc';
   let pathname = '/api/wss';
 
   const location = window.location;
@@ -41,8 +41,8 @@ export function NewSocket(opt: WssType) {
 
   const socketUrl = protocol + host + pathname;
 
-  // const socketUrl = 'wss://fund.mo7.cc/wss';
-  // const socketUrl = 'ws://fund.mo7.cc/wss';
+  // const socketUrl = 'wss://trade.mo7.cc/wss';
+  // const socketUrl = 'ws://trade.mo7.cc/wss';
   // const socketUrl = 'ws://localhost:8999/wss';
   // socketUrl = `ws://50.18.29.218:9010/AITrade_net/wss?host=${opt.Host}`;
 

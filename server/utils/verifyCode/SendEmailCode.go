@@ -154,7 +154,7 @@ func SendCode(opt SendCodeParam) (vCode string, resErr error) {
 	vCode = ""
 	resErr = nil
 
-	SecurityCode := "fund.mo7.cc-System"
+	SecurityCode := "trade.mo7.cc-System"
 
 	if len(opt.SecurityCode) > 0 {
 		SecurityCode = opt.SecurityCode
