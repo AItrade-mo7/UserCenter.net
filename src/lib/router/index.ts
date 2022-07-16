@@ -44,9 +44,9 @@ const routes: any = [
         component: () => import('@/pages/About/OkxKey.vue'),
       },
       {
-        path: 'FundServe',
-        description: 'FundServe 说明',
-        component: () => import('@/pages/About/FundServe.vue'),
+        path: 'AIServe',
+        description: 'AIServe 说明',
+        component: () => import('@/pages/About/AIServe.vue'),
       },
     ],
   },
