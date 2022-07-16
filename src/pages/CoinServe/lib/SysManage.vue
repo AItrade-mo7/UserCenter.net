@@ -26,8 +26,17 @@ const restartServer = () => {
 };
 
 const SendFetch = (type: number) => {
+  let EmailAction = '修改资料';
+  if (type == 1) {
+    EmailAction = '重启服务';
+  }
+
+  if (type == -1) {
+    EmailAction = '删除服务';
+  }
+
   AuthModal({
-    EmailAction: '修改资料',
+    EmailAction,
     IsPassword: true,
     async OkBack(param) {
       const Info = {
