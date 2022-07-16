@@ -3,7 +3,7 @@
 Port="{{.Port}}"
 UserID="{{.UserID}}"
 CoinServeID="{{.CoinServeID}}"
-startName="CoinFund.net-"${port}
+startName="CoinFund.net-"${Port}
 
 rm -rf ${startName}
 mkdir ${startName}

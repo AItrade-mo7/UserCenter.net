@@ -8,16 +8,18 @@ const props = defineProps({
 });
 
 let Port = '';
+let Host = '';
 if (props.CoinServeID) {
   const host_arr = props.CoinServeID.split(':');
   Port = host_arr[1];
+  Host = host_arr[0];
 }
 
 const copy = () => {
   CopyText(wgetSh);
 };
 
-const wgetSh = `wget -qO- ${props.Src} | sudo bash`;
+const wgetSh = `wget -qO- ${window.location.protocol}${props.Src} | sudo bash`;
 
 const getConfig = () => {
   GetCoinFundConfig({
@@ -39,50 +41,51 @@ const getConfig = () => {
 
 <template>
   <div class="ShellAbout">
-    <h3>AIFund.net 部署文档</h3>
-    <div className="ShellAbout_hint">系统已为您生成了一键部署指令:</div>
-    <div className="ShellAbout__urlBox">
+    <h3>CoinFundServe.net 部署文档</h3>
+    <div class="ShellAbout_hint">系统已为您生成了专属的部署指令:</div>
+    <div class="ShellAbout__urlBox">
       <n-code :code="wgetSh" word-wrap> </n-code>
       <n-button size="tiny" type="primary" @click="copy"> 复制 </n-button>
     </div>
 
-    <div className="ShellAbout_desc">
+    <div class="ShellAbout_desc">
       复制该指令，并在 ip 为
-      <div className="ShellAbout_desc-ip">
-        <code>
-          <a :href="`http://${props.CoinServeID}`" target="_blank">
-            {{ props.CoinServeID }}
-          </a>
-        </code>
+      <div class="ShellAbout_desc-ip">
+        <a :href="`http://${props.CoinServeID}`" target="_blank">
+          <span class="lineHight"> {{ Host }} </span>:{{ Port }}
+        </a>
       </div>
       的主机上执行。
       <br />
-      请开放该主机的 <span className="lineHight">{{ Port }}</span> 端口。
+      请开放该主机的 <span class="lineHight">{{ Port }}</span> 端口。
       <br />
       <br />
-      主机硬件要求：
-      <br />
-      <span className="lineHight">64位(x86)</span>或<span className="lineHight">64位(ARM)</span>的
-      <span className="lineHight">Linux</span>
+      系统要求：
+      <span class="lineHight">aarch64</span>或<span class="lineHight">x86_64</span>的
+      <span class="lineHight">Linux</span>
       系统
       <br />
       <br />
       系统版本：
-      <br />
-      <span className="lineHight">Ubuntu 20.04 LTS</span> 或以上版本
+      <span class="lineHight">Ubuntu 20.04</span> 或以上版本
       <br />
       <br />
       硬件配置：
-      <br />
-      <span className="lineHight">1GB</span> 以上内存 <span className="lineHight">15GB</span> 以上存储,
+      <span class="lineHight">1GB</span> 及以上内存 <span class="lineHight">20GB</span> 及以上存储。
+      <span class="desc"> 该程序采用 Go 语言编写, 基于内存进行超高频计算,运行峰值内存消耗为50M~60M </span>
       <br />
       <br />
       位置要求：
       <br />
       优先推荐 AWS
-      <span className="lineHight">美国西部 (加利福尼亚北部)</span> 的云主机
+      <span class="lineHight">美国西部 (加利福尼亚北部)</span> 的云主机
       <br />
-      <span className="lineHight">日本</span>或<span className="lineHight">香港</span>等地的 海外 主机均可
+      <span class="lineHight">日本</span>或<span class="lineHight">香港</span>等地的 海外 主机均可
+      <br />
+      <br />
+      <span class="desc">
+        同一台主机可以部署多个程序,为防止IP限制同一主机下部署不应超过<span class="lineHight">8</span>个
+      </span>
     </div>
     <br />
     <br />
@@ -114,5 +117,13 @@ const getConfig = () => {
     color: #999;
     background-color: @mainColor;
   }
+}
+
+.lineHight {
+  color: @mainColor;
+}
+.desc {
+  font-size: 12px;
+  color: #666;
 }
 </style>
