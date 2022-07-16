@@ -30,7 +30,7 @@ const AITradeNetPing = (id: string) => {
       CoinServeID: id,
     }).then((res) => {
       const label = $lcg(res, 'Data.AppInfo.name', '');
-      if (label == 'coin-fund') {
+      if (label == 'coin-ai') {
         for (let i = 0; i < ServerList.length; i++) {
           const item = ServerList[i];
           if (item.CoinServeID == id) {
