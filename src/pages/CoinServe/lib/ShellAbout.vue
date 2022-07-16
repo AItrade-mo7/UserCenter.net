@@ -86,11 +86,16 @@ const getConfig = () => {
       <span class="desc">
         同一台主机可以部署多个程序,为防止IP限制同一主机下部署不应超过<span class="lineHight">8</span>个
       </span>
+      <br />
+      <span class="desc">
+        可以点击 <a class="lineHight" :href="props.Src" target="_blank">查看</a> 阅读指令具体内容,
+        它会下载程序的最新版本，帮助你搭建基本的运行环境、写入配置文件、并启动服务。
+      </span>
     </div>
     <br />
     <br />
     <div>
-      <n-button type="primary" size="small" @click="getConfig"> 我已部署完成 , 点击连接</n-button>
+      <n-button type="primary" size="small" @click="getConfig"> 我已部署完成 , 点击测试</n-button>
     </div>
   </div>
 </template>
