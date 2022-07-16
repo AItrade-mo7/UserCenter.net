@@ -36,7 +36,7 @@ const Submit = async () => {
     window.$message.success(res.Msg);
     UserInfoStore.update(InfoRes.Data);
     TopBarStore.open();
-    $router.replace('/CoinServe');
+    $router.replace('/');
   }
   SubmitStatus = false;
 };
