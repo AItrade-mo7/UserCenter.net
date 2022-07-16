@@ -93,7 +93,7 @@ const delServer = (item) => {
 </script>
 
 <template>
-  <PageTitle>AIFundServer</PageTitle>
+  <PageTitle>CoinServe</PageTitle>
   <div class="PageWrapper AIFundServerList">
     <div v-if="ServerList.length > 0 && KeyList.length > 0" class="ListWrapper">
       <n-card
