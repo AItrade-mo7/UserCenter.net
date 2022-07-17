@@ -42,7 +42,7 @@ onUnmounted(() => {
       </div>
       <div class="block">
         <span class="label">系统时间</span>
-        <span class="value red">{{ WssData.SysTime }}</span>
+        <span class="value"><n-time :time="WssData.SysTime" /></span>
       </div>
     </n-space>
   </div>
@@ -61,6 +61,9 @@ onUnmounted(() => {
   font-weight: 700;
   font-size: 18px;
 }
+.value {
+  color: #333;
+}
 
 .green {
   color: @greenColor;
@@ -78,8 +81,6 @@ onUnmounted(() => {
       &::after {
         content: ' : ';
       }
-    }
-    .value {
     }
   }
 }

@@ -199,7 +199,9 @@ const delServer = (item) => {
   text-align: center;
   margin-top: 24px;
   .item_btn {
+    display: inline-block;
     margin: 0 6px;
+    margin-bottom: 8px;
   }
 }
 .ListWrapper {
