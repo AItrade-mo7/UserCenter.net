@@ -3,9 +3,6 @@ import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
 
-import eslintPlugin from 'vite-plugin-eslint';
-import Inspect from 'vite-plugin-inspect';
-
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 
@@ -55,8 +52,6 @@ export default defineConfig({
       dts: path.resolve(pathSrc, 'components.d.ts'),
     }),
     VitePWA(PwaConfig),
-    eslintPlugin(),
-    Inspect(),
   ],
   define: {
     ViteConst: JSON.stringify({
