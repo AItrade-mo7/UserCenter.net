@@ -3,6 +3,8 @@ import { NewSocket } from '@/api/CoinAI/CoinAIWss';
 import { onMounted, onUnmounted } from 'vue';
 import type { WssDataType } from '@/api/CoinAI/WssType.d';
 import type { resDataType } from '@/utils/utils.d';
+import { defineAsyncComponent } from 'vue';
+const TradeBtn = defineAsyncComponent(() => import('./TradeBtn.vue'));
 
 const props = defineProps({
   config: Object,
@@ -46,6 +48,7 @@ onUnmounted(() => {
       </div>
     </n-space>
   </div>
+  <TradeBtn />
   <div v-if="!WssData.DataSource">
     正在连接到 <span class="lineHight">{{ props.config.AppEnv.CoinServeID }}</span> .....
   </div>
