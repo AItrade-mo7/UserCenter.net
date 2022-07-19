@@ -29,7 +29,7 @@ type NewOkxFetchOpt struct {
 	Data       map[string]any
 }
 
-func NewRest(opt NewOkxFetchOpt) []byte {
+func NewRest(opt NewOkxFetchOpt) (resData []byte, resErr error) {
 	Timestamp := mTime.IsoTime(true)
 	ApiKey := opt.ApiKey
 	SecretKey := opt.SecretKey

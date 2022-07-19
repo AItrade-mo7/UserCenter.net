@@ -28,7 +28,7 @@ type RestOpt struct {
 	Data   map[string]any
 }
 
-func NewRest(opt RestOpt) []byte {
+func NewRest(opt RestOpt) (resData []byte, resErr error) {
 	Token := mEncrypt.NewToken(mEncrypt.NewTokenOpt{
 		SecretKey: config.SecretKey,              // key
 		ExpiresAt: time.Now().Add(time.Hour / 2), // 过期时间 半小时

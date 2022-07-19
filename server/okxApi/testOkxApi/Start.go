@@ -57,7 +57,7 @@ type Opt struct {
 }
 
 func Start(opt Opt) (string, error) {
-	reqData := fetch.NewRest(fetch.NewOkxFetchOpt{
+	reqData, err := fetch.NewRest(fetch.NewOkxFetchOpt{
 		ApiKey:     opt.ApiKey,
 		Passphrase: opt.Passphrase,
 		SecretKey:  opt.SecretKey,
@@ -67,14 +67,13 @@ func Start(opt Opt) (string, error) {
 			"ccy": "USDT",
 		},
 	})
-
-	if len(reqData) < 5 {
-		errStr := fmt.Errorf("okx 接口请求失败")
+	if err != nil {
+		errStr := fmt.Errorf("okx 接口请求失败:%+v", err)
 		return "", errStr
 	}
 
 	var data ReqType
-	err := jsoniter.Unmarshal(reqData, &data)
+	err = jsoniter.Unmarshal(reqData, &data)
 	if err != nil {
 		errStr := fmt.Errorf("HotList 数据格式化失败 : " + mStr.ToStr(reqData))
 		global.LogErr(mStr.ToStr(errStr))

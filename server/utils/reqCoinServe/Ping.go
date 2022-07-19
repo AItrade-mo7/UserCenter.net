@@ -40,14 +40,13 @@ func Ping(opt PingOpt) (resErr error) {
 		opt.ServerInfo.CoinServeID,
 	)
 
-	reqData := NewRest(RestOpt{
+	_, err := NewRest(RestOpt{
 		Origin: pingBaseUrl,
 		UserID: opt.AccountData.UserID,
 		Path:   "/CoinAI/ping",
 		Method: "GET",
 	})
-
-	if len(reqData) < 5 {
+	if err != nil {
 		resErr = fmt.Errorf("服务验证失败")
 		return
 	}
