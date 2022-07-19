@@ -1,25 +1,29 @@
 import { ajax_json } from '@/utils/http';
 
-export const Buy = () => {
+interface TradeParam {
+  CoinServeID: string;
+}
+
+export const Buy = (data: TradeParam) => {
   return ajax_json({
     url: '/CoinAI/Order/Buy',
-    data: null,
+    data,
     method: 'post',
   });
 };
 
-export const Sell = () => {
+export const Sell = (data: TradeParam) => {
   return ajax_json({
     url: '/CoinAI/Order/Sell',
-    data: null,
+    data,
     method: 'post',
   });
 };
 
-export const Close = () => {
+export const Close = (data: TradeParam) => {
   return ajax_json({
     url: '/CoinAI/Order/Close',
-    data: null,
+    data,
     method: 'post',
   });
 };

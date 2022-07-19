@@ -48,7 +48,7 @@ onUnmounted(() => {
       </div>
     </n-space>
   </div>
-  <TradeBtn />
+  <TradeBtn v-if="WssData.CoinServeID" :WssData="WssData" />
   <div v-if="!WssData.DataSource">
     正在连接到 <span class="lineHight">{{ props.config.AppEnv.CoinServeID }}</span> .....
   </div>
