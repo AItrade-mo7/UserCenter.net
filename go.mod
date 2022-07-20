@@ -3,13 +3,13 @@ module DataCenter.net
 go 1.18
 
 require (
-	github.com/EasyGolang/goTools v0.12.1
+	github.com/EasyGolang/goTools v0.13.2
 	github.com/fasthttp/websocket v1.5.0
 	github.com/gofiber/fiber/v2 v2.34.1
 	github.com/gofiber/websocket/v2 v2.0.22
 	github.com/json-iterator/go v1.1.12
 	github.com/spf13/viper v1.12.0
-	github.com/valyala/fasthttp v1.37.0
+	github.com/valyala/fasthttp v1.38.0
 	github.com/yeqown/fasthttp-reverse-proxy v0.0.0-20200930023507-ed73ac32bc64
 	go.mongodb.org/mongo-driver v1.9.1
 )
@@ -30,11 +30,10 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
-	github.com/klauspost/compress v1.15.6 // indirect
+	github.com/klauspost/compress v1.15.8 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
