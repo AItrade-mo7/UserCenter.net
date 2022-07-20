@@ -40,14 +40,14 @@ func WsServer() func(*fiber.Ctx) error {
 			if AuthResult.Code > 0 {
 				AuthResult := Send()
 				b, _ := jsoniter.Marshal(AuthResult)
-				err := ws.WriteMessage(1, b)
+				err := ws.WriteMessage(websocket.TextMessage, b)
 				if err != nil {
 					ws.Close()
 					break
 				}
 			} else {
 				b, _ := jsoniter.Marshal(AuthResult)
-				err := ws.WriteMessage(1, b)
+				err := ws.WriteMessage(websocket.TextMessage, b)
 				if err != nil {
 					ws.Close()
 					break
