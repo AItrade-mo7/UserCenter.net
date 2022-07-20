@@ -13,7 +13,7 @@ package www
 
 import "embed"
 
-//go:embed *
+//go:embed * assets/*
 var Static embed.FS
 
 END

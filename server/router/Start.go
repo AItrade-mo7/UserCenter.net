@@ -70,10 +70,11 @@ func Start() {
 
 	// 静态文件服务器
 	app.Use("/", filesystem.New(filesystem.Config{
-		Root:         http.FS(www.Static),
-		Browse:       true,
-		Index:        "index.html",
-		NotFoundFile: "index.html",
+		Root: http.FS(www.Static),
+		// Root:         http.Dir("./www"),
+		Browse: true,
+		// Index:        "index.html",
+		// NotFoundFile: "index.html",
 	}))
 
 	listenHost := mStr.Join(":", config.AppInfo.Port)
