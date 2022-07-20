@@ -26,7 +26,8 @@ func WsServer() func(*fiber.Ctx) error {
 					ws.Close()
 					break
 				}
-				if AuthResult.Code < 0 {
+
+				if AuthResult.Code == 0 {
 					AuthResult = Auth(msg)
 				}
 
@@ -35,17 +36,22 @@ func WsServer() func(*fiber.Ctx) error {
 		}()
 
 		for {
-			SendData := Send()
 
 			if AuthResult.Code > 0 {
-				b, _ := jsoniter.Marshal(SendData)
-
+				AuthResult := Send()
+				b, _ := jsoniter.Marshal(AuthResult)
 				err := ws.WriteMessage(1, b)
 				if err != nil {
 					ws.Close()
 					break
 				}
 			} else {
+				b, _ := jsoniter.Marshal(AuthResult)
+				err := ws.WriteMessage(1, b)
+				if err != nil {
+					ws.Close()
+					break
+				}
 			}
 
 			time.Sleep(time.Second) // 一秒执行一次
