@@ -26,7 +26,7 @@ func Auth(msg []byte) mRes.ResType {
 		return verifyCode(msg)
 	}
 
-	return result.ErrToken.WithData(msg)
+	return result.ErrToken.WithData(MsgStr)
 }
 
 func verifyCode(data []byte) mRes.ResType {
