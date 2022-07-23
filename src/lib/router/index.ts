@@ -15,14 +15,14 @@ const routes: any = [
     component: () => import('@/pages/RegisterPage.vue'),
   },
   {
-    path: '/CoinList',
+    path: '/Market',
     isLogin: true,
-    component: () => import('@/pages/CoinList/IndexPage.vue'),
+    component: () => import('@/pages/Market/IndexPage.vue'),
     children: [
       {
         path: '',
         description: 'list',
-        component: () => import('@/pages/CoinList/ListPage.vue'),
+        component: () => import('@/pages/Market/ListPage.vue'),
       },
     ],
   },

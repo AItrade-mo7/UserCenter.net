@@ -41,14 +41,20 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
     </div>
     <br />
     <div>
-      <RouterLink to="/About">
-        <n-button type="success" @click="TopBarStore.open()">
+      <RouterLink to="/Market">
+        <n-button strong secondary type="error">
           <template #icon>
-            <XIcon name="MenuFoldOutlined" />
+            <XIcon name="BarChartOutlined" />
           </template>
-          开始
+          查看行情
         </n-button>
       </RouterLink>
+      <n-button type="info" @click="TopBarStore.open()">
+        <template #icon>
+          <XIcon name="MenuFoldOutlined" />
+        </template>
+        开始
+      </n-button>
     </div>
   </div>
 </template>
