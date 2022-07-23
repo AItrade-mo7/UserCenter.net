@@ -15,6 +15,18 @@ const routes: any = [
     component: () => import('@/pages/RegisterPage.vue'),
   },
   {
+    path: '/CoinList',
+    isLogin: true,
+    component: () => import('@/pages/CoinList/IndexPage.vue'),
+    children: [
+      {
+        path: '',
+        description: 'list',
+        component: () => import('@/pages/CoinList/ListPage.vue'),
+      },
+    ],
+  },
+  {
     path: '/About',
     component: () => import('@/pages/About/IndexPage.vue'),
     children: [

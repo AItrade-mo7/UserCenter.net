@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TopBarStore, UserInfoStore, PingDataStore } from '@/store';
+import { TopBarStore } from '@/store';
 import { Logo } from '@/config/constant';
 import { defineAsyncComponent } from 'vue';
 
