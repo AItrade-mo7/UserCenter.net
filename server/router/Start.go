@@ -55,6 +55,7 @@ func Start() {
 
 	// AITrade_net
 	app.All("/CoinAI/*", api.CoinServeProxy)
+	app.All("/CoinMarket/*", api.CoinMarketProxy)
 
 	// api
 	r_api := app.Group("/api")
