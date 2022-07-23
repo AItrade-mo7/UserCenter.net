@@ -5,7 +5,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 
 <template>
   <PageTitle> Market </PageTitle>
-  <div class="PageWrapper ListWrapper">
+  <div class="ListWrapper">
     CoinList <br />
     CoinList <br />
     CoinList <br />
