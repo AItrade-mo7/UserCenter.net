@@ -37,7 +37,9 @@ const columns = [
     title: 'Price',
     key: 'Price',
     render(row) {
-      return h(PriceView);
+      return h(PriceView, {
+        data: row,
+      });
     },
   },
 ];
