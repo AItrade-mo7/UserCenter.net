@@ -75,6 +75,11 @@ export default defineConfig({
         target: ProxyUrl,
         changeOrigin: true, // 允许跨域
       },
+      '/CoinMarket': {
+        // 设置你调用的接口域名和端口号 别忘了加http
+        target: ProxyUrl,
+        changeOrigin: true, // 允许跨域
+      },
     },
   },
 });

@@ -1,6 +1,6 @@
 import { ajax_json } from '@/utils/http';
 
-interface TickerParam {
+export interface TickerParam {
   SortType: 'U_R24' | 'Amount';
 }
 
@@ -12,7 +12,7 @@ export const GetTickerList = (data: TickerParam) => {
   });
 };
 
-interface InstParam {
+export interface InstParam {
   InstType: 'SPOT' | 'SWAP';
 }
 
