@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-export const AmountFormat = (val: string): string => {
+export const VolumeFormat = (val: string): string => {
   interface paramType {
     value: number | string;
     unit: string;

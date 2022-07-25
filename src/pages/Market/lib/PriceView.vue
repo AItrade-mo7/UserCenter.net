@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { defineProps } from 'vue';
+
 const props = defineProps({
   data: Object,
 });
@@ -36,7 +38,6 @@ const CountURNum = (ur: string) => {
 
 <style lang="less" scoped>
 .Price {
-  text-align: right;
   font-size: 14px;
   .ur {
     color: #333;

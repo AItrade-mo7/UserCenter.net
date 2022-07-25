@@ -5,6 +5,7 @@ import type { TickerParam } from '@/api/CoinMarket';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));
+const VolumeView = defineAsyncComponent(() => import('./lib/VolumeView.vue'));
 
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
@@ -24,18 +25,61 @@ onMounted(() => {
   GetCoinTickerList();
 });
 
-const columns = [
+const columns: any[] = [
+  {
+    title: '#',
+    width: 34,
+    render: (_, index) => {
+      return `${index + 1}`;
+    },
+  },
   {
     title: 'Coin',
+    width: 68,
+    fixed: 'left',
     key: 'CcyName',
+    align: 'left',
   },
   {
-    title: 'Amount',
-    key: 'Amount',
+    title: 'OKX',
+    width: 86,
+    className: 'OKX',
+    align: 'right',
+    render(row) {
+      return h(VolumeView, {
+        Volume: row.VolCcy24H,
+        Bourse: 'OKX',
+      });
+    },
   },
   {
-    title: 'Price',
-    key: 'Price',
+    title: 'Binance',
+    width: 86,
+    className: 'Binance',
+    align: 'right',
+    render(row) {
+      return h(VolumeView, {
+        Volume: row.QuoteVolume,
+        Bourse: 'Binance',
+      });
+    },
+  },
+  {
+    title: 'Volume',
+    width: 86,
+    className: 'Volume',
+    align: 'right',
+    render(row) {
+      return h(VolumeView, {
+        Volume: row.Volume,
+        Bourse: 'Volume',
+      });
+    },
+  },
+  {
+    title: '24h',
+    width: 100,
+    align: 'right',
     render(row) {
       return h(PriceView, {
         data: row,
@@ -49,13 +93,22 @@ const columns = [
   <PageTitle> Market </PageTitle>
   <div class="ListWrapper">
     <div class="TableWrapper">
-      <n-data-table :columns="columns" :data="CoinTickerList" />
+      <n-data-table size="small" striped :columns="columns" :data="CoinTickerList" />
     </div>
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
 @import '@/config/constant.less';
 .TableWrapper {
+  .OKX {
+    color: #999;
+  }
+  .Binance {
+    color: #f0b90b;
+  }
+  .Volume {
+    color: #000;
+  }
 }
 </style>
