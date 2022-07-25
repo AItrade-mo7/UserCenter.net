@@ -47,6 +47,7 @@ const columns: any[] = [
     align: 'right',
     render(row) {
       return h(VolumeView, {
+        Data: row,
         Volume: row.VolCcy24H,
         Bourse: 'OKX',
       });
@@ -59,6 +60,7 @@ const columns: any[] = [
     align: 'right',
     render(row) {
       return h(VolumeView, {
+        Data: row,
         Volume: row.QuoteVolume,
         Bourse: 'Binance',
       });
@@ -66,11 +68,12 @@ const columns: any[] = [
   },
   {
     title: 'Volume',
-    width: 86,
+    width: 104,
     className: 'Volume',
     align: 'right',
     render(row) {
       return h(VolumeView, {
+        Data: row,
         Volume: row.Volume,
         Bourse: 'Volume',
       });
@@ -92,6 +95,9 @@ const columns: any[] = [
 <template>
   <PageTitle> Market </PageTitle>
   <div class="ListWrapper">
+    <div v-if="CoinTickerList.length" class="Describe">
+      OKX、Binance 综合交易量排名前 {{ CoinTickerList.length }} 的币种
+    </div>
     <div class="TableWrapper">
       <n-data-table size="small" striped :columns="columns" :data="CoinTickerList" />
     </div>
@@ -100,6 +106,13 @@ const columns: any[] = [
 
 <style lang="less">
 @import '@/config/constant.less';
+
+.Describe {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
 .TableWrapper {
   .OKX {
     color: #999;
