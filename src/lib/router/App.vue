@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
 import { NConfigProvider, zhCN, dateZhCN } from 'naive-ui';
 import type { GlobalThemeOverrides } from 'naive-ui';
@@ -22,7 +23,10 @@ const fetchPing = async () => {
     removeToken();
   }
 };
-fetchPing();
+
+onMounted(() => {
+  fetchPing();
+});
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {

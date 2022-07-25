@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { h, onMounted } from 'vue';
 import { GetTickerList } from '@/api/CoinMarket';
 import type { TickerParam } from '@/api/CoinMarket';
-import type { DataTableColumns } from 'naive-ui';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
+const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));
 
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
@@ -18,7 +19,10 @@ const GetCoinTickerList = () => {
     }
   });
 };
-GetCoinTickerList();
+
+onMounted(() => {
+  GetCoinTickerList();
+});
 
 const columns = [
   {
@@ -26,20 +30,15 @@ const columns = [
     key: 'CcyName',
   },
   {
+    title: 'Amount',
+    key: 'Amount',
+  },
+  {
     title: 'Price',
-    key: 'Last',
-  },
-  {
-    title: 'Amount',
-    key: 'Amount',
-  },
-  {
-    title: 'U_R24',
-    key: 'U_R24',
-  },
-  {
-    title: 'Amount',
-    key: 'Amount',
+    key: 'Price',
+    render(row) {
+      return h(PriceView);
+    },
   },
 ];
 </script>

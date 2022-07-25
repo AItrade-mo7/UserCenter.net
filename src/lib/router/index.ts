@@ -16,7 +16,6 @@ const routes: any = [
   },
   {
     path: '/Market',
-    isLogin: true,
     component: () => import('@/pages/Market/IndexPage.vue'),
     children: [
       {
