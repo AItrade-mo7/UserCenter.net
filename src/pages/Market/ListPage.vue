@@ -20,7 +20,6 @@ const GetCoinTickerList = () => {
     }
   });
 };
-
 onMounted(() => {
   GetCoinTickerList();
 });
