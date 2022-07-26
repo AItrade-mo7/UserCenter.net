@@ -2,6 +2,7 @@
 import { h, onMounted } from 'vue';
 import { GetTickerList } from '@/api/CoinMarket';
 import type { TickerParam } from '@/api/CoinMarket';
+import { DateFormat } from '@/utils/filters';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));
@@ -95,7 +96,8 @@ const columns: any[] = [
   <PageTitle> Market </PageTitle>
   <div class="ListWrapper">
     <div v-if="CoinTickerList.length" class="Describe">
-      OKX、Binance 综合交易量排名前 {{ CoinTickerList.length }} 的币种
+      OKX、Binance 综合交易量排名前 {{ CoinTickerList.length }} 的币种。 <br />
+      列表数据更新时间 {{ DateFormat(CoinTickerList[0].Ts) }}
     </div>
     <div class="TableWrapper">
       <n-data-table size="small" striped :columns="columns" :data="CoinTickerList" />

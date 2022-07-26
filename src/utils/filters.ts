@@ -29,7 +29,7 @@ export const VolumeFormat = (val: string): string => {
   return param.value + param.unit;
 };
 
-export const DateFormat = (val: number, isMill = false): string => {
+export const DateFormat = (val: string, isMill = false): string => {
   const time = new Date(Number(val));
   const dayJsVal = dayjs(time);
   const year = dayJsVal.year();
