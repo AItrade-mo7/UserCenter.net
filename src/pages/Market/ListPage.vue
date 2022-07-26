@@ -48,7 +48,7 @@ const columns: any[] = [
     render(row) {
       return h(VolumeView, {
         Data: row,
-        Volume: row.VolCcy24H,
+        Volume: row.OKXVol24H,
         Bourse: 'OKX',
       });
     },
@@ -61,7 +61,7 @@ const columns: any[] = [
     render(row) {
       return h(VolumeView, {
         Data: row,
-        Volume: row.QuoteVolume,
+        Volume: row.BinanceVol24H,
         Bourse: 'Binance',
       });
     },
