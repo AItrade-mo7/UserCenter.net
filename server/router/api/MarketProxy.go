@@ -10,12 +10,12 @@ import (
 	fastProxy "github.com/yeqown/fasthttp-reverse-proxy"
 )
 
-func CoinMarketProxy(c *fiber.Ctx) error {
+func MarketProxy(c *fiber.Ctx) error {
 	fastProxy.SetProduction() // 关闭 debug
 	// 代理 wss
 	findWss := strings.Contains(c.Path(), "/wss")
 	if findWss {
-		return CoinMarketProxy_wss(c)
+		return MarketProxy_wss(c)
 	}
 	host := "trade.mo7.cc"
 	if len(host) < 6 {
@@ -26,7 +26,7 @@ func CoinMarketProxy(c *fiber.Ctx) error {
 	return nil
 }
 
-func CoinMarketProxy_wss(c *fiber.Ctx) error {
+func MarketProxy_wss(c *fiber.Ctx) error {
 	host := "trade.mo7.cc"
 	path := c.Path()
 
