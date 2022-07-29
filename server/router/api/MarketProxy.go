@@ -11,6 +11,8 @@ import (
 	fastProxy "github.com/yeqown/fasthttp-reverse-proxy"
 )
 
+const testMarketHost = "127.0.0.1:8998"
+
 func MarketProxy(c *fiber.Ctx) error {
 	fastProxy.SetProduction() // 关闭 debug
 	// 代理 wss
@@ -20,7 +22,7 @@ func MarketProxy(c *fiber.Ctx) error {
 	}
 	host := "trade.mo7.cc"
 	if config.SysEnv.RunMod == 1 {
-		host = "127.0.0.1:8998"
+		host = testMarketHost
 	}
 
 	if len(host) < 6 {
@@ -35,7 +37,7 @@ func MarketProxy_wss(c *fiber.Ctx) error {
 	host := "trade.mo7.cc"
 	path := c.Path()
 	if config.SysEnv.RunMod == 1 {
-		host = "127.0.0.1:8998"
+		host = testMarketHost
 	}
 
 	if len(host) < 6 {
