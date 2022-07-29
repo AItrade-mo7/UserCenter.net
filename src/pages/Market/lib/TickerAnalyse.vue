@@ -19,6 +19,16 @@ onMounted(() => {
 <template>
   <div class="TickerAnalyse">
     {{ TickerAnalyseData }}
+    <n-space class="data-wrapper">
+      <div class="block">
+        <span class="label">连接状态</span>
+        <span class="value green">xxxx</span>
+      </div>
+      <div class="block">
+        <span class="label">系统时间</span>
+        <span class="value"><n-time :time="TickerAnalyseData.Ts" /></span>
+      </div>
+    </n-space>
   </div>
 </template>
 
