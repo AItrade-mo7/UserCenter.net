@@ -23,7 +23,7 @@
     "qs": "^6.11.0",
     "store": "^2.0.12",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
