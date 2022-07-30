@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, onMounted } from 'vue';
+import { h, onMounted, onUnmounted } from 'vue';
 import { GetTickerList } from '@/api/CoinMarket';
 import type { TickerParam } from '@/api/CoinMarket';
 import { DateFormat } from '@/utils/filters';
@@ -12,18 +12,31 @@ const TickerAnalyse = defineAsyncComponent(() => import('./lib/TickerAnalyse.vue
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
 let CoinTickerList = $ref([]);
+let AnalyseData = $ref({});
 
 const GetCoinTickerList = () => {
   GetTickerList({
     SortType: CoinSort,
   }).then((res) => {
     if (res.Code > 0) {
-      CoinTickerList = res.Data;
+      CoinTickerList = res.Data.List;
+      AnalyseData = res.Data.Analyse;
     }
   });
 };
+
+let timer: any = null;
 onMounted(() => {
   GetCoinTickerList();
+
+  clearInterval(timer);
+  timer = setInterval(() => {
+    GetCoinTickerList();
+  }, 180000);
+});
+
+onUnmounted(() => {
+  clearInterval(timer);
 });
 
 const columns: any[] = [
@@ -103,7 +116,7 @@ const columns: any[] = [
     <div class="TableWrapper">
       <n-data-table size="small" striped :columns="columns" :data="CoinTickerList" />
     </div>
-    <TickerAnalyse />
+    <TickerAnalyse :Analyse="AnalyseData" />
   </div>
 </template>
 

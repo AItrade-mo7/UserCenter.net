@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { GetTickerAnalyse } from '@/api/CoinMarket/index';
+import { cloneDeep } from '@/utils/tools';
 
-let Data = $ref({});
-
-const GetData = () => {
-  GetTickerAnalyse().then((res) => {
-    if (res.Code > 0) {
-      Data = res.Data;
-    }
-  });
-};
-onMounted(() => {
-  GetData();
+const props = defineProps({
+  Analyse: Object,
 });
+
+const Data = cloneDeep(props.Analyse);
 
 const UPIndex = () => {
   if (Data.UPIndex - 50 > 0) {
@@ -53,25 +45,6 @@ const DirIndex = () => {
 
   return Return;
 };
-
-const CoinTicker = (label: string) => {
-  const Coin = Data[label];
-  const Return = {
-    CcyName: Coin.CcyName,
-    U_R24: Coin.U_R24,
-    style: '',
-    VolIdx: Coin.VolIdx,
-  };
-
-  if (Return.U_R24 - 0 > 0) {
-    Return.style = 'green';
-  }
-  if (Return.U_R24 - 0 < 0) {
-    Return.style = 'red';
-  }
-
-  return Return;
-};
 </script>
 
 <template>
@@ -91,27 +64,10 @@ const CoinTicker = (label: string) => {
       </div>
 
       <div class="block">
-        <span class="label">最惨币</span>
-        <span class="value" :class="CoinTicker('MaxDown').style">
-          {{ CoinTicker('MaxDown').CcyName }}
-          {{ CoinTicker('MaxDown').U_R24 }}%
-        </span>
-      </div>
-
-      <div class="block">
-        <span class="label">最牛币</span>
-        <span class="value" :class="CoinTicker('MaxUP').style">
-          {{ CoinTicker('MaxUP').CcyName }}
-          {{ CoinTicker('MaxUP').U_R24 }}%
-        </span>
-      </div>
-
-      <div class="block">
-        <span class="label">市场时间</span>
+        <span class="label">数据时间</span>
         <span class="value"><n-time :time="Data.Ts" /></span>
       </div>
     </n-space>
-    <div>持仓建议：{{ Data.Suggest }}</div>
   </div>
 </template>
 

@@ -19,6 +19,7 @@ const props = defineProps({
 <style lang="less" scoped>
 .VolumeView {
   font-size: 14px;
+  color: #666;
   .rose {
     font-size: 12px;
   }
