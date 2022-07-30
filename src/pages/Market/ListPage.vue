@@ -104,6 +104,16 @@ const columns: any[] = [
     },
   },
 ];
+
+const RowClassName = (rowData) => {
+  if (AnalyseData.MaxUP.InstID == rowData.InstID) {
+    return 'MaxUP';
+  }
+
+  if (AnalyseData.MaxDown.InstID == rowData.InstID) {
+    return 'MaxDown';
+  }
+};
 </script>
 
 <template>
@@ -114,7 +124,7 @@ const columns: any[] = [
       列表数据更新时间 {{ DateFormat(CoinTickerList[0].Ts) }}
     </div>
     <div class="TableWrapper">
-      <n-data-table size="small" striped :columns="columns" :data="CoinTickerList" />
+      <n-data-table :row-class-name="RowClassName" size="small" striped :columns="columns" :data="CoinTickerList" />
     </div>
     <TickerAnalyse :Analyse="AnalyseData" />
   </div>
@@ -138,6 +148,33 @@ const columns: any[] = [
   }
   .Volume {
     color: #000;
+  }
+}
+
+.n-data-table .n-data-table-tr.n-data-table-tr--striped {
+  &.MaxUP {
+    td {
+      border-top: 2px solid @greenColor;
+      border-bottom: 2px solid @greenColor;
+      &:first-child {
+        border-left: 2px solid @greenColor;
+      }
+      &:last-child {
+        border-right: 2px solid @greenColor;
+      }
+    }
+  }
+  &.MaxDown {
+    td {
+      border-top: 2px solid @redColor;
+      border-bottom: 2px solid @redColor;
+      &:first-child {
+        border-left: 2px solid @redColor;
+      }
+      &:last-child {
+        border-right: 2px solid @redColor;
+      }
+    }
   }
 }
 </style>

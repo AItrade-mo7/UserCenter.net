@@ -45,6 +45,17 @@ const DirIndex = () => {
 
   return Return;
 };
+
+const CountUR = (ur: string) => {
+  const Num = parseInt(ur, 10);
+  if (Num > 0) {
+    return 'green';
+  }
+  if (Num < 0) {
+    return 'red';
+  }
+  return '';
+};
 </script>
 
 <template>
@@ -61,6 +72,18 @@ const DirIndex = () => {
       <div class="block">
         <span class="label">市场整体情况</span>
         <span class="value" :class="DirIndex().style">{{ DirIndex().text }}</span>
+      </div>
+
+      <div class="block">
+        <span class="label">最惨币</span>
+        <span class="value" :class="CountUR(Data.MaxDown.U_R24)">
+          {{ Data.MaxDown.CcyName }} {{ Data.MaxDown.U_R24 }}
+        </span>
+      </div>
+
+      <div class="block">
+        <span class="label">最牛币</span>
+        <span class="value" :class="CountUR(Data.MaxUP.U_R24)"> {{ Data.MaxUP.CcyName }} {{ Data.MaxUP.U_R24 }} </span>
       </div>
 
       <div class="block">
