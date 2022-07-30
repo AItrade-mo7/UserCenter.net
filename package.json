@@ -1,6 +1,6 @@
 {
   "name": "data-center",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "Port": 8999,
   "private": true,
   "scripts": {
