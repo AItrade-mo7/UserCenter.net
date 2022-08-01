@@ -8,7 +8,7 @@ import (
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/dbUser"
-	"github.com/EasyGolang/goTools/mRes/mFiber"
+	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"

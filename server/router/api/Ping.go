@@ -4,7 +4,7 @@ import (
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
-	"github.com/EasyGolang/goTools/mRes/mFiber"
+	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
 )

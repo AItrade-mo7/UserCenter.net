@@ -6,7 +6,7 @@ import (
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/dbUser"
 	"DataCenter.net/server/utils/reqCoinServe"
-	"github.com/EasyGolang/goTools/mRes/mFiber"
+	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
