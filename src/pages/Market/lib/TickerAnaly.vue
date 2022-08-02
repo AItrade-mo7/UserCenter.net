@@ -1,23 +1,23 @@
 <script setup lang="ts">
 const props = defineProps({
-  Analyse: Object,
+  Analy: Object,
 });
 
 const UPIndex = () => {
-  if (props.Analyse.UPIndex - 50 > 0) {
+  if (props.Analy.UPIndex - 50 > 0) {
     return 'green';
   }
-  if (props.Analyse.UPIndex - 50 < 0) {
+  if (props.Analy.UPIndex - 50 < 0) {
     return 'red';
   }
   return '';
 };
 
 const UDAvg = () => {
-  if (props.Analyse.UDAvg - 0 > 0) {
+  if (props.Analy.UDAvg - 0 > 0) {
     return 'green';
   }
-  if (props.Analyse.UDAvg - 0 < 0) {
+  if (props.Analy.UDAvg - 0 < 0) {
     return 'red';
   }
   return '';
@@ -27,14 +27,14 @@ const DirIndex = () => {
   const Return = {
     style: '',
     text: '震荡',
-    value: props.Analyse.DirIndex,
+    value: props.Analy.DirIndex,
   };
 
-  if (props.Analyse.DirIndex - 0 > 0) {
+  if (props.Analy.DirIndex - 0 > 0) {
     Return.style = 'green';
     Return.text = '上涨';
   }
-  if (props.Analyse.DirIndex - 0 < 0) {
+  if (props.Analy.DirIndex - 0 < 0) {
     Return.style = 'red';
     Return.text = '下跌';
   }
@@ -55,15 +55,15 @@ const CountUR = (ur: string) => {
 </script>
 
 <template>
-  <div class="TickerAnalyse" v-if="props.Analyse.MaxUP">
+  <div class="TickerAnaly" v-if="props.Analy.MaxUP">
     <n-space class="data-wrapper">
       <div class="block">
         <span class="label">上涨指数</span>
-        <span class="value" :class="UPIndex()">{{ props.Analyse.UPIndex }}%</span>
+        <span class="value" :class="UPIndex()">{{ props.Analy.UPIndex }}%</span>
       </div>
       <div class="block">
         <span class="label">综合涨幅均值</span>
-        <span class="value" :class="UDAvg()">{{ props.Analyse.UDAvg }}%</span>
+        <span class="value" :class="UDAvg()">{{ props.Analy.UDAvg }}%</span>
       </div>
       <div class="block">
         <span class="label">市场整体情况</span>
@@ -72,21 +72,21 @@ const CountUR = (ur: string) => {
 
       <div class="block">
         <span class="label">最惨币</span>
-        <span class="value" :class="CountUR(props.Analyse.MaxDown.U_R24)">
-          {{ props.Analyse.MaxDown.CcyName }} {{ props.Analyse.MaxDown.U_R24 }}
+        <span class="value" :class="CountUR(props.Analy.MaxDown.U_R24)">
+          {{ props.Analy.MaxDown.CcyName }} {{ props.Analy.MaxDown.U_R24 }}%
         </span>
       </div>
 
       <div class="block">
         <span class="label">最牛币</span>
-        <span class="value" :class="CountUR(props.Analyse.MaxUP.U_R24)">
-          {{ props.Analyse.MaxUP.CcyName }} {{ props.Analyse.MaxUP.U_R24 }}
+        <span class="value" :class="CountUR(props.Analy.MaxUP.U_R24)">
+          {{ props.Analy.MaxUP.CcyName }} {{ props.Analy.MaxUP.U_R24 }}%
         </span>
       </div>
 
       <div class="block">
         <span class="label">数据时间</span>
-        <span class="value"><n-time :time="props.Analyse.Ts" /></span>
+        <span class="value"><n-time :time="props.Analy.Ts" /></span>
       </div>
     </n-space>
   </div>
@@ -95,7 +95,7 @@ const CountUR = (ur: string) => {
 <style lang="less" scoped>
 @import '@/config/constant.less';
 
-.TickerAnalyse {
+.TickerAnaly {
   background-color: antiquewhite;
   padding: 6px;
 }

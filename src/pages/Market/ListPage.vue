@@ -7,7 +7,7 @@ import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));
 const VolumeView = defineAsyncComponent(() => import('./lib/VolumeView.vue'));
-const TickerAnalyse = defineAsyncComponent(() => import('./lib/TickerAnalyse.vue'));
+const TickerAnaly = defineAsyncComponent(() => import('./lib/TickerAnaly.vue'));
 
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
@@ -126,7 +126,7 @@ const RowClassName = (rowData) => {
     <div class="TableWrapper">
       <n-data-table :row-class-name="RowClassName" size="small" striped :columns="columns" :data="CoinTickerList" />
     </div>
-    <TickerAnalyse :Analyse="AnalyData" />
+    <TickerAnaly :Analy="AnalyData" />
   </div>
 </template>
 
