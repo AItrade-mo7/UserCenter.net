@@ -151,7 +151,7 @@ const RowClassName = (rowData) => {
   }
 }
 
-.n-data-table .n-data-table-tr.n-data-table-tr--striped {
+.n-data-table-tbody .n-data-table-tr {
   &.MaxUP {
     td {
       border-top: 2px solid @greenColor;
