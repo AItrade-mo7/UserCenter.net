@@ -7,12 +7,12 @@ import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));
 const VolumeView = defineAsyncComponent(() => import('./lib/VolumeView.vue'));
-const TickerAnaly = defineAsyncComponent(() => import('./lib/TickerAnaly.vue'));
+const TickerAnalyWhole = defineAsyncComponent(() => import('./lib/TickerAnalyWhole.vue'));
 
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
 let CoinTickerList = $ref([]);
-let AnalyData = $ref({});
+let AnalyWhole = $ref({});
 
 const GetCoinTickerList = () => {
   GetTickerList({
@@ -20,7 +20,7 @@ const GetCoinTickerList = () => {
   }).then((res) => {
     if (res.Code > 0) {
       CoinTickerList = res.Data.List;
-      AnalyData = res.Data.Analy;
+      AnalyWhole = res.Data.AnalyWhole;
     }
   });
 };
@@ -106,11 +106,11 @@ const columns: any[] = [
 ];
 
 const RowClassName = (rowData) => {
-  if (AnalyData.MaxUP.InstID == rowData.InstID) {
+  if (AnalyWhole.MaxUP.InstID == rowData.InstID) {
     return 'MaxUP';
   }
 
-  if (AnalyData.MaxDown.InstID == rowData.InstID) {
+  if (AnalyWhole.MaxDown.InstID == rowData.InstID) {
     return 'MaxDown';
   }
 };
@@ -126,7 +126,7 @@ const RowClassName = (rowData) => {
     <div class="TableWrapper">
       <n-data-table :row-class-name="RowClassName" size="small" striped :columns="columns" :data="CoinTickerList" />
     </div>
-    <TickerAnaly :Analy="AnalyData" />
+    <TickerAnalyWhole :Analy="AnalyWhole" />
   </div>
 </template>
 
