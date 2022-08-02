@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"DataCenter.net/server/global"
-	"DataCenter.net/server/okxApi/fetch"
+	"github.com/EasyGolang/goTools/mOKX"
 	"github.com/EasyGolang/goTools/mStr"
 	jsoniter "github.com/json-iterator/go"
 )
@@ -57,14 +57,19 @@ type Opt struct {
 }
 
 func Start(opt Opt) (string, error) {
-	reqData, err := fetch.NewRest(fetch.NewOkxFetchOpt{
-		ApiKey:     opt.ApiKey,
-		Passphrase: opt.Passphrase,
-		SecretKey:  opt.SecretKey,
-		Path:       "/api/v5/account/balance",
-		Method:     "GET",
+	resData, err := mOKX.FetchOKX(mOKX.OptFetchOKX{
+		Path: "/api/v5/account/balance",
 		Data: map[string]any{
 			"ccy": "USDT",
+		},
+		Method: "get",
+		Event: func(s string, a any) {
+			global.Log.Println("Event", s, a)
+		},
+		OKXKey: mOKX.TypeOkxKey{
+			ApiKey:     opt.ApiKey,
+			Passphrase: opt.Passphrase,
+			SecretKey:  opt.SecretKey,
 		},
 	})
 	if err != nil {
@@ -73,9 +78,9 @@ func Start(opt Opt) (string, error) {
 	}
 
 	var data ReqType
-	err = jsoniter.Unmarshal(reqData, &data)
+	err = jsoniter.Unmarshal(resData, &data)
 	if err != nil {
-		errStr := fmt.Errorf("HotList 数据格式化失败 : " + mStr.ToStr(reqData))
+		errStr := fmt.Errorf("HotList 数据格式化失败 : " + mStr.ToStr(resData))
 		global.LogErr(mStr.ToStr(errStr))
 		return "", errStr
 	}
