@@ -129,6 +129,16 @@ const RowClassName = (rowData) => {
     return 'MaxDown';
   }
 };
+
+let RowOpenKey = $ref([]);
+
+const RowOpen = (keys) => {
+  RowOpenKey = keys;
+};
+
+const RowKey = (rowData) => {
+  return rowData.CcyName;
+};
 </script>
 
 <template>
@@ -140,10 +150,13 @@ const RowClassName = (rowData) => {
     </div>
     <div class="TableWrapper">
       <n-data-table
-        default-expand-all
+        :expanded-row-keys="RowOpenKey"
+        :on-update:expanded-row-keys="RowOpen"
         :row-class-name="RowClassName"
+        :row-key="RowKey"
         size="small"
         striped
+        bordered
         :columns="columns"
         :data="CoinTickerList"
       />
