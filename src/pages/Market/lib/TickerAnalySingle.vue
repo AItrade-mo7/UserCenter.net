@@ -32,6 +32,22 @@ const CountUR = (ur: any) => {
         <span class="label">涨幅</span>
         <span class="value" :class="CountUR(item.RosePer)">{{ item.RosePer }}% </span>
       </div>
+      <div class="block">
+        <span class="label">最高价</span>
+        <span class="value">{{ item.H }}</span>
+      </div>
+      <div class="block">
+        <span class="label">最低价</span>
+        <span class="value">{{ item.L }}</span>
+      </div>
+      <div class="block">
+        <span class="label">最高振幅</span>
+        <span class="value">{{ item.HLPerMax }}</span>
+      </div>
+      <div class="block">
+        <span class="label">平均振幅</span>
+        <span class="value">{{ item.HLPerAvg }}</span>
+      </div>
     </n-space>
   </div>
 </template>
