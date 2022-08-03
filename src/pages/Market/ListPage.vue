@@ -41,7 +41,18 @@ onUnmounted(() => {
 
 const columns: any[] = [
   {
+    type: 'expand',
+    key: '12313',
+    expandable: (rowData) => {
+      return true;
+    },
+    renderExpand: (rowData) => {
+      return `is a good guy.`;
+    },
+  },
+  {
     title: '#',
+    key: '1',
     width: 34,
     render: (_, index) => {
       return `${index + 1}`;
@@ -49,13 +60,14 @@ const columns: any[] = [
   },
   {
     title: 'Coin',
+    key: '2',
     width: 68,
     fixed: 'left',
-    key: 'CcyName',
     align: 'left',
   },
   {
     title: 'OKX',
+    key: '3',
     width: 86,
     className: 'OKX',
     align: 'right',
@@ -69,6 +81,7 @@ const columns: any[] = [
   },
   {
     title: 'Binance',
+    key: '4',
     width: 86,
     className: 'Binance',
     align: 'right',
@@ -82,6 +95,7 @@ const columns: any[] = [
   },
   {
     title: 'Volume',
+    key: '5',
     width: 104,
     className: 'Volume',
     align: 'right',
@@ -95,6 +109,7 @@ const columns: any[] = [
   },
   {
     title: '24h',
+    key: '6',
     width: 100,
     align: 'right',
     render(row) {
@@ -124,7 +139,14 @@ const RowClassName = (rowData) => {
       列表数据更新时间 {{ DateFormat(CoinTickerList[0].Ts) }}
     </div>
     <div class="TableWrapper">
-      <n-data-table :row-class-name="RowClassName" size="small" striped :columns="columns" :data="CoinTickerList" />
+      <n-data-table
+        default-expand-all
+        :row-class-name="RowClassName"
+        size="small"
+        striped
+        :columns="columns"
+        :data="CoinTickerList"
+      />
     </div>
     <TickerAnalyWhole :Analy="AnalyWhole" />
   </div>
