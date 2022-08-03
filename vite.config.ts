@@ -6,7 +6,9 @@ import path from 'path';
 import Components from 'unplugin-vue-components/vite';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 
-const PwaConfig = {
+const PwaConfig: any = {
+  injectRegister: 'script',
+  registerType: 'autoUpdate',
   workbox: {
     sourcemap: true,
   },

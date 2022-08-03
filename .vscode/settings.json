@@ -4,6 +4,7 @@
     "antd",
     "beforeinstallprompt",
     "bson",
+    "pnpm",
     "fasthttp",
     "feishu",
     "gofiber",
