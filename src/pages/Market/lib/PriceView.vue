@@ -3,22 +3,20 @@ const props = defineProps({
   data: Object,
 });
 
-const CountUR = (ur: string) => {
-  const Num = parseInt(ur, 10);
-  if (Num > 0) {
+const CountUR = (ur: any) => {
+  if (ur - 0 > 0) {
     return 'green';
   }
-  if (Num < 0) {
+  if (ur - 0 < 0) {
     return 'red';
   }
   return '';
 };
-const CountURNum = (ur: string) => {
-  const Num = parseInt(ur, 10);
-  if (Num > 0) {
+const CountURNum = (ur: any) => {
+  if (ur - 0 > 0) {
     return `+${ur}%`;
   }
-  if (Num < 0) {
+  if (ur - 0 < 0) {
     return `${ur}%`;
   }
   return `${ur}%`;

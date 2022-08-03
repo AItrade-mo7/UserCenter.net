@@ -8,11 +8,13 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));
 const VolumeView = defineAsyncComponent(() => import('./lib/VolumeView.vue'));
 const TickerAnalyWhole = defineAsyncComponent(() => import('./lib/TickerAnalyWhole.vue'));
+const TickerAnalySingle = defineAsyncComponent(() => import('./lib/TickerAnalySingle.vue'));
 
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
 let CoinTickerList = $ref([]);
 let AnalyWhole = $ref({});
+let AnalySingle = $ref({});
 
 const GetCoinTickerList = () => {
   GetTickerList({
@@ -21,6 +23,7 @@ const GetCoinTickerList = () => {
     if (res.Code > 0) {
       CoinTickerList = res.Data.List;
       AnalyWhole = res.Data.AnalyWhole;
+      AnalySingle = res.Data.AnalySingle;
     }
   });
 };
@@ -42,17 +45,18 @@ onUnmounted(() => {
 const columns: any[] = [
   {
     type: 'expand',
-    key: '12313',
-    expandable: (rowData) => {
+    expandable: () => {
       return true;
     },
-    renderExpand: (rowData) => {
-      return `is a good guy.`;
+    renderExpand: (row) => {
+      const Single = AnalySingle[row.InstID];
+      return h(TickerAnalySingle, {
+        Single,
+      });
     },
   },
   {
     title: '#',
-    key: '1',
     width: 34,
     render: (_, index) => {
       return `${index + 1}`;
@@ -60,14 +64,13 @@ const columns: any[] = [
   },
   {
     title: 'Coin',
-    key: '2',
+    key: 'CcyName',
     width: 68,
     fixed: 'left',
     align: 'left',
   },
   {
     title: 'OKX',
-    key: '3',
     width: 86,
     className: 'OKX',
     align: 'right',
@@ -81,7 +84,6 @@ const columns: any[] = [
   },
   {
     title: 'Binance',
-    key: '4',
     width: 86,
     className: 'Binance',
     align: 'right',
@@ -95,7 +97,6 @@ const columns: any[] = [
   },
   {
     title: 'Volume',
-    key: '5',
     width: 104,
     className: 'Volume',
     align: 'right',
@@ -109,7 +110,6 @@ const columns: any[] = [
   },
   {
     title: '24h',
-    key: '6',
     width: 100,
     align: 'right',
     render(row) {
@@ -144,10 +144,7 @@ const RowKey = (rowData) => {
 <template>
   <PageTitle> Market </PageTitle>
   <div class="ListWrapper">
-    <div v-if="CoinTickerList.length" class="Describe">
-      OKX、Binance 综合交易量排名前 {{ CoinTickerList.length }} 的币种。 <br />
-      列表数据更新时间 {{ DateFormat(CoinTickerList[0].Ts) }}
-    </div>
+    <div v-if="CoinTickerList.length" class="Describe">OKX、Binance 综合交易量排名前 N 的币种。 <br /></div>
     <div class="TableWrapper">
       <n-data-table
         :expanded-row-keys="RowOpenKey"
