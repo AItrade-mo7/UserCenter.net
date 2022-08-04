@@ -22,15 +22,27 @@ const CountUR = (ur: any) => {
     <n-space class="data-wrapper" v-for="item in props.Single">
       <div class="block">
         <span class="label">时间切片</span>
-        <span class="value">{{ item.DiffHour }} 小时 </span>
+        <span class="value hour">{{ item.DiffHour }} hour </span>
       </div>
       <div class="block">
-        <span class="label">成交量</span>
-        <span class="value">{{ VolumeFormat(item.Volume) }} </span>
+        <span class="label">总成交量</span>
+        <span class="value vol">{{ VolumeFormat(item.Volume) }} </span>
+      </div>
+      <div class="block">
+        <span class="label">小时平均成交量</span>
+        <span class="value vol">{{ VolumeFormat(item.VolumeAvg) }} </span>
       </div>
       <div class="block">
         <span class="label">涨幅</span>
-        <span class="value" :class="CountUR(item.RosePer)">{{ item.RosePer }}% </span>
+        <span class="value ur" :class="CountUR(item.RosePer)">{{ item.RosePer }}% </span>
+      </div>
+      <div class="block">
+        <span class="label">最高振幅</span>
+        <span class="value ur">{{ item.HLPerMax }}%</span>
+      </div>
+      <div class="block">
+        <span class="label">平均振幅</span>
+        <span class="value ur">{{ item.HLPerAvg }}</span>
       </div>
       <div class="block">
         <span class="label">最高价</span>
@@ -39,14 +51,6 @@ const CountUR = (ur: any) => {
       <div class="block">
         <span class="label">最低价</span>
         <span class="value">{{ item.L }}</span>
-      </div>
-      <div class="block">
-        <span class="label">最高振幅</span>
-        <span class="value">{{ item.HLPerMax }}</span>
-      </div>
-      <div class="block">
-        <span class="label">平均振幅</span>
-        <span class="value">{{ item.HLPerAvg }}</span>
       </div>
     </n-space>
   </div>
@@ -62,6 +66,16 @@ const CountUR = (ur: any) => {
 
 .value {
   color: #333;
+  display: inline-block;
+  &.hour {
+    width: 56px;
+  }
+  &.vol {
+    width: 72px;
+  }
+  &.ur {
+    width: 60px;
+  }
 }
 
 .green {
