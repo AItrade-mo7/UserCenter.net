@@ -58,38 +58,42 @@ const CountUR = (ur: string) => {
   <div class="TickerAnaly" v-if="props.Analy.MaxUP">
     <n-space class="data-wrapper">
       <div class="block">
+        <span class="label">时间切片</span>
+        <span class="value hour">{{ props.Analy.DiffHour }}hour</span>
+      </div>
+      <div class="block">
         <span class="label">上涨指数</span>
-        <span class="value" :class="UPIndex()">{{ props.Analy.UPIndex }}%</span>
+        <span class="value upIndex" :class="UPIndex()">{{ props.Analy.UPIndex }}%</span>
       </div>
       <div class="block">
         <span class="label">综合涨幅均值</span>
-        <span class="value" :class="UDAvg()">{{ props.Analy.UDAvg }}%</span>
+        <span class="value ur" :class="UDAvg()">{{ props.Analy.UDAvg }}%</span>
       </div>
       <div class="block">
         <span class="label">市场整体情况</span>
-        <span class="value" :class="DirIndex().style">{{ DirIndex().text }}</span>
+        <span class="value upIndex" :class="DirIndex().style">{{ DirIndex().text }}</span>
       </div>
 
       <div class="block">
         <span class="label">最惨币</span>
-        <span class="value" :class="CountUR(props.Analy.MaxDown.RosePer)">
+        <span class="value CoinUR" :class="CountUR(props.Analy.MaxDown.RosePer)">
           {{ props.Analy.MaxDown.CcyName }} {{ props.Analy.MaxDown.RosePer }}%
         </span>
       </div>
 
       <div class="block">
         <span class="label">最牛币</span>
-        <span class="value" :class="CountUR(props.Analy.MaxUP.RosePer)">
+        <span class="value CoinUR" :class="CountUR(props.Analy.MaxUP.RosePer)">
           {{ props.Analy.MaxUP.CcyName }} {{ props.Analy.MaxUP.RosePer }}%
         </span>
       </div>
 
       <div class="block">
         <span class="label">数据时间</span>
-        <span class="value">
+        <span class="value timeRange">
           【<n-time :time="props.Analy.StartTimeUnix" />
           至
-          <n-time :time="props.Analy.StartTimeUnix" />】
+          <n-time :time="props.Analy.EndTimeUnix" />】
         </span>
       </div>
     </n-space>
@@ -102,10 +106,29 @@ const CountUR = (ur: string) => {
 .TickerAnaly {
   background-color: antiquewhite;
   padding: 6px;
+  margin-bottom: 6px;
 }
 
 .value {
   color: #333;
+  display: inline-block;
+  word-break: break-all;
+  max-width: 100%;
+  &.hour {
+    width: 56px;
+  }
+  &.upIndex {
+    width: 30px;
+  }
+  &.ur {
+    width: 60px;
+  }
+  &.CoinUR {
+    width: 112px;
+  }
+  &.timeRange {
+    width: 328px;
+  }
 }
 
 .green {

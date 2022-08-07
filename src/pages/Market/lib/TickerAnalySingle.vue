@@ -59,14 +59,17 @@ const CountUR = (ur: any) => {
 <style lang="less" scoped>
 @import '@/config/constant.less';
 
-.TickerAnaly {
+.data-wrapper {
   background-color: antiquewhite;
   padding: 6px;
+  margin-bottom: 6px;
 }
 
 .value {
   color: #333;
   display: inline-block;
+  max-width: 100%;
+  word-break: break-all;
   &.hour {
     width: 56px;
   }
