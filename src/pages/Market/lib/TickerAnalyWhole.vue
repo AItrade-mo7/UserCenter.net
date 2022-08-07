@@ -42,15 +42,13 @@ const DirIndex = () => {
   return Return;
 };
 
-const CountUR = (ur: string) => {
-  const Num = parseInt(ur, 10);
-  if (Num > 0) {
+const CountUR = (ur: any) => {
+  if (ur - 0 > 0) {
     return 'green';
   }
-  if (Num < 0) {
+  if (ur - 0 < 0) {
     return 'red';
   }
-  return '';
 };
 </script>
 
