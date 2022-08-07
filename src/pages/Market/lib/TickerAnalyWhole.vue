@@ -72,21 +72,25 @@ const CountUR = (ur: string) => {
 
       <div class="block">
         <span class="label">最惨币</span>
-        <span class="value" :class="CountUR(props.Analy.MaxDown.U_R24)">
-          {{ props.Analy.MaxDown.CcyName }} {{ props.Analy.MaxDown.U_R24 }}%
+        <span class="value" :class="CountUR(props.Analy.MaxDown.RosePer)">
+          {{ props.Analy.MaxDown.CcyName }} {{ props.Analy.MaxDown.RosePer }}%
         </span>
       </div>
 
       <div class="block">
         <span class="label">最牛币</span>
-        <span class="value" :class="CountUR(props.Analy.MaxUP.U_R24)">
-          {{ props.Analy.MaxUP.CcyName }} {{ props.Analy.MaxUP.U_R24 }}%
+        <span class="value" :class="CountUR(props.Analy.MaxUP.RosePer)">
+          {{ props.Analy.MaxUP.CcyName }} {{ props.Analy.MaxUP.RosePer }}%
         </span>
       </div>
 
       <div class="block">
         <span class="label">数据时间</span>
-        <span class="value"><n-time :time="props.Analy.Ts" /></span>
+        <span class="value">
+          【<n-time :time="props.Analy.StartTimeUnix" />
+          至
+          <n-time :time="props.Analy.StartTimeUnix" />】
+        </span>
       </div>
     </n-space>
   </div>
