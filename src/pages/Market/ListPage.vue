@@ -13,7 +13,7 @@ const TickerAnalySingle = defineAsyncComponent(() => import('./lib/TickerAnalySi
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
 let CoinTickerList = $ref([]);
-let AnalyWhole = $ref({});
+let AnalyWhole = $ref([]);
 let AnalySingle = $ref({});
 
 const GetCoinTickerList = () => {
@@ -121,13 +121,12 @@ const columns: any[] = [
 ];
 
 const RowClassName = (rowData) => {
-  if (AnalyWhole.MaxUP.InstID == rowData.InstID) {
-    return 'MaxUP';
-  }
-
-  if (AnalyWhole.MaxDown.InstID == rowData.InstID) {
-    return 'MaxDown';
-  }
+  // if (AnalyWhole.MaxUP.InstID == rowData.InstID) {
+  //   return 'MaxUP';
+  // }
+  // if (AnalyWhole.MaxDown.InstID == rowData.InstID) {
+  //   return 'MaxDown';
+  // }
 };
 
 let RowOpenKey = $ref([]);
@@ -149,7 +148,7 @@ const RowKey = (rowData) => {
       <n-data-table
         :expanded-row-keys="RowOpenKey"
         :on-update:expanded-row-keys="RowOpen"
-        :row-class-name="RowClassName"
+        :xx-row-class-name="RowClassName"
         :row-key="RowKey"
         size="small"
         striped
@@ -158,7 +157,9 @@ const RowKey = (rowData) => {
         :data="CoinTickerList"
       />
     </div>
-    <TickerAnalyWhole :Analy="AnalyWhole" />
+    <div v-for="item in AnalyWhole">
+      <TickerAnalyWhole :Analy="item" />
+    </div>
   </div>
 </template>
 
