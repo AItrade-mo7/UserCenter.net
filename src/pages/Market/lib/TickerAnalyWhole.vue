@@ -116,7 +116,7 @@ const CountUR = (ur: any) => {
     width: 56px;
   }
   &.upIndex {
-    width: 30px;
+    width: 40px;
   }
   &.ur {
     width: 60px;
