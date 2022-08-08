@@ -61,7 +61,7 @@ const CountUR = (ur: any) => {
       </div>
       <div class="block">
         <span class="label">上涨指数</span>
-        <span class="value upIndex" :class="UPIndex()">{{ props.Analy.UPIndex }}%</span>
+        <span class="value ur" :class="UPIndex()">{{ props.Analy.UPIndex }}%</span>
       </div>
       <div class="block">
         <span class="label">综合涨幅均值</span>
