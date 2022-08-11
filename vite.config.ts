@@ -36,6 +36,7 @@ import AppPackage from './package.json';
 
 // const ProxyUrl = 'https://file.mo7.cc';
 const ProxyUrl = `http://127.0.0.1:${AppPackage.Port}`;
+const CoinAIHost = ' http://127.0.0.1:9010';
 
 // https://vitejs.dev/config/
 const pathSrc = path.resolve(__dirname, 'src');
@@ -74,7 +75,8 @@ export default defineConfig({
       },
       '/CoinAI': {
         // 设置你调用的接口域名和端口号 别忘了加http
-        target: ProxyUrl,
+        // target: ProxyUrl,
+        target: CoinAIHost,
         changeOrigin: true, // 允许跨域
       },
       '/CoinMarket': {
