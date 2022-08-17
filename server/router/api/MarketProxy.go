@@ -19,7 +19,7 @@ func MarketProxy(c *fiber.Ctx) error {
 	if findWss {
 		return MarketProxy_wss(c)
 	}
-	host := "trade.mo7.cc"
+	host := "market.mo7.cc"
 	if config.SysEnv.RunMod == 1 {
 		host = testMarketHost
 	}
@@ -33,7 +33,7 @@ func MarketProxy(c *fiber.Ctx) error {
 }
 
 func MarketProxy_wss(c *fiber.Ctx) error {
-	host := "trade.mo7.cc"
+	host := "market.mo7.cc"
 	path := c.Path()
 	if config.SysEnv.RunMod == 1 {
 		host = testMarketHost
