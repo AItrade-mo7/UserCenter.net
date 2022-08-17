@@ -176,6 +176,7 @@ const WholeDirFormat = (n: any) => {
           </span>
           ;
         </div>
+        <div>榜单时间: <n-time :time="CoinTickerList[0].Ts" /></div>
       </n-space>
     </div>
     <div class="TableWrapper">
