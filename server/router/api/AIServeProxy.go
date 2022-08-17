@@ -22,7 +22,7 @@ func AIServeProxy(c *fiber.Ctx) error {
 	}
 	host := c.Get("Coin-Serve-ID")
 
-	if config.SysEnv.RunMod == 1 {
+	if config.SysEnv.RunMod == 1 && host == "50.18.29.218:9010" {
 		host = testAIServeHost
 	}
 
@@ -41,7 +41,7 @@ func AIServeProxy_wss(c *fiber.Ctx) error {
 	if len(host) < 6 {
 		return c.JSON(result.Fail.WithData("缺少代理地址"))
 	}
-	if config.SysEnv.RunMod == 1 {
+	if config.SysEnv.RunMod == 1 && host == "50.18.29.218:9010" {
 		host = testAIServeHost
 	}
 
