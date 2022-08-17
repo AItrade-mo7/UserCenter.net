@@ -15,6 +15,8 @@ const CoinSort: TickerParam['SortType'] = $ref('Amount');
 let CoinTickerList = $ref([]);
 let AnalyWhole = $ref([]);
 let AnalySingle = $ref({});
+let Unit = $ref('');
+let WholeDir = $ref(0);
 
 const GetCoinTickerList = () => {
   GetTickerList({
@@ -24,6 +26,8 @@ const GetCoinTickerList = () => {
       CoinTickerList = res.Data.List;
       AnalyWhole = res.Data.AnalyWhole;
       AnalySingle = res.Data.AnalySingle;
+      Unit = res.Data.Unit;
+      WholeDir = res.Data.WholeDir;
     }
   });
 };
@@ -138,12 +142,42 @@ const RowOpen = (keys) => {
 const RowKey = (rowData) => {
   return rowData.CcyName;
 };
+
+const WholeDirFormat = (n: any) => {
+  var ReturnObj = {
+    text: '空仓观望',
+    class: 'gray',
+  };
+
+  if (n - 0 > 0) {
+    ReturnObj.text = '看涨';
+    ReturnObj.class = 'green';
+  }
+  if (n - 0 < 0) {
+    ReturnObj.text = '看跌';
+    ReturnObj.class = 'red';
+  }
+
+  return ReturnObj;
+};
 </script>
 
 <template>
   <PageTitle> Market </PageTitle>
   <div class="ListWrapper">
-    <div v-if="CoinTickerList.length" class="Describe">OKX、Binance 综合交易量排名前 N 的币种。 <br /></div>
+    <div v-if="CoinTickerList.length" class="Describe">
+      <n-space class="data-wrapper">
+        <div>OKX、Binance 综合交易量排名前 {{ CoinTickerList.length }} 的币种 ;</div>
+        <div>锚定货币: {{ Unit }} ;</div>
+        <div>
+          交易趋势:
+          <span class="value" :class="WholeDirFormat(WholeDir).class">
+            {{ WholeDirFormat(WholeDir).text }}
+          </span>
+          ;
+        </div>
+      </n-space>
+    </div>
     <div class="TableWrapper">
       <n-data-table
         :expanded-row-keys="RowOpenKey"
@@ -162,6 +196,22 @@ const RowKey = (rowData) => {
     </div>
   </div>
 </template>
+
+<style lang="less" scoped>
+@import '@/config/constant.less';
+
+.value {
+  &.green {
+    color: @greenColor;
+  }
+  &.red {
+    color: @redColor;
+  }
+  &.gray {
+    color: #999;
+  }
+}
+</style>
 
 <style lang="less">
 @import '@/config/constant.less';
