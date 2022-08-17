@@ -36,7 +36,7 @@ import AppPackage from './package.json';
 
 // const ProxyUrl = 'https://file.mo7.cc';
 const ProxyUrl = `http://127.0.0.1:${AppPackage.Port}`;
-const CoinAIHost = ' http://127.0.0.1:9010';
+const CoinAIHost = '';
 
 // https://vitejs.dev/config/
 const pathSrc = path.resolve(__dirname, 'src');
@@ -69,18 +69,22 @@ export default defineConfig({
     strictPort: true, // 端口已被占用则会直接退出
     proxy: {
       '/api': {
-        // 设置你调用的接口域名和端口号 别忘了加http
         target: ProxyUrl,
         changeOrigin: true, // 允许跨域
       },
       '/CoinAI': {
-        // 设置你调用的接口域名和端口号 别忘了加http
-        // target: ProxyUrl,
-        target: CoinAIHost,
+        target: ProxyUrl,
+        changeOrigin: true, // 允许跨域
+      },
+      '/StockAI': {
+        target: ProxyUrl,
         changeOrigin: true, // 允许跨域
       },
       '/CoinMarket': {
-        // 设置你调用的接口域名和端口号 别忘了加http
+        target: ProxyUrl,
+        changeOrigin: true, // 允许跨域
+      },
+      '/StockMarket': {
         target: ProxyUrl,
         changeOrigin: true, // 允许跨域
       },
