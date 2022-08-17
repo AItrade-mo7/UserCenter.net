@@ -14,6 +14,7 @@ import (
 const testAIServeHost = "127.0.0.1:9010"
 
 func AIServeProxy(c *fiber.Ctx) error {
+	fastProxy.SetProduction()
 	// 代理 wss
 	findWss := strings.Contains(c.Path(), "/wss")
 	if findWss {
