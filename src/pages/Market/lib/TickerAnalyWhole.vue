@@ -119,7 +119,7 @@ const CountUR = (ur: any) => {
     width: 40px;
   }
   &.ur {
-    width: 60px;
+    width: 66px;
   }
   &.CoinUR {
     width: 112px;

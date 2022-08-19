@@ -77,7 +77,7 @@ const CountUR = (ur: any) => {
     width: 72px;
   }
   &.ur {
-    width: 60px;
+    width: 66px;
   }
 }
 
