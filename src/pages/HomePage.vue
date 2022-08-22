@@ -68,6 +68,7 @@ const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 
 .logo {
   width: 30%;
+  max-width: 240px;
 }
 .appName {
   font-size: 36px;
