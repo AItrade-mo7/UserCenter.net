@@ -2,6 +2,8 @@
 # 加载变量
 source "./_shell/init.sh"
 #############
+npm install -g pnpm
+npm install -g pm2
 
 pnpm install
 echo "开始打包" &&
