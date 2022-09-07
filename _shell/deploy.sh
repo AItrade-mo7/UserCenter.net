@@ -7,7 +7,7 @@ npm install -g pm2
 
 pnpm install
 echo "开始打包" &&
-  pnpm build
+  pnpm run build
 
 echo "停止 pm2 服务" &&
   pm2 delete ${startName}
