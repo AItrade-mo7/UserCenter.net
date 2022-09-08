@@ -23,3 +23,11 @@ export const GetInstList = (data: InstParam): Promise<any> => {
     method: 'post',
   });
 };
+
+export const GetAnalyHistory = (): Promise<any> => {
+  return ajax_json({
+    url: '/CoinMarket/public/GetAnalyHistory',
+    data: null,
+    method: 'post',
+  });
+};

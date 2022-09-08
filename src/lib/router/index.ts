@@ -23,6 +23,11 @@ const routes: any = [
         description: 'list',
         component: () => import('@/pages/Market/ListPage.vue'),
       },
+      {
+        path: 'AnalyHistory',
+        description: 'AnalyHistory',
+        component: () => import('@/pages/Market/AnalyHistory.vue'),
+      },
     ],
   },
   {

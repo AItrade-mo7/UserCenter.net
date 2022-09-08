@@ -211,6 +211,9 @@ const WholeDirFormat = (n: any) => {
     <div v-for="item in AnalyWhole">
       <TickerAnalyWhole :Analy="item" />
     </div>
+    <RouterLink to="/Market/AnalyHistory">
+      <n-button type="primary"> 查看分析历史 </n-button>
+    </RouterLink>
   </div>
 </template>
 
