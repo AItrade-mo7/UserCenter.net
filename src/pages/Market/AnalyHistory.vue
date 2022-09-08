@@ -56,7 +56,7 @@ const WholeDirFormat = (n: any) => {
 <template>
   <PageTitle> AnalyHistory </PageTitle>
   <div class="PageWrapper AnalyHistory">
-    <div>最近72小时程序预测结果</div>
+    <div>最近72小时程序大盘预测结果</div>
     <div v-for="item in HistoryList" class="DataBox" :class="WholeDirFormat(item.WholeDir).class">
       <n-space>
         <div>时间: <n-time :time="item.TimeUnix" /></div>
