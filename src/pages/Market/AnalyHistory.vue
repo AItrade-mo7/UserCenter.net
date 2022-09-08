@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, defineAsyncComponent } from 'vue';
 import { GetAnalyHistory } from '@/api/CoinMarket';
+const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 
 let HistoryList = $ref([]);
 
@@ -8,6 +9,7 @@ const GetHistoryList = () => {
   GetAnalyHistory().then((res) => {
     if (res.Code > 0) {
       HistoryList = res.Data;
+      // console.log(JSON.stringify(HistoryList[HistoryList.length - 1]));
     }
   });
 };
