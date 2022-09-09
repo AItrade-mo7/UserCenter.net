@@ -10,7 +10,12 @@ const TickerAnalyWhole = defineAsyncComponent(() => import('./lib/TickerAnalyWho
 const TickerAnalySingle = defineAsyncComponent(() => import('./lib/TickerAnalySingle.vue'));
 
 const props = defineProps({
-  AnalyInfo: Object,
+  AnalyInfo: {
+    type: Object,
+    default() {
+      return {};
+    },
+  },
 });
 
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
