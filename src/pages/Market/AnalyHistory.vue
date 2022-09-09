@@ -85,8 +85,8 @@ const showDrawer = () => {
 
 <template>
   <PageTitle> AnalyHistory </PageTitle>
-  <div class="PageWrapper AnalyHistory">
-    <div>最近72小时程序大盘预测结果</div>
+  <div class="AnalyHistory">
+    <h4>最近72小时程序大盘预测结果</h4>
     <n-pagination
       v-model:page="Current"
       size="small"
