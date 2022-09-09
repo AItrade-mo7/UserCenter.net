@@ -97,7 +97,7 @@ const showDrawer = () => {
     <div>
       <div v-for="item in HistoryList" class="DataBox" :class="WholeDirFormat(item.WholeDir).class">
         <n-space>
-          <div>时间: <n-time :time="item.TimeUnix" /></div>
+          <div><n-time :time="item.TimeUnix" /></div>
           <div>算法结果: {{ WholeDirFormat(item.WholeDir).text }}</div>
         </n-space>
         <n-button class="CheckBtn" size="small" @click="CheckItemFunc(item)">查看</n-button>
