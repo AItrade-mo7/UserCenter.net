@@ -4,18 +4,30 @@ import { GetAnalyHistory } from '@/api/CoinMarket';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 
 let HistoryList = $ref([]);
+let Current = $ref(1);
+let Total = $ref(0);
+let Size = $ref(300);
 
-const GetHistoryList = () => {
-  GetAnalyHistory().then((res) => {
+const GetHistoryList = (page) => {
+  Current = page;
+  GetAnalyHistory({
+    Size: Size,
+    Current: Current - 1,
+    Sort: {
+      TimeUnix: -1,
+    },
+  }).then((res) => {
     if (res.Code > 0) {
-      HistoryList = res.Data;
-      // console.log(JSON.stringify(HistoryList[HistoryList.length - 1]));
+      HistoryList = res.Data.List;
+      Total = res.Data.Total;
+      Current = res.Data.Current + 1;
+      Size = res.Data.Size;
     }
   });
 };
 
 onMounted(() => {
-  GetHistoryList();
+  GetHistoryList({});
 });
 
 const WholeDirFormat = (n: any) => {
@@ -57,11 +69,21 @@ const WholeDirFormat = (n: any) => {
   <PageTitle> AnalyHistory </PageTitle>
   <div class="PageWrapper AnalyHistory">
     <div>最近72小时程序大盘预测结果</div>
-    <div v-for="item in HistoryList" class="DataBox" :class="WholeDirFormat(item.WholeDir).class">
-      <n-space>
-        <div>时间: <n-time :time="item.TimeUnix" /></div>
-        <div>算法结果: {{ WholeDirFormat(item.WholeDir).text }}</div>
-      </n-space>
+    <div>
+      {{ Current }}
+      <n-pagination
+        v-model:page="Current"
+        size="small"
+        :item-count="Total"
+        :page-size="Size"
+        :on-update:page="GetHistoryList"
+      />
+      <div v-for="item in HistoryList" class="DataBox" :class="WholeDirFormat(item.WholeDir).class">
+        <n-space>
+          <div>时间: <n-time :time="item.TimeUnix" /></div>
+          <div>算法结果: {{ WholeDirFormat(item.WholeDir).text }}</div>
+        </n-space>
+      </div>
     </div>
   </div>
 </template>
@@ -74,6 +96,9 @@ const WholeDirFormat = (n: any) => {
   border-width: 1;
   border-style: solid;
   padding: 2px 6px;
+  display: inline-block;
+  width: 324px;
+  margin-right: 12px;
   &.green {
     border-color: @greenColor;
     color: @greenColor;

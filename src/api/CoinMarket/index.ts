@@ -24,10 +24,18 @@ export const GetInstList = (data: InstParam): Promise<any> => {
   });
 };
 
-export const GetAnalyHistory = (): Promise<any> => {
+export interface GetAnalyHistoryParam {
+  Size: number;
+  Current: number;
+  Sort: {
+    [key: string]: 1 | -1;
+  };
+}
+
+export const GetAnalyHistory = (data: GetAnalyHistoryParam): Promise<any> => {
   return ajax_json({
     url: '/CoinMarket/public/GetAnalyHistory',
-    data: null,
+    data: data,
     method: 'post',
   });
 };

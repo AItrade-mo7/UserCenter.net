@@ -2,7 +2,6 @@
 import { h, onMounted, onUnmounted } from 'vue';
 import { GetTickerList } from '@/api/CoinMarket';
 import type { TickerParam } from '@/api/CoinMarket';
-import { DateFormat } from '@/utils/filters';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const PriceView = defineAsyncComponent(() => import('./lib/PriceView.vue'));

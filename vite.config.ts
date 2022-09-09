@@ -86,8 +86,8 @@ export default defineConfig({
         changeOrigin: true, // 允许跨域
       },
       '/StockMarket': {
-        // target: 'https://trade.mo7.cc',
-        target: 'http://127.0.0.1:8997',
+        target: 'https://trade.mo7.cc',
+        // target: 'http://127.0.0.1:8997',
         changeOrigin: true, // 允许跨域
       },
     },
