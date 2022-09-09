@@ -81,6 +81,15 @@ const closeDrawer = () => {
 const showDrawer = () => {
   DrawerStatus = true;
 };
+
+const CountUR = (ur: any) => {
+  if (ur - 0 > 0) {
+    return 'green';
+  }
+  if (ur - 0 < 0) {
+    return 'red';
+  }
+};
 </script>
 
 <template>
@@ -97,8 +106,15 @@ const showDrawer = () => {
     <div>
       <div v-for="item in HistoryList" class="DataBox" :class="WholeDirFormat(item.WholeDir).class">
         <n-space>
-          <div><n-time :time="item.TimeUnix" /></div>
-          <div>{{ WholeDirFormat(item.WholeDir).text }}</div>
+          <div class="time"><n-time :time="item.TimeUnix" /></div>
+          <div class="dirText">{{ WholeDirFormat(item.WholeDir).text }}</div>
+          <div class="CoinUR" :class="CountUR(item.AnalyWhole[0].MaxDown.RosePer)">
+            {{ item.AnalyWhole[0].MaxDown.CcyName }} {{ item.AnalyWhole[0].MaxDown.RosePer }}%
+          </div>
+
+          <div class="CoinUR" :class="CountUR(item.AnalyWhole[0].MaxUP.RosePer)">
+            {{ item.AnalyWhole[0].MaxUP.CcyName }} {{ item.AnalyWhole[0].MaxUP.RosePer }}%
+          </div>
         </n-space>
         <n-button class="CheckBtn" size="small" @click="CheckItemFunc(item)">查看</n-button>
       </div>
@@ -131,6 +147,16 @@ const showDrawer = () => {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  .time {
+    color: #000;
+  }
+  .dirText {
+    width: 58px;
+  }
+  .CoinUR {
+    width: 158px;
+  }
+
   .CheckBtn {
     display: none;
     margin-left: 16px;
@@ -138,13 +164,14 @@ const showDrawer = () => {
   &:hover .CheckBtn {
     display: block;
   }
-  &.green {
-    border-color: @greenColor;
-    color: @greenColor;
-  }
-  &.red {
-    border-color: @redColor;
-    color: @redColor;
-  }
+}
+
+.green {
+  border-color: @greenColor;
+  color: @greenColor;
+}
+.red {
+  border-color: @redColor;
+  color: @redColor;
 }
 </style>
