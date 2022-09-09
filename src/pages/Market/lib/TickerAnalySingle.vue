@@ -4,16 +4,14 @@ const props = defineProps({
   Single: Array<any>,
 });
 
-console.log(props.Single);
-
 const CountUR = (ur: any) => {
-  if (ur -0 > 0) {
+  if (ur - 0 > 0) {
     return 'green';
   }
   if (ur - 0 < 0) {
     return 'red';
   }
-  return "";
+  return '';
 };
 </script>
 

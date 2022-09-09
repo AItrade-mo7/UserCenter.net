@@ -9,6 +9,10 @@ const VolumeView = defineAsyncComponent(() => import('./lib/VolumeView.vue'));
 const TickerAnalyWhole = defineAsyncComponent(() => import('./lib/TickerAnalyWhole.vue'));
 const TickerAnalySingle = defineAsyncComponent(() => import('./lib/TickerAnalySingle.vue'));
 
+const props = defineProps({
+  AnalyInfo: Object,
+});
+
 const CoinSort: TickerParam['SortType'] = $ref('Amount');
 
 let CoinTickerList = $ref([]);
@@ -33,6 +37,15 @@ const GetCoinTickerList = () => {
 
 let timer: any = null;
 onMounted(() => {
+  if (props.AnalyInfo.Unit) {
+    CoinTickerList = props.AnalyInfo.List;
+    AnalyWhole = props.AnalyInfo.AnalyWhole;
+    AnalySingle = props.AnalyInfo.AnalySingle;
+    Unit = props.AnalyInfo.Unit;
+    WholeDir = props.AnalyInfo.WholeDir;
+    return;
+  }
+
   GetCoinTickerList();
 
   clearInterval(timer);
@@ -178,7 +191,7 @@ const WholeDirFormat = (n: any) => {
 </script>
 
 <template>
-  <PageTitle> Market </PageTitle>
+  <PageTitle v-if="!props.AnalyInfo.Unit"> Market </PageTitle>
   <div class="ListWrapper">
     <div v-if="CoinTickerList.length" class="Describe">
       <n-space class="data-wrapper">
@@ -210,7 +223,7 @@ const WholeDirFormat = (n: any) => {
     <div v-for="item in AnalyWhole">
       <TickerAnalyWhole :Analy="item" />
     </div>
-    <RouterLink to="/Market/AnalyHistory">
+    <RouterLink to="/Market/AnalyHistory" v-if="!props.AnalyInfo.Unit">
       <n-button type="primary"> 查看分析历史 </n-button>
     </RouterLink>
   </div>

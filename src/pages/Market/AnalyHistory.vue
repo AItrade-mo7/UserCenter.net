@@ -112,8 +112,8 @@ const showDrawer = () => {
       :show="DrawerStatus"
       :on-mask-click="closeDrawer"
     >
-      <n-drawer-content class="TopBarDrawer">
-        <ListPage :AnalyInfo="AnalyInfo"></ListPage>
+      <n-drawer-content>
+        <ListPage v-if="DrawerStatus" :AnalyInfo="AnalyInfo"></ListPage>
       </n-drawer-content>
     </n-drawer>
   </div>
