@@ -4,11 +4,11 @@ import { GetAnalyHistory } from '@/api/CoinMarket';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 
 let HistoryList = $ref([]);
-let Current = $ref(1);
+let Current = $ref(0);
 let Total = $ref(0);
 let Size = $ref(300);
 
-const GetHistoryList = (page) => {
+const GetHistoryList = (page: number) => {
   Current = page;
   GetAnalyHistory({
     Size: Size,
@@ -27,7 +27,7 @@ const GetHistoryList = (page) => {
 };
 
 onMounted(() => {
-  GetHistoryList({});
+  GetHistoryList(1);
 });
 
 const WholeDirFormat = (n: any) => {
@@ -63,26 +63,30 @@ const WholeDirFormat = (n: any) => {
 
   return ReturnObj;
 };
+
+const CheckItemFunc = (item) => {
+  console.log(item);
+};
 </script>
 
 <template>
   <PageTitle> AnalyHistory </PageTitle>
   <div class="PageWrapper AnalyHistory">
     <div>最近72小时程序大盘预测结果</div>
+    <n-pagination
+      v-model:page="Current"
+      size="small"
+      :item-count="Total"
+      :page-size="Size"
+      :on-update:page="GetHistoryList"
+    />
     <div>
-      {{ Current }}
-      <n-pagination
-        v-model:page="Current"
-        size="small"
-        :item-count="Total"
-        :page-size="Size"
-        :on-update:page="GetHistoryList"
-      />
       <div v-for="item in HistoryList" class="DataBox" :class="WholeDirFormat(item.WholeDir).class">
         <n-space>
           <div>时间: <n-time :time="item.TimeUnix" /></div>
           <div>算法结果: {{ WholeDirFormat(item.WholeDir).text }}</div>
         </n-space>
+        <n-button class="CheckBtn" size="small" @click="CheckItemFunc(item)">查看</n-button>
       </div>
     </div>
   </div>
@@ -96,9 +100,17 @@ const WholeDirFormat = (n: any) => {
   border-width: 1;
   border-style: solid;
   padding: 2px 6px;
-  display: inline-block;
-  width: 324px;
   margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .CheckBtn {
+    display: none;
+    margin-left: 16px;
+  }
+  &:hover .CheckBtn {
+    display: block;
+  }
   &.green {
     border-color: @greenColor;
     color: @greenColor;
