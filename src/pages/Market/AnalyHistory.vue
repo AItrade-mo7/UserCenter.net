@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onMounted, defineAsyncComponent } from 'vue';
 import { GetAnalyHistory } from '@/api/CoinMarket';
+import { cloneDeep } from '@/utils/tools';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
+const ListPage = defineAsyncComponent(() => import('./ListPage.vue'));
 
 let HistoryList = $ref([]);
 let Current = $ref(0);
@@ -64,8 +66,20 @@ const WholeDirFormat = (n: any) => {
   return ReturnObj;
 };
 
+// 详情展示
+
+let DrawerStatus = $ref(false);
+let AnalyInfo = $ref({});
 const CheckItemFunc = (item) => {
-  console.log(item);
+  AnalyInfo = cloneDeep(item);
+  showDrawer();
+};
+
+const closeDrawer = () => {
+  DrawerStatus = false;
+};
+const showDrawer = () => {
+  DrawerStatus = true;
 };
 </script>
 
@@ -89,6 +103,19 @@ const CheckItemFunc = (item) => {
         <n-button class="CheckBtn" size="small" @click="CheckItemFunc(item)">查看</n-button>
       </div>
     </div>
+
+    <n-drawer
+      display-directive="show"
+      :auto-focus="false"
+      height="80%"
+      placement="top"
+      :show="DrawerStatus"
+      :on-mask-click="closeDrawer"
+    >
+      <n-drawer-content class="TopBarDrawer">
+        <ListPage :AnalyInfo="AnalyInfo"></ListPage>
+      </n-drawer-content>
+    </n-drawer>
   </div>
 </template>
 
