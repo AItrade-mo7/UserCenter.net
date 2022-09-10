@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { h, onMounted, onUnmounted } from 'vue';
-import { GetTickerList } from '@/api/CoinMarket';
+import { GetTickerList, GetAnalyDetail } from '@/api/CoinMarket';
 import type { TickerParam } from '@/api/CoinMarket';
 import { defineAsyncComponent } from 'vue';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
@@ -26,28 +26,31 @@ let AnalySingle = $ref({});
 let Unit = $ref('');
 let WholeDir = $ref(0);
 
-const GetCoinTickerList = () => {
-  GetTickerList({
-    SortType: CoinSort,
-  }).then((res) => {
-    if (res.Code > 0) {
-      CoinTickerList = res.Data.List;
-      AnalyWhole = res.Data.AnalyWhole;
-      AnalySingle = res.Data.AnalySingle;
-      Unit = res.Data.Unit;
-      WholeDir = res.Data.WholeDir;
-    }
-  });
+const GetCoinTickerList = async (DetailID?: number) => {
+  let res: any = {};
+  if (DetailID) {
+    res = await GetAnalyDetail({
+      CreateTimeUnix: DetailID,
+    });
+  } else {
+    res = await GetTickerList({
+      SortType: CoinSort,
+    });
+  }
+
+  if (res.Code > 0) {
+    CoinTickerList = res.Data.List;
+    AnalyWhole = res.Data.AnalyWhole;
+    AnalySingle = res.Data.AnalySingle;
+    Unit = res.Data.Unit;
+    WholeDir = res.Data.WholeDir;
+  }
 };
 
 let timer: any = null;
 onMounted(() => {
   if (props.AnalyInfo.Unit) {
-    CoinTickerList = props.AnalyInfo.List;
-    AnalyWhole = props.AnalyInfo.AnalyWhole;
-    AnalySingle = props.AnalyInfo.AnalySingle;
-    Unit = props.AnalyInfo.Unit;
-    WholeDir = props.AnalyInfo.WholeDir;
+    GetCoinTickerList(props.AnalyInfo.CreateTimeUnix);
     return;
   }
 

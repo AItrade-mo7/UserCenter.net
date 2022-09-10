@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, defineAsyncComponent } from 'vue';
-import { GetAnalyList, GetAnalyDetail } from '@/api/CoinMarket';
+import { GetAnalyList } from '@/api/CoinMarket';
 import { cloneDeep } from '@/utils/tools';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const ListPage = defineAsyncComponent(() => import('./ListPage.vue'));
