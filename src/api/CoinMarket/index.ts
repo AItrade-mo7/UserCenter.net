@@ -32,9 +32,21 @@ export interface GetAnalyHistoryParam {
   };
 }
 
-export const GetAnalyHistory = (data: GetAnalyHistoryParam): Promise<any> => {
+export const GetAnalyList = (data: GetAnalyHistoryParam): Promise<any> => {
   return ajax_json({
-    url: '/CoinMarket/public/GetAnalyHistory',
+    url: '/CoinMarket/public/GetAnalyList',
+    data: data,
+    method: 'post',
+  });
+};
+
+interface GetAnalyDetailParam {
+  CreateTimeUnix: number;
+}
+
+export const GetAnalyDetail = (data: GetAnalyDetailParam): Promise<any> => {
+  return ajax_json({
+    url: '/CoinMarket/public/GetAnalyDetail',
     data: data,
     method: 'post',
   });

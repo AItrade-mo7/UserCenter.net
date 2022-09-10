@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, defineAsyncComponent } from 'vue';
-import { GetAnalyHistory } from '@/api/CoinMarket';
+import { GetAnalyList, GetAnalyDetail } from '@/api/CoinMarket';
 import { cloneDeep } from '@/utils/tools';
 const PageTitle = defineAsyncComponent(() => import('@/lib/PageTitle.vue'));
 const ListPage = defineAsyncComponent(() => import('./ListPage.vue'));
@@ -12,7 +12,7 @@ let Size = $ref(300);
 
 const GetHistoryList = (page: number) => {
   Current = page;
-  GetAnalyHistory({
+  GetAnalyList({
     Size: Size,
     Current: Current - 1,
     Sort: {
@@ -108,12 +108,10 @@ const CountUR = (ur: any) => {
         <n-space>
           <div class="time"><n-time :time="item.TimeUnix" /></div>
           <div class="dirText">{{ WholeDirFormat(item.WholeDir).text }}</div>
-          <div class="CoinUR" :class="CountUR(item.AnalyWhole[0].MaxDown.RosePer)">
-            {{ item.AnalyWhole[0].MaxDown.CcyName }} {{ item.AnalyWhole[0].MaxDown.RosePer }}%
-          </div>
+          <div class="CoinUR" :class="CountUR(item.MaxUP_RosePer)">{{ item.MaxUP }} {{ item.MaxUP_RosePer }}%</div>
 
-          <div class="CoinUR" :class="CountUR(item.AnalyWhole[0].MaxUP.RosePer)">
-            {{ item.AnalyWhole[0].MaxUP.CcyName }} {{ item.AnalyWhole[0].MaxUP.RosePer }}%
+          <div class="CoinUR" :class="CountUR(item.MaxDown_RosePer)">
+            {{ item.MaxDown }} {{ item.MaxDown_RosePer }}%
           </div>
         </n-space>
         <n-button class="CheckBtn" size="small" @click="CheckItemFunc(item)">查看</n-button>
