@@ -40,7 +40,7 @@ func Ping(c *fiber.Ctx) error {
 	ReturnData["ClientInfo"] = ClientInfo
 
 	ReturnData["UserAgent"] = c.Get("User-Agent")
-	ReturnData["FullPath"] = c.BaseURL() + c.OriginalURL()
+	ReturnData["Path"] = c.OriginalURL()
 
 	// 获取 token
 	token := c.Get("Token")
