@@ -58,7 +58,7 @@ func Login(c *fiber.Ctx) error {
 
 	loginSucceedData.Token = mEncrypt.NewToken(mEncrypt.NewTokenOpt{
 		SecretKey: config.SecretKey,
-		ExpiresAt: time.Now().Add(72 * time.Hour),
+		ExpiresAt: time.Now().Add(24 * time.Hour),
 		Message:   UserDB.AccountData.UserID,
 		Issuer:    "AITrade.net",
 		Subject:   "UserToken",
