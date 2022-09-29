@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var AppInfo struct {
+var ApiInfo struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 	Port    int    `json:"Port"`

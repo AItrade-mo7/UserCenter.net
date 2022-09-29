@@ -4,22 +4,43 @@ import (
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
+	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mFiber"
+	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mTime"
 	"github.com/gofiber/fiber/v2"
+	jsoniter "github.com/json-iterator/go"
 )
+
+type AppInfoType struct {
+	Name    string `json:"name"`
+	Version string `json:"version"`
+}
 
 func Ping(c *fiber.Ctx) error {
 	json := mFiber.Parser(c)
 
+	// 在这里请求数据
+	ClientFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
+		Origin: "http://trade.mo7.cc:9898",
+		Path:   "/package.json?tmp=" + mTime.GetUnix(),
+	}).Get()
+
+	var ClientInfo AppInfoType
+	jsoniter.Unmarshal(ClientFileReqData, &ClientInfo)
+
+	var ApiInfo AppInfoType
+	jsoniter.Unmarshal(mJson.ToJson(config.ApiInfo), &ApiInfo)
+
 	ReturnData := make(map[string]any)
 	ReturnData["ResParam"] = json
 	ReturnData["Method"] = c.Method()
-	ReturnData["AppInfo"] = config.AppInfo
+	ReturnData["ApiInfo"] = ApiInfo
+	ReturnData["ClientInfo"] = ClientInfo
 
 	ReturnData["UserAgent"] = c.Get("User-Agent")
 	ReturnData["FullPath"] = c.BaseURL() + c.OriginalURL()
-	ReturnData["ContentType"] = c.Get("Content-Type")
 
 	// 获取 token
 	token := c.Get("Token")

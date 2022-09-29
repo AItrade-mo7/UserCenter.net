@@ -67,7 +67,7 @@ func Start() {
 	// 静态文件服务器
 	app.Use(api.Ping)
 
-	listenHost := mStr.Join(":", config.AppInfo.Port)
+	listenHost := mStr.Join(":", config.ApiInfo.Port)
 	global.Log.Println(mStr.Join(`启动服务: http://127.0.0.1`, listenHost))
 	app.Listen(listenHost)
 }

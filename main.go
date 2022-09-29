@@ -14,7 +14,7 @@ import (
 var AppPackage []byte
 
 func main() {
-	jsoniter.Unmarshal(AppPackage, &config.AppInfo)
+	jsoniter.Unmarshal(AppPackage, &config.ApiInfo)
 	// 初始化系统参数
 	global.Start()
 
