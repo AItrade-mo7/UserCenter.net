@@ -6,12 +6,11 @@ AITrade 的数据中心,用来进行用户账户的数据管理
 
 ```yaml
 # IP
-LocalIP: '50.18.29.218'
+LocalIP: "50.18.29.218"
 # Mongodb
-MongoAddress: 'trade.mo7.cc:17017'
-MongoUserName: 'mo7'
-MongoPassword: 'asdasd55555'
-
+MongoAddress: "trade-api.mo7.cc:17017"
+MongoUserName: "mo7"
+MongoPassword: "asdasd55555"
 # 运行模式
 RunMod: 1
 ```
