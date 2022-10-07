@@ -9,22 +9,22 @@ import (
 
 type AITradePingData struct {
 	AppInfo struct {
-		Name    string `json:"name"`
-		Version string `json:"version"`
-		Port    int    `json:"Port"`
-	} `json:"AppInfo"`
-	ContentType string   `json:"ContentType"`
-	FullPath    string   `json:"FullPath"`
-	Method      string   `json:"Method"`
-	ResParam    struct{} `json:"ResParam"`
-	Token       string   `json:"Token"`
-	UserAgent   string   `json:"UserAgent"`
+		Name    string `bson:"name"`
+		Version string `bson:"version"`
+		Port    int    `bson:"Port"`
+	} `bson:"AppInfo"`
+	ContentType string   `bson:"ContentType"`
+	FullPath    string   `bson:"FullPath"`
+	Method      string   `bson:"Method"`
+	ResParam    struct{} `bson:"ResParam"`
+	Token       string   `bson:"Token"`
+	UserAgent   string   `bson:"UserAgent"`
 }
 
 type AITradePingResult struct {
-	Code int             `json:"Code"`
-	Data AITradePingData `json:"Data"`
-	Msg  string          `json:"Msg"`
+	Code int             `bson:"Code"`
+	Data AITradePingData `bson:"Data"`
+	Msg  string          `bson:"Msg"`
 }
 
 type PingOpt struct {

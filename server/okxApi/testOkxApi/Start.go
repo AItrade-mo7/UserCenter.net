@@ -10,44 +10,44 @@ import (
 )
 
 type ReqType struct {
-	Code string `json:"code"`
+	Code string `bson:"code"`
 	Data []struct {
-		AdjEq   string `json:"adjEq"`
+		AdjEq   string `bson:"adjEq"`
 		Details []struct {
-			AvailBal      string `json:"availBal"`
-			AvailEq       string `json:"availEq"`
-			CashBal       string `json:"cashBal"`
-			Ccy           string `json:"ccy"`
-			CrossLiab     string `json:"crossLiab"`
-			DisEq         string `json:"disEq"`
-			Eq            string `json:"eq"`
-			EqUsd         string `json:"eqUsd"`
-			FrozenBal     string `json:"frozenBal"`
-			Interest      string `json:"interest"`
-			IsoEq         string `json:"isoEq"`
-			IsoLiab       string `json:"isoLiab"`
-			IsoUpl        string `json:"isoUpl"`
-			Liab          string `json:"liab"`
-			MaxLoan       string `json:"maxLoan"`
-			MgnRatio      string `json:"mgnRatio"`
-			NotionalLever string `json:"notionalLever"`
-			OrdFrozen     string `json:"ordFrozen"`
-			StgyEq        string `json:"stgyEq"`
-			Twap          string `json:"twap"`
-			UTime         string `json:"uTime"`
-			Upl           string `json:"upl"`
-			UplLiab       string `json:"uplLiab"`
-		} `json:"details"`
-		Imr         string `json:"imr"`
-		IsoEq       string `json:"isoEq"`
-		MgnRatio    string `json:"mgnRatio"`
-		Mmr         string `json:"mmr"`
-		NotionalUsd string `json:"notionalUsd"`
-		OrdFroz     string `json:"ordFroz"`
-		TotalEq     string `json:"totalEq"`
-		UTime       string `json:"uTime"`
-	} `json:"data"`
-	Msg string `json:"msg"`
+			AvailBal      string `bson:"availBal"`
+			AvailEq       string `bson:"availEq"`
+			CashBal       string `bson:"cashBal"`
+			Ccy           string `bson:"ccy"`
+			CrossLiab     string `bson:"crossLiab"`
+			DisEq         string `bson:"disEq"`
+			Eq            string `bson:"eq"`
+			EqUsd         string `bson:"eqUsd"`
+			FrozenBal     string `bson:"frozenBal"`
+			Interest      string `bson:"interest"`
+			IsoEq         string `bson:"isoEq"`
+			IsoLiab       string `bson:"isoLiab"`
+			IsoUpl        string `bson:"isoUpl"`
+			Liab          string `bson:"liab"`
+			MaxLoan       string `bson:"maxLoan"`
+			MgnRatio      string `bson:"mgnRatio"`
+			NotionalLever string `bson:"notionalLever"`
+			OrdFrozen     string `bson:"ordFrozen"`
+			StgyEq        string `bson:"stgyEq"`
+			Twap          string `bson:"twap"`
+			UTime         string `bson:"uTime"`
+			Upl           string `bson:"upl"`
+			UplLiab       string `bson:"uplLiab"`
+		} `bson:"details"`
+		Imr         string `bson:"imr"`
+		IsoEq       string `bson:"isoEq"`
+		MgnRatio    string `bson:"mgnRatio"`
+		Mmr         string `bson:"mmr"`
+		NotionalUsd string `bson:"notionalUsd"`
+		OrdFroz     string `bson:"ordFroz"`
+		TotalEq     string `bson:"totalEq"`
+		UTime       string `bson:"uTime"`
+	} `bson:"data"`
+	Msg string `bson:"msg"`
 }
 
 type Opt struct {

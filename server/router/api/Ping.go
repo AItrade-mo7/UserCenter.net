@@ -14,8 +14,8 @@ import (
 )
 
 type AppInfoType struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
+	Name    string `bson:"name"`
+	Version string `bson:"version"`
 }
 
 func Ping(c *fiber.Ctx) error {
