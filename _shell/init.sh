@@ -13,4 +13,4 @@ buildName=${startName}
 outPutPath=${path}"/dist"
 
 # 部署目录
-deployPath="/root/ProdProject/DataCenter.net"
+deployPath="/root/ProdProject/DataCenter"
