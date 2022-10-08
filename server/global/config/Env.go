@@ -14,7 +14,6 @@ var ApiInfo struct {
 }
 
 var SysEnv struct {
-	LocalIP       string
 	MongoAddress  string
 	MongoPassword string
 	MongoUserName string
