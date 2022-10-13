@@ -3,15 +3,12 @@ package api
 import (
 	"strings"
 
-	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/router/result"
 	"github.com/fasthttp/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/valyala/fasthttp"
 	fastProxy "github.com/yeqown/fasthttp-reverse-proxy"
 )
-
-const testAIServeHost = "127.0.0.1:9010"
 
 func AIServeProxy(c *fiber.Ctx) error {
 	fastProxy.SetProduction()
@@ -21,10 +18,6 @@ func AIServeProxy(c *fiber.Ctx) error {
 		return AIServeProxy_wss(c)
 	}
 	host := c.Get("Coin-Serve-ID")
-
-	if config.SysEnv.RunMod == 1 && host == "50.18.29.218:9010" {
-		host = testAIServeHost
-	}
 
 	if len(host) < 6 {
 		return c.JSON(result.Fail.WithData("缺少代理地址"))
@@ -40,9 +33,6 @@ func AIServeProxy_wss(c *fiber.Ctx) error {
 	path := c.Path()
 	if len(host) < 6 {
 		return c.JSON(result.Fail.WithData("缺少代理地址"))
-	}
-	if config.SysEnv.RunMod == 1 && host == "50.18.29.218:9010" {
-		host = testAIServeHost
 	}
 
 	proxyServer := fastProxy.NewWSReverseProxy(host, path)

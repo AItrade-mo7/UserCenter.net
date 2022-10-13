@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"DataCenter.net/server/global/config"
+	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mCycle"
 )
 
@@ -19,5 +20,16 @@ func Start() {
 
 	ServerEnvInit()
 
+	go Email(EmailOpt{
+		To: []string{
+			"meichangliang@mo7.cc",
+		},
+		Subject:  "ServeStart",
+		Template: tmpl.SysEmail,
+		SendData: tmpl.SysParam{
+			Message: "系统初始化完成",
+			SysTime: time.Now(),
+		},
+	}).Send()
 	Log.Println(`系统初始化完成`)
 }

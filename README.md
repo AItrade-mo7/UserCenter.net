@@ -6,11 +6,9 @@ AITrade 的数据中心,用来进行用户账户的数据管理
 
 ```yaml
 # Mongodb
-MongoAddress: "aws.mo7.cc:17017"
-MongoUserName: "mo7"
-MongoPassword: "asdasd55555"
-# 运行模式
-RunMod: 1
+MongoAddress: "xxxx.xxxx.xxxx:79456"
+MongoUserName: "sssss"
+MongoPassword: "123456"
 ```
 
 ## go work

@@ -17,7 +17,6 @@ var SysEnv struct {
 	MongoAddress  string
 	MongoPassword string
 	MongoUserName string
-	RunMod        int // 0 则为正常模式 ， 1 则为数据模拟模式
 }
 
 func LoadSysEnv(envPath string) {
