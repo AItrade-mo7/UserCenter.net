@@ -1,6 +1,8 @@
 package middle
 
 import (
+	"DataCenter.net/server/router/result"
+	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -13,5 +15,12 @@ func Public(c *fiber.Ctx) error {
 
 func AddHeader(c *fiber.Ctx) error {
 	c.Set("Data-Path", "DataCenter.net")
+
+	// 授权验证
+	err := EncryptAuth(c)
+	if err != nil {
+		return c.JSON(result.ErrAuth.WithData(mStr.ToStr(err)))
+	}
+
 	return nil
 }
