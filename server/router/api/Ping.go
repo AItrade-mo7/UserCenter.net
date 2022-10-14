@@ -1,6 +1,8 @@
 package api
 
 import (
+	"fmt"
+
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
@@ -20,6 +22,8 @@ type AppInfoType struct {
 
 func Ping(c *fiber.Ctx) error {
 	json := mFiber.Parser(c)
+
+	fmt.Println()
 
 	// 在这里请求数据
 	ClientFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
@@ -41,6 +45,11 @@ func Ping(c *fiber.Ctx) error {
 
 	ReturnData["UserAgent"] = c.Get("User-Agent")
 	ReturnData["Path"] = c.OriginalURL()
+
+	ips := c.IPs()
+	if len(ips) > 0 {
+		ReturnData["IP"] = ips[0]
+	}
 
 	// 获取 token
 	token := c.Get("Token")
