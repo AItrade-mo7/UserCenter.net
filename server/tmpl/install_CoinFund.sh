@@ -2,15 +2,12 @@
 
 Port="{{.Port}}"
 UserID="{{.UserID}}"
-CoinServeID="{{.CoinServeID}}"
 startName="CoinAI.net-"${Port}
 
 rm -rf ${startName}
 mkdir ${startName}
 cd ${startName}
 
-startFilePath="./restart.sh"
-stopFilePath="./shutdown.sh"
 configFilePath="./app_env.yaml"
 
 ################## 环境搭建环节 ########################
