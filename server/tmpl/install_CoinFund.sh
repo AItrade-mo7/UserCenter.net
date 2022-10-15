@@ -8,7 +8,7 @@ rm -rf ${startName}
 mkdir ${startName}
 cd ${startName}
 
-configFilePath="./app_env.yaml"
+configFilePath="./app_env.json"
 
 ################## 环境搭建环节 ########################
 
