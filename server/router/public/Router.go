@@ -18,5 +18,5 @@ func Router(router fiber.Router) {
 	r.Post("/change_password", account.ChangePassword)
 	r.Post("/login", account.Login)
 
-	r.Get("/InstallCoinShell.sh", api.InstallCoinShell)
+	r.Get("/InstallCoinAI.sh", api.InstallCoinAI)
 }

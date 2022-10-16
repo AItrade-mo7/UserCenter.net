@@ -1,22 +1,19 @@
 package api
 
 import (
-	"fmt"
-
-	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/installShell"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 )
 
-type InstallCoinShellParam struct {
+type InstallCoinAIParam struct {
 	Port   string `bson:"Port"`
 	UserID string `bson:"UserID"` // 用户 ID
 }
 
-func InstallCoinShell(c *fiber.Ctx) error {
-	var json InstallCoinShellParam
+func InstallCoinAI(c *fiber.Ctx) error {
+	var json InstallCoinAIParam
 	mFiber.Parser(c, &json)
 
 	if !mVerify.IsPort(json.Port) {
@@ -28,7 +25,5 @@ func InstallCoinShell(c *fiber.Ctx) error {
 		UserID: json.UserID,
 	})
 
-	fmt.Println(Path)
-
-	return c.JSON(result.Succeed.WithData(Path))
+	return c.SendFile(Path)
 }
