@@ -18,7 +18,7 @@ func InstallCoinShell(c *fiber.Ctx) error {
 	mFiber.Parser(c, &json)
 
 	if !mVerify.IsPort(json.Port) {
-		return c.JSON(result.Fail.WithMsg("请输入正确的端口号!"))
+		json.Port = "9856"
 	}
 
 	Url, err := installShell.CoinFund(installShell.InstShellOpt{

@@ -2,16 +2,13 @@ package installShell
 
 import (
 	"bytes"
-	"fmt"
 	"os"
-	"strings"
 	"text/template"
 
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFile"
-	"github.com/EasyGolang/goTools/mPath"
 	"github.com/EasyGolang/goTools/mStr"
 )
 
@@ -21,28 +18,16 @@ type InstShellOpt struct {
 	UserID string
 }
 
-type ShellUrl struct {
-	Src string
-}
-
-func CoinFund(opt InstShellOpt) (resData ShellUrl, resErr error) {
+func CoinFund(opt InstShellOpt) (resData string, resErr error) {
 	resErr = nil
-	resData = ShellUrl{}
+	resData = ""
 
 	savePath := mStr.Join(
-		config.Dir.AITrade,
+		config.Dir.JsonData,
 		mStr.ToStr(os.PathSeparator),
 		"install",
 	)
-	// 目录不存在则创建
-	isSavePath := mPath.Exists(savePath)
-	if !isSavePath {
-		err := os.MkdirAll(savePath, os.FileMode(0o777))
-		if err != nil {
-			resErr = fmt.Errorf("创建目录失败")
-			return
-		}
-	}
+
 	name := mEncrypt.RandStr(1)
 	fileName := mFile.GetName(mFile.GetNameOpt{
 		FileName: mStr.Join(name, "-", opt.Port, ".sh"),
@@ -66,9 +51,7 @@ func CoinFund(opt InstShellOpt) (resData ShellUrl, resErr error) {
 	// 写入文件
 	mFile.Write(filePath, Cont)
 
-	remoteUrl := strings.Replace(filePath, config.Dir.File, config.Dir.FilRemote, 1)
-
-	resData.Src = remoteUrl
+	resData = filePath
 
 	return
 }
