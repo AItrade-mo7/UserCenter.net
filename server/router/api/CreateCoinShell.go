@@ -2,7 +2,9 @@ package api
 
 import (
 	"DataCenter.net/server/router/result"
+	"DataCenter.net/server/utils/installShell"
 	"github.com/EasyGolang/goTools/mFiber"
+	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -15,9 +17,17 @@ func CreateCoinShell(c *fiber.Ctx) error {
 	var json CreateCoinShellParam
 	mFiber.Parser(c, &json)
 
-	if len(json.Port) > 2 {
-		return c.JSON(result.Fail.WithData("请填写端口号"))
+	if !mVerify.IsPort(json.Port) {
+		return c.JSON(result.Fail.WithMsg("请输入正确的端口号!"))
 	}
 
-	return c.JSON(result.Succeed.WithData("尚在开发中"))
+	Url, err := installShell.CoinFund(installShell.InstShellOpt{
+		Port:   json.Port,
+		UserID: json.UserID,
+	})
+	if err != nil {
+		return c.JSON(result.Succeed.WithMsg(err))
+	}
+
+	return c.JSON(result.Succeed.WithData(Url))
 }

@@ -9,6 +9,7 @@ import (
 
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
+	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFile"
 	"github.com/EasyGolang/goTools/mPath"
 	"github.com/EasyGolang/goTools/mStr"
@@ -16,9 +17,8 @@ import (
 
 // 生成外部脚本
 type InstShellOpt struct {
-	Port        string
-	UserID      string
-	CoinServeID string
+	Port   string
+	UserID string
 }
 
 type ShellUrl struct {
@@ -43,9 +43,9 @@ func CoinFund(opt InstShellOpt) (resData ShellUrl, resErr error) {
 			return
 		}
 	}
-
+	name := mEncrypt.RandStr(1)
 	fileName := mFile.GetName(mFile.GetNameOpt{
-		FileName: mStr.Join("i-", opt.Port, ".sh"),
+		FileName: mStr.Join(name, "-", opt.Port, ".sh"),
 		SavePath: savePath,
 	})
 	filePath := mStr.Join(
@@ -58,9 +58,8 @@ func CoinFund(opt InstShellOpt) (resData ShellUrl, resErr error) {
 	Body := new(bytes.Buffer)
 	Tmpl := template.Must(template.New("").Parse(tmpl.InstCoinServe))
 	Tmpl.Execute(Body, tmpl.InstCoinServeParam{
-		Port:        opt.Port,
-		UserID:      opt.UserID,
-		CoinServeID: opt.CoinServeID,
+		Port:   opt.Port,
+		UserID: opt.UserID,
 	})
 	Cont := Body.String()
 

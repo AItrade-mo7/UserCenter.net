@@ -37,7 +37,6 @@ type RegisterSucceedParam struct {
 var InstCoinServe string
 
 type InstCoinServeParam struct {
-	Port        string
-	UserID      string
-	CoinServeID string
+	Port   string
+	UserID string
 }
