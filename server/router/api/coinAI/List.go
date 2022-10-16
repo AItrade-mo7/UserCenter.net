@@ -49,5 +49,5 @@ func List(c *fiber.Ctx) error {
 		CoinAIList = append(CoinAIList, CoinServe)
 	}
 
-	return c.JSON(result.Succeed.WithMsg(CoinAIList))
+	return c.JSON(result.Succeed.WithData(CoinAIList))
 }
