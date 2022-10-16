@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Port="{{.Port}}"
+Port="{{.9876}}"
 UserID="{{.UserID}}"
 startName="CoinAI.net-"${Port}
 
@@ -8,13 +8,8 @@ rm -rf ${startName}
 mkdir ${startName}
 cd ${startName}
 
-configFilePath="./app_env.json"
-
 ################## 环境搭建环节 ########################
-
-echo "
-======== 环境检测 ========
-"
+echo "======== 环境检测 ========"
 
 if [[ $(command -v npm) ]]; then
   echo "检测到已安装 npm , 继续执行"
@@ -54,64 +49,59 @@ fi
 
 SystemType=$(arch)
 
-downLoadPath="https://raw.githubusercontent.com/mo7static/CoinAI.net/main/CoinAI.net_x86_64"
-
+downLoadPath="https://raw.githubusercontent.com/AITrade-mo7/CoinAIPackage/main/CoinAI.net_x86_64"
 if [[ ${SystemType} =~ "aarch64" ]]; then
-  downLoadPath="https://raw.githubusercontent.com/mo7static/CoinAI.net/main/CoinAI.net_aarch64"
+  downLoadPath="https://raw.githubusercontent.com/AITrade-mo7/CoinAIPackage/main/CoinAI.net_aarch64"
 fi
 
 ################ 启动脚本 ##########################
-echo "
-======== 生成 启动脚本 ========
-"
+echo "======== 生成 启动脚本 ========"
+startFilePath="./ReBoot.sh"
 
 sudo cat >${startFilePath} <<END
 #!/bin/bash
 
-echo ""===== 下载可执行文件 "====="
+echo "===== 下载可执行文件 ====="
 
-cd $(pwd)
+cd "$(pwd)"
 
-pm2 delete ${startName}
+pm2 delete "${startName}"
 
-rm -rf ${startName} &&
-  wget -O ${startName} ${downLoadPath}
+rm -rf "${startName}" &&
+  wget -O "${startName}" "${downLoadPath}"
 
-sudo chmod 777 ${startName}
+sudo chmod 777 "${startName}"
 
 echo "===== 启动服务 ====="
 
-pm2 start ${startName} --name ${startName}
+pm2 start "${startName}" --name "${startName}"
 
 END
-sudo chmod 777 ${startFilePath}
 
 ################ 停止脚本 ##########################
-echo "
-======== 生成 停止脚本 ========
-"
+echo "======== 生成 停止脚本 ========"
+stopFilePath="./Shutdown.sh"
 
 sudo cat >${stopFilePath} <<END
 #!/bin/bash
 
-pm2 delete ${startName}
-rm -rf $(pwd)
+pm2 delete "${startName}"
+rm -rf "$(pwd)"
 
 END
-sudo chmod 777 ${stopFilePath}
 
 ################ 配置文件 ##########################
-echo "
-======== 生成 配置文件 ========
-"
+echo "======== 生成 配置文件 ========"
+configFilePath="./app_env.json"
 
 sudo cat >${configFilePath} <<END
-
-Port: "${Port}"
-UserID: "${UserID}"
-CoinServeID: "${CoinServeID}"
-
+{
+  "Port": "${Port}",
+  "UserID": "${UserID}"
+}
 END
-sudo chmod 777 ${configFilePath}
 
-source ${startFilePath}
+sudo chmod -R 777 "$(pwd)"
+
+echo "======== 启动服务 ========"
+source "${startFilePath}"

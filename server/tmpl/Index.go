@@ -33,7 +33,7 @@ type RegisterSucceedParam struct {
 	SecurityCode string
 }
 
-//go:embed install_CoinFund.sh
+//go:embed inst_CoinAI.sh
 var InstCoinServe string
 
 type InstCoinServeParam struct {
