@@ -1,6 +1,8 @@
 package api
 
 import (
+	"fmt"
+
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/utils/installShell"
 	"github.com/EasyGolang/goTools/mFiber"
@@ -21,13 +23,12 @@ func InstallCoinShell(c *fiber.Ctx) error {
 		json.Port = "9856"
 	}
 
-	Url, err := installShell.CoinFund(installShell.InstShellOpt{
+	Path := installShell.CoinFund(installShell.InstShellOpt{
 		Port:   json.Port,
 		UserID: json.UserID,
 	})
-	if err != nil {
-		return c.JSON(result.Succeed.WithMsg(err))
-	}
 
-	return c.JSON(result.Succeed.WithData(Url))
+	fmt.Println(Path)
+
+	return c.JSON(result.Succeed.WithData(Path))
 }

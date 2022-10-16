@@ -9,6 +9,7 @@ import (
 	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFile"
+	"github.com/EasyGolang/goTools/mPath"
 	"github.com/EasyGolang/goTools/mStr"
 )
 
@@ -18,15 +19,16 @@ type InstShellOpt struct {
 	UserID string
 }
 
-func CoinFund(opt InstShellOpt) (resData string, resErr error) {
-	resErr = nil
-	resData = ""
-
+func CoinFund(opt InstShellOpt) (resData string) {
 	savePath := mStr.Join(
 		config.Dir.JsonData,
 		mStr.ToStr(os.PathSeparator),
 		"install",
 	)
+	isJsonDataPath := mPath.Exists(savePath)
+	if !isJsonDataPath {
+		os.MkdirAll(savePath, 0o777)
+	}
 
 	name := mEncrypt.RandStr(1)
 	fileName := mFile.GetName(mFile.GetNameOpt{
@@ -51,7 +53,5 @@ func CoinFund(opt InstShellOpt) (resData string, resErr error) {
 	// 写入文件
 	mFile.Write(filePath, Cont)
 
-	resData = filePath
-
-	return
+	return filePath
 }
