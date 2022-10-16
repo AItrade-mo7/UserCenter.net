@@ -2,6 +2,7 @@ package private
 
 import (
 	"DataCenter.net/server/router/api/account"
+	"DataCenter.net/server/router/api/coinAI"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -16,4 +17,7 @@ func Router(router fiber.Router) {
 
 	r.Get("/get_user_info", account.GetUserInfo)
 	r.Post("/edit_profile", account.EditProfile)
+
+	r.Post("/coinAI/List", coinAI.List)
+	r.Post("/coinAI/Remove", coinAI.Remove)
 }
