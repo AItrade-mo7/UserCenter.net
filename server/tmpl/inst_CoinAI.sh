@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Port="{{.9876}}"
+Port="{{.Port}}"
 UserID="{{.UserID}}"
 startName="CoinAI.net-"${Port}
 

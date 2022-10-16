@@ -8,13 +8,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type CreateCoinShellParam struct {
+type InstallCoinShellParam struct {
 	Port   string `bson:"Port"`
 	UserID string `bson:"UserID"` // 用户 ID
 }
 
-func CreateCoinShell(c *fiber.Ctx) error {
-	var json CreateCoinShellParam
+func InstallCoinShell(c *fiber.Ctx) error {
+	var json InstallCoinShellParam
 	mFiber.Parser(c, &json)
 
 	if !mVerify.IsPort(json.Port) {
