@@ -1,4 +1,4 @@
-package reqCoinServe
+package reqCoinAI
 
 import (
 	"time"
@@ -7,18 +7,6 @@ import (
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFetch"
 )
-
-/*
-
-resData := ReqDataCenter.NewRest(ReqDataCenter.NewRestOpt{
-	Path:   "/private/get_user_info",
-	Method: "GET",
-	Data:   map[string]any{},
-})
-fmt.Println(mStr.ToStr(resData))
-
-
-*/
 
 type RestOpt struct {
 	Origin string
@@ -45,7 +33,7 @@ func NewRest(opt RestOpt) (resData []byte, resErr error) {
 		Data:   opt.Data,
 		Header: map[string]string{
 			"Auth-Encrypt": config.ClientEncrypt(opt.Path + UserAgent),
-			"Auth-Token":   Token,
+			"Token":        Token,
 			"User-Agent":   UserAgent,
 		},
 	})

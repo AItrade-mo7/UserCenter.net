@@ -1,10 +1,13 @@
 package coinAI
 
 import (
+	"fmt"
+
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
+	"DataCenter.net/server/utils/reqCoinAI"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"
@@ -57,7 +60,19 @@ func Remove(c *fiber.Ctx) error {
 	}
 
 	// 在这里 ping 一下
+	fmt.Println("CoinServe", CoinServe.ServeID)
+	Origin := mStr.Join("http://", CoinServe.ServeID)
+	_, err = reqCoinAI.NewRest(reqCoinAI.RestOpt{
+		Origin: Origin,
+		UserID: userID,
+		Path:   "/ping",
+		Method: "GET",
+	})
 
-	db.Table.DeleteOne(db.Ctx, findFK)
-	return c.JSON(result.Succeed.WithMsg("已删除"))
+	if err != nil {
+		db.Table.DeleteOne(db.Ctx, findFK)
+		return c.JSON(result.Succeed.WithMsg("已删除"))
+	} else {
+		return c.JSON(result.Fail.WithMsg("请先停止服务再进行删除！"))
+	}
 }
