@@ -20,7 +20,7 @@ func AIServeProxy(c *fiber.Ctx) error {
 	host := c.Get("Coin-Serve-ID")
 
 	if len(host) < 6 {
-		return c.JSON(result.Fail.WithData("缺少代理地址"))
+		return c.JSON(result.Fail.WithMsg("缺少代理地址"))
 	}
 
 	proxyServer := fastProxy.NewReverseProxy(host)
@@ -32,7 +32,7 @@ func AIServeProxy_wss(c *fiber.Ctx) error {
 	host := c.Query("host")
 	path := c.Path()
 	if len(host) < 6 {
-		return c.JSON(result.Fail.WithData("缺少代理地址"))
+		return c.JSON(result.Fail.WithMsg("缺少代理地址"))
 	}
 
 	proxyServer := fastProxy.NewWSReverseProxy(host, path)
