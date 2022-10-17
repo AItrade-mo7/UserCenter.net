@@ -2,6 +2,7 @@ package middle
 
 import (
 	"path"
+	"strings"
 
 	"DataCenter.net/server/router/result"
 	"github.com/EasyGolang/goTools/mStr"
@@ -11,6 +12,11 @@ import (
 func Public(c *fiber.Ctx) error {
 	// 添加访问头
 	AddHeader(c)
+
+	findWss := strings.Contains(c.Path(), "/wss")
+	if findWss {
+		return c.Next()
+	}
 
 	// 链接无后缀名则需要验证
 	filenameWithSuffix := path.Base(c.Path())
