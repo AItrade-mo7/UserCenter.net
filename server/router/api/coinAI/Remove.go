@@ -1,8 +1,6 @@
 package coinAI
 
 import (
-	"fmt"
-
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/middle"
@@ -60,7 +58,6 @@ func Remove(c *fiber.Ctx) error {
 	}
 
 	// 在这里 ping 一下
-	fmt.Println("CoinServe", CoinServe.ServeID)
 	Origin := mStr.Join("http://", CoinServe.ServeID)
 	_, err = reqCoinAI.NewRest(reqCoinAI.RestOpt{
 		Origin: Origin,
