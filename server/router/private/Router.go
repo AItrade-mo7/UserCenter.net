@@ -19,5 +19,6 @@ func Router(router fiber.Router) {
 	r.Post("/edit_profile", account.EditProfile)
 
 	r.Post("/coinAI/List", coinAI.List)
+	r.Post("/coinAI/PublicList", coinAI.PublicList)
 	r.Post("/coinAI/Remove", coinAI.Remove)
 }
