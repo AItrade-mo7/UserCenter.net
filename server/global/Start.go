@@ -21,9 +21,7 @@ func Start() {
 	ServerEnvInit()
 
 	go Email(EmailOpt{
-		To: []string{
-			"meichangliang@mo7.cc",
-		},
+		To:       config.Email.To,
 		Subject:  "ServeStart",
 		Template: tmpl.SysEmail,
 		SendData: tmpl.SysParam{
