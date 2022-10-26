@@ -4,6 +4,7 @@ import (
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/result"
+	"DataCenter.net/server/utils/dbUser"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -11,6 +12,13 @@ import (
 )
 
 func PublicList(c *fiber.Ctx) error {
+	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+		Email: "trade@mo7.cc",
+	})
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
+
 	db := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
@@ -26,8 +34,8 @@ func PublicList(c *fiber.Ctx) error {
 	})
 
 	findFK := bson.D{{
-		Key:   "Email",
-		Value: "trade@mo7.cc",
+		Key:   "UserID",
+		Value: UserDB.AccountData.UserID,
 	}}
 
 	cursor, err := db.Table.Find(db.Ctx, findFK, findOpt)
