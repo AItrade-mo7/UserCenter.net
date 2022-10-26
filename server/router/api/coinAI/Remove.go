@@ -5,6 +5,7 @@ import (
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/middle"
 	"DataCenter.net/server/router/result"
+	"DataCenter.net/server/utils/dbUser"
 	"DataCenter.net/server/utils/reqCoinAI"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mMongo"
@@ -15,7 +16,8 @@ import (
 )
 
 type RemoveCoinAIParam struct {
-	ServeID string
+	ServeID  string
+	Password string
 }
 
 func Remove(c *fiber.Ctx) error {
@@ -29,6 +31,18 @@ func Remove(c *fiber.Ctx) error {
 	userID, err := middle.TokenAuth(c)
 	if err != nil {
 		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
+	}
+	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+		UserID: userID,
+	})
+	if err != nil {
+		UserDB.DB.Close()
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+	}
+
+	err = UserDB.CheckPassword(json.Password)
+	if err != nil {
+		return c.JSON(result.ErrLogin.WithMsg(err))
 	}
 
 	db := mMongo.New(mMongo.Opt{
