@@ -15,7 +15,7 @@ func Start() {
 	// 初始化日志系统 保证日志可用
 	mCycle.New(mCycle.Opt{
 		Func:      LogInit,
-		SleepTime: time.Hour * 8,
+		SleepTime: time.Hour * 24,
 	}).Start()
 
 	ServerEnvInit()
