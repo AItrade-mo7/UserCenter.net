@@ -23,7 +23,7 @@ if [[ $(command -v pm2) ]]; then
   echo "已安装 pm2 , 继续执行"
 else
   echo "未安装 pm2 , 开始安装"
-  sudo npm install -g pm2
+  npm install -g pm2
 fi
 
 if [[ $(command -v pm2) ]]; then
