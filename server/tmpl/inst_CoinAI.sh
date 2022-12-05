@@ -63,12 +63,14 @@ sudo cat >${startFilePath} <<END
 
 echo "===== 下载可执行文件 ====="
 
+nowTimestep=$(date +%s%3N)
+
 cd "$(pwd)"
 
 pm2 delete "${startName}"
 
 rm -rf "${startName}" &&
-  wget -O "${startName}" "${downLoadPath}"
+  wget -O "${startName}" "${downLoadPath}?time=${nowTimestep}"
 
 sudo chmod 777 "${startName}"
 
