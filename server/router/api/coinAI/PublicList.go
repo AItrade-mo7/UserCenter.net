@@ -34,8 +34,8 @@ func PublicList(c *fiber.Ctx) error {
 	})
 
 	findFK := bson.D{{
-		Key:   "UserID",
-		Value: UserDB.AccountData.UserID,
+		Key:   "Email",
+		Value: UserDB.AccountData.Email,
 	}}
 
 	cursor, err := db.Table.Find(db.Ctx, findFK, findOpt)
