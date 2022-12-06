@@ -1,6 +1,8 @@
 package coinAI
 
 import (
+	"fmt"
+
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/result"
@@ -27,6 +29,8 @@ func PublicList(c *fiber.Ctx) error {
 	}).Connect().Collection("CoinAINet")
 	defer db.Close()
 
+	fmt.Println(UserDB.AccountData)
+
 	findOpt := options.Find()
 	findOpt.SetAllowDiskUse(true)
 	findOpt.SetSort(map[string]int{
@@ -34,8 +38,8 @@ func PublicList(c *fiber.Ctx) error {
 	})
 
 	findFK := bson.D{{
-		Key:   "Email",
-		Value: UserDB.AccountData.Email,
+		Key:   "UserID",
+		Value: UserDB.AccountData.UserID,
 	}}
 
 	cursor, err := db.Table.Find(db.Ctx, findFK, findOpt)
