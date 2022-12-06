@@ -3,7 +3,6 @@ package account
 import (
 	"fmt"
 	"regexp"
-	"time"
 
 	"DataCenter.net/server/global"
 	"DataCenter.net/server/global/apiType"
@@ -192,7 +191,7 @@ func EditProfile(c *fiber.Ctx) error {
 			Template: tmpl.SysEmail,
 			SendData: tmpl.SysParam{
 				Message:      message,
-				SysTime:      time.Now(),
+				SysTime:      mTime.IsoTime(),
 				SecurityCode: UserDB.AccountData.SecurityCode,
 			},
 		}).Send()
@@ -213,7 +212,7 @@ func EditProfile(c *fiber.Ctx) error {
 			Template: tmpl.SysEmail,
 			SendData: tmpl.SysParam{
 				Message:      message,
-				SysTime:      time.Now(),
+				SysTime:      mTime.IsoTime(),
 				SecurityCode: UserDB.AccountData.SecurityCode,
 			},
 		}).Send()

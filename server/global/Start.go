@@ -6,6 +6,7 @@ import (
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mCycle"
+	"github.com/EasyGolang/goTools/mTime"
 )
 
 func Start() {
@@ -26,7 +27,7 @@ func Start() {
 		Template: tmpl.SysEmail,
 		SendData: tmpl.SysParam{
 			Message: "系统初始化完成",
-			SysTime: time.Now(),
+			SysTime: mTime.IsoTime(),
 		},
 	}).Send()
 	Log.Println(`系统初始化完成`)

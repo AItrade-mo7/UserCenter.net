@@ -13,6 +13,7 @@ import (
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mTime"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 	jsoniter "github.com/json-iterator/go"
@@ -72,7 +73,7 @@ func Login(c *fiber.Ctx) error {
 		Template: tmpl.SysEmail,
 		SendData: tmpl.SysParam{
 			Message:      "您刚刚执行了登录操作，登录设备: " + c.Get("User-Agent"),
-			SysTime:      time.Now(),
+			SysTime:      mTime.IsoTime(),
 			SecurityCode: UserDB.AccountData.SecurityCode,
 		},
 	}).Send()

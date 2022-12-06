@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
@@ -53,7 +52,7 @@ func LogErr(sum ...any) {
 		Template: tmpl.SysEmail,
 		SendData: tmpl.SysParam{
 			Message: str,
-			SysTime: time.Now(),
+			SysTime: mTime.IsoTime(),
 		},
 	})
 	Log.Println(str)
