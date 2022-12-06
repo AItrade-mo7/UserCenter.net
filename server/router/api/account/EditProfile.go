@@ -191,7 +191,7 @@ func EditProfile(c *fiber.Ctx) error {
 			Template: tmpl.SysEmail,
 			SendData: tmpl.SysParam{
 				Message:      message,
-				SysTime:      mTime.IsoTime(),
+				SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
 				SecurityCode: UserDB.AccountData.SecurityCode,
 			},
 		}).Send()
@@ -212,7 +212,7 @@ func EditProfile(c *fiber.Ctx) error {
 			Template: tmpl.SysEmail,
 			SendData: tmpl.SysParam{
 				Message:      message,
-				SysTime:      mTime.IsoTime(),
+				SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
 				SecurityCode: UserDB.AccountData.SecurityCode,
 			},
 		}).Send()

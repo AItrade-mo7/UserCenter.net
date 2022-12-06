@@ -73,7 +73,7 @@ func Login(c *fiber.Ctx) error {
 		Template: tmpl.SysEmail,
 		SendData: tmpl.SysParam{
 			Message:      "您刚刚执行了登录操作，登录设备: " + c.Get("User-Agent"),
-			SysTime:      mTime.IsoTime(),
+			SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
 			SecurityCode: UserDB.AccountData.SecurityCode,
 		},
 	}).Send()

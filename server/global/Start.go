@@ -27,7 +27,7 @@ func Start() {
 		Template: tmpl.SysEmail,
 		SendData: tmpl.SysParam{
 			Message: "系统初始化完成",
-			SysTime: mTime.IsoTime(),
+			SysTime: mTime.UnixFormat(mTime.GetUnixInt64()),
 		},
 	}).Send()
 	Log.Println(`系统初始化完成`)
