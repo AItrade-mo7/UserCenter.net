@@ -23,7 +23,7 @@ func Ping(c *fiber.Ctx) error {
 
 	// 在这里请求数据
 	ClientFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
-		Origin: "http://trade.mo7.cc:9898",
+		Origin: "http://trade.mo7.cc",
 		Path:   "/package.json?tmp=" + mTime.GetUnix(),
 	}).Get()
 
