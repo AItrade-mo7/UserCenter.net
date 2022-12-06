@@ -2,6 +2,7 @@ package account
 
 import (
 	"fmt"
+	"regexp"
 	"time"
 
 	"DataCenter.net/server/global"
@@ -46,11 +47,19 @@ func EditProfile(c *fiber.Ctx) error {
 		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
+
+	reg, _ := regexp.Compile("[\u4e00-\u9fa5_a-zA-Z0-9_]{2,12}")
+	match := reg.MatchString(json.NickName)
+	if match {
+	} else {
+		return c.JSON(result.Fail.WithMsg("昵称不符合规范"))
+	}
+
 	// 记录老旧的邮箱
 	oldEmail := UserDB.AccountData.Email
 
 	Email_edit := len(json.NewEmail) > 1 && json.NewEmail != UserDB.AccountData.Email
-	NickName_edit := len(json.NickName) > 2 && json.NickName != UserDB.AccountData.NickName
+	NickName_edit := json.NickName != UserDB.AccountData.NickName
 	Avatar_edit := len(json.Avatar) > 2 && json.Avatar != UserDB.AccountData.Avatar
 	SecurityCode_edit := len(json.SecurityCode) > 2 && json.SecurityCode != UserDB.AccountData.SecurityCode
 
