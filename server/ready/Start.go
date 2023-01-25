@@ -17,7 +17,6 @@ import (
 )
 
 func Start() {
-	MiYouSheSign()
 	go mClock.New(mClock.OptType{
 		Func: MiYouSheSign,
 		Spec: "0 0 1,6,11,16,20,23 * * ? ", // 每天的 1  10  16  23
