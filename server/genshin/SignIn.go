@@ -1,14 +1,12 @@
 package genshin
 
 import (
-	"bytes"
 	"fmt"
-	"os/exec"
-	"text/template"
 
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mFile"
+	"github.com/EasyGolang/goTools/mShell"
 	"github.com/EasyGolang/goTools/mStr"
 )
 
@@ -46,31 +44,10 @@ python ${PyThonPath} "${Cookie}"
 
 	ShellCont = mStr.Temp(ShellCont, TempConfig)
 
-	res, err := RunShell(ShellCont)
+	res, err := mShell.Run(ShellCont)
 	if err != nil {
 		fmt.Println("出错---", err)
 	} else {
 		fmt.Println("成功---", string(res))
 	}
-}
-
-func RunShell(ShellCont string) (resData []byte, resErr error) {
-	Body := new(bytes.Buffer)
-	Tmpl := template.Must(template.New("").Parse(tmpl.FreedomShell))
-	Tmpl.Execute(Body, tmpl.FreedomShellParam{
-		ShellContent: ShellCont,
-	})
-	Cont := Body.String()
-
-	ShellPath := config.Dir.JsonData + "/FreedomShell.sh"
-	mFile.Write(ShellPath, Cont)
-
-	res, err := exec.Command("/bin/bash", ShellPath).Output()
-	if err != nil {
-		resErr = err
-	} else {
-		resData = res
-	}
-
-	return
 }
