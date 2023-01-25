@@ -1,22 +1,28 @@
 package account
 
 import (
+	"fmt"
 	"time"
 
 	"DataCenter.net/server/global"
 	"DataCenter.net/server/global/apiType"
 	"DataCenter.net/server/global/config"
+	"DataCenter.net/server/global/dbType"
 	"DataCenter.net/server/router/result"
 	"DataCenter.net/server/tmpl"
 	"DataCenter.net/server/utils/dbUser"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
+	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mStruct"
 	"github.com/EasyGolang/goTools/mTime"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 	jsoniter "github.com/json-iterator/go"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func Login(c *fiber.Ctx) error {
@@ -79,5 +85,51 @@ func Login(c *fiber.Ctx) error {
 	}).Send()
 
 	UserDB.DB.Close()
+
+	// 需要在这里把 token 存起来
+	db := mMongo.New(mMongo.Opt{
+		UserName: config.SysEnv.MongoUserName,
+		Password: config.SysEnv.MongoPassword,
+		Address:  config.SysEnv.MongoAddress,
+		DBName:   "AITrade",
+	}).Connect().Collection("Token")
+	defer db.Close()
+	err = db.Ping()
+	if err != nil {
+		db.Close()
+		resErr := fmt.Errorf("MiYouSheCookie,数据库连接错误 %+v", err)
+		return c.JSON(result.ErrDB.WithData(resErr))
+	}
+	var dbRes dbType.TokenTable
+	FK := bson.D{{
+		Key:   "UserID",
+		Value: loginSucceedData.UserID,
+	}}
+
+	db.Table.FindOne(db.Ctx, FK).Decode(&dbRes)
+	dbRes.Token = loginSucceedData.Token
+	dbRes.CreateTime = mTime.GetUnixInt64()
+
+	UK := bson.D{}
+	mStruct.Traverse(dbRes, func(key string, val any) {
+		UK = append(UK, bson.E{
+			Key: "$set",
+			Value: bson.D{
+				{
+					Key:   key,
+					Value: val,
+				},
+			},
+		})
+	})
+
+	upOpt := options.Update()
+	upOpt.SetUpsert(true)
+	_, err = db.Table.UpdateOne(db.Ctx, FK, UK, upOpt)
+	if err != nil {
+		global.LogErr("Login Token,数据更插失败", err)
+		return c.JSON(result.ErrDB.WithData("数据更插失败"))
+	}
+
 	return c.JSON(result.RightLogin.WithData(loginSucceedData))
 }
