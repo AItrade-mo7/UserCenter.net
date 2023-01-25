@@ -3,6 +3,8 @@
 source "./_shell/init.sh"
 #############
 
+npm run git
+
 desc=$1
 
 if [ -a ${desc} ]; then
