@@ -66,3 +66,19 @@ func GenshinCheck(c *fiber.Ctx) error {
 
 	return c.JSON(result.Succeed.WithData(string(resData) + "&&& 当前 Cookie 已被添加到数据库定时队列。"))
 }
+
+func GetGenshinCookie(c *fiber.Ctx) error {
+	UserID, err := middle.TokenAuth(c)
+	if err != nil {
+		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
+	}
+	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+		UserID: UserID,
+	})
+	if err != nil {
+		UserDB.DB.Close()
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+	}
+
+	return c.JSON(result.Succeed.WithData(UserDB.AccountData))
+}
