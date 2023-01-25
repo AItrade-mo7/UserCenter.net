@@ -1,8 +1,6 @@
 package genshin
 
 import (
-	"fmt"
-
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mFile"
@@ -27,7 +25,7 @@ Cookie:
 
 */
 
-func SignIn(cookie string) {
+func SignIn(cookie string) (resData []byte, resErr error) {
 	PyStr := tmpl.SignInPy
 
 	PyThonPath := config.Dir.JsonData + "/SignIn.py"
@@ -44,10 +42,5 @@ python ${PyThonPath} "${Cookie}"
 
 	ShellCont = mStr.Temp(ShellCont, TempConfig)
 
-	res, err := mShell.Run(ShellCont)
-	if err != nil {
-		fmt.Println("出错---", err)
-	} else {
-		fmt.Println("成功---", string(res))
-	}
+	return mShell.Run(ShellCont)
 }
