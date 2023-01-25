@@ -64,5 +64,5 @@ func GenshinCheck(c *fiber.Ctx) error {
 	}
 	UserDB.Update()
 
-	return c.JSON(result.Succeed.WithData(string(resData) + "&&& 当前 Cookie 已被添加到数据库。"))
+	return c.JSON(result.Succeed.WithData(string(resData) + "&&& 当前 Cookie 已被添加到数据库定时队列。"))
 }
