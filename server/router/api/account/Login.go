@@ -108,6 +108,7 @@ func Login(c *fiber.Ctx) error {
 
 	db.Table.FindOne(db.Ctx, FK).Decode(&dbRes)
 	dbRes.Token = loginSucceedData.Token
+	dbRes.UserID = loginSucceedData.UserID
 	dbRes.CreateTime = mTime.GetUnixInt64()
 
 	UK := bson.D{}

@@ -55,7 +55,7 @@ func TokenAuth(c *fiber.Ctx) (Message string, err error) {
 	err = db.Ping()
 	if err != nil {
 		db.Close()
-		err = fmt.Errorf("token 验证失败")
+		err = fmt.Errorf("token 验证失败1")
 		return
 	}
 
@@ -68,7 +68,7 @@ func TokenAuth(c *fiber.Ctx) (Message string, err error) {
 
 	if dbRes.Token != Token {
 		db.Close()
-		err = fmt.Errorf("token 验证失败")
+		err = fmt.Errorf("token 验证失败2")
 		return
 	}
 
