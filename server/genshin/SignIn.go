@@ -1,6 +1,9 @@
 package genshin
 
 import (
+	"fmt"
+	"strings"
+
 	"DataCenter.net/server/global/config"
 	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mFile"
@@ -25,8 +28,15 @@ Cookie:
 
 */
 
-func SignIn(cookie string) (resData []byte, resErr error) {
+func SignIn(cookie string) (resData string, resErr error) {
 	PyStr := tmpl.SignInPy
+
+	CookieStr := strings.TrimSpace(cookie)
+
+	if len(CookieStr) < 12 {
+		resErr = fmt.Errorf("cookie 长度不足")
+		return
+	}
 
 	PyThonPath := config.Dir.JsonData + "/SignIn.py"
 
@@ -34,13 +44,27 @@ func SignIn(cookie string) (resData []byte, resErr error) {
 
 	TempConfig := map[string]string{
 		"PyThonPath": PyThonPath,
-		"Cookie":     cookie,
+		"Cookie":     CookieStr,
 	}
 	ShellCont := `
-python ${PyThonPath} "${Cookie}"
+python3 ${PyThonPath} "${Cookie}"
 `
 
 	ShellCont = mStr.Temp(ShellCont, TempConfig)
 
-	return mShell.Run(ShellCont)
+	res, resErr := mShell.Run(ShellCont)
+	if resErr != nil {
+		return
+	}
+
+	resData = string(res)
+
+	find := strings.Contains(resData, "旅行者")
+	if find {
+		resErr = nil
+	} else {
+		resErr = fmt.Errorf("米游社返回错误")
+	}
+
+	return
 }
