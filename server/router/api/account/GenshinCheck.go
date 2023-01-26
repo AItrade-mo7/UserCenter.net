@@ -47,11 +47,9 @@ func GenshinCheck(c *fiber.Ctx) error {
 	resData, resErr := genshin.SignIn(CookieStr)
 	time.Sleep(time.Second / 3)
 	resData, resErr = genshin.SignIn(CookieStr)
-	time.Sleep(time.Second / 3)
-	resData, resErr = genshin.SignIn(CookieStr)
 
 	if resErr != nil {
-		return c.JSON(result.Fail.WithData(resErr))
+		return c.JSON(result.Fail.WithData("错误1" + mStr.ToStr(resErr)))
 	}
 
 	// 读取米游社 表
@@ -66,7 +64,7 @@ func GenshinCheck(c *fiber.Ctx) error {
 	if err != nil {
 		db.Close()
 		resErr = fmt.Errorf("MiYouSheCookie,数据库连接错误 %+v", err)
-		return resErr
+		return c.JSON(result.Fail.WithData(resErr))
 	}
 
 	var dbRes dbType.MiYouSheCookieTable

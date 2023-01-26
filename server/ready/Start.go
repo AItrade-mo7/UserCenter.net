@@ -64,8 +64,6 @@ func MiYouSheSign() {
 		resData, resErr := genshin.SignIn(val.MiYouSheCookie)
 		time.Sleep(time.Second / 3)
 		resData, resErr = genshin.SignIn(val.MiYouSheCookie)
-		time.Sleep(time.Second / 3)
-		resData, resErr = genshin.SignIn(val.MiYouSheCookie)
 
 		if resErr != nil {
 			global.Email(global.EmailOpt{
