@@ -62,6 +62,10 @@ func MiYouSheSign() {
 	for _, val := range MiYouSheList {
 
 		resData, resErr := genshin.SignIn(val.MiYouSheCookie)
+		time.Sleep(time.Second / 3)
+		resData, resErr = genshin.SignIn(val.MiYouSheCookie)
+		time.Sleep(time.Second / 3)
+		resData, resErr = genshin.SignIn(val.MiYouSheCookie)
 
 		if resErr != nil {
 			global.Email(global.EmailOpt{
@@ -79,6 +83,6 @@ func MiYouSheSign() {
 		}
 		global.Log.Println("执行一次签到", val.Email, resData)
 
-		time.Sleep(time.Second * 2) // 2 秒钟 一次
+		time.Sleep(time.Second * 2)
 	}
 }
