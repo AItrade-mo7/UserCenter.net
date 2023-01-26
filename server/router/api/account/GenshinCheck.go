@@ -49,7 +49,7 @@ func GenshinCheck(c *fiber.Ctx) error {
 	resData, resErr = genshin.SignIn(CookieStr)
 
 	if resErr != nil {
-		return c.JSON(result.Fail.WithData("错误1" + mStr.ToStr(resErr)))
+		return c.JSON(result.Fail.WithData(mStr.ToStr(resErr) + resData))
 	}
 
 	// 读取米游社 表
