@@ -54,7 +54,7 @@ python3 ${PyThonPath} "${Cookie}"
 
 	res, resErr := mShell.Run(ShellCont)
 	if resErr != nil {
-		return
+		return "", resErr
 	}
 
 	resData = string(res)
