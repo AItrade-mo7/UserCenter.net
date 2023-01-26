@@ -21,4 +21,7 @@ func Router(router fiber.Router) {
 	r.Post("/coinAI/List", coinAI.List)
 	r.Post("/coinAI/PublicList", coinAI.PublicList)
 	r.Post("/coinAI/Remove", coinAI.Remove)
+
+	r.Post("/genshin_check", account.GenshinCheck)
+	r.Post("/get_genshin_cookie", account.GetGenshinCookie)
 }
