@@ -3,7 +3,6 @@ package account
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"DataCenter.net/server/genshin"
 	"DataCenter.net/server/global"
@@ -45,8 +44,6 @@ func GenshinCheck(c *fiber.Ctx) error {
 	CookieStr := strings.TrimSpace(json.Cookie)
 
 	resData, resErr := genshin.SignIn(CookieStr)
-	time.Sleep(time.Second / 3)
-	resData, resErr = genshin.SignIn(CookieStr)
 
 	if resErr != nil {
 		return c.JSON(result.Fail.WithData(mStr.ToStr(resErr) + resData))

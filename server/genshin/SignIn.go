@@ -59,6 +59,8 @@ python3 ${PyThonPath} "${Cookie}"
 
 	resData = string(res)
 
+	fmt.Println(resData)
+
 	find := strings.Contains(resData, "旅行者")
 	if find {
 		resErr = nil
