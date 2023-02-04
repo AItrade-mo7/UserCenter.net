@@ -7,8 +7,6 @@ GitSet
 
 desc=$1
 
-echo "${desc}"
-
 if [ -z "${desc}" ]; then
   desc="exit-push"
 fi
