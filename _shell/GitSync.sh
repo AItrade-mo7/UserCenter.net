@@ -9,7 +9,7 @@ desc=$1
 
 echo "${desc}"
 
-if [ -a "${desc}" ]; then
+if [ -z "${desc}" ]; then
   desc="exit-push"
 fi
 
