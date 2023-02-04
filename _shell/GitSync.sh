@@ -7,9 +7,13 @@ GitSet
 
 desc=$1
 
-if [ -a ${desc} ]; then
+echo "${desc}"
+
+if [ -a "${desc}" ]; then
   desc="exit-push"
 fi
+
+echo "${desc}"
 
 git pull &&
   git add . &&
@@ -17,5 +21,5 @@ git pull &&
   git push &&
   echo "同步完成"
 
-GitSet()
-exit 0
+GitSet &&
+  exit 0

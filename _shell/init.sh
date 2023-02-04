@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
 function GitSet {
-  echo "设置大小写敏感,git忽略权限变更,更改权限"
+  echo " ====== git设置大小写敏感,文件权限变更 ====== "
   git config core.ignorecase false
 
   git config --global core.fileMode false
@@ -14,16 +13,14 @@ function GitSet {
 ## 存储变量
 
 # 项目根目录
-path=$(pwd)
+NowPath=$(pwd)
 
 # 项目的名字和编译时的名字
-startName=${path##*/}
-buildName=${startName}
+StartName=${NowPath##*/}
+BuildName=${StartName}
 
 # 最终的输出目录
-outPutPath=${path}"/dist"
+OutPutPath=${NowPath}"/dist"
 
 # 部署目录
-deployPath="/root/ProdProject/DataCenter"
-
-
+DeployPath="/root/ProdProject/DataCenter"
