@@ -3,7 +3,7 @@
 source "./_shell/init.sh"
 #############
 
-npm run git
+GitSet
 
 desc=$1
 
@@ -16,4 +16,6 @@ git pull &&
   git commit -m "${desc}" &&
   git push &&
   echo "同步完成"
+
+GitSet()
 exit 0

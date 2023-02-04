@@ -4,10 +4,9 @@
   "Port": 8999,
   "private": true,
   "scripts": {
-    "build": "./_shell/build.sh",
-    "serve": "./_shell/serve_start.sh",
-    "git": "./_shell/git_set.sh",
-    "sync": "./_shell/git_sync.sh",
-    "deploy": "./_shell/deploy.sh"
+    "build": "./_shell/Build.sh",
+    "serve": "./_shell/ServerStart.sh",
+    "sync": "./_shell/GitSync.sh",
+    "deploy": "./_shell/Deploy.sh"
   }
 }
