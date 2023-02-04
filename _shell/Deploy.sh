@@ -10,10 +10,10 @@ echo "停止 pm2 服务" &&
   pm2 delete "${StartName}"
 
 echo "移动文件到 ProdProject 目录"
-cp -r "${OutPutPath}""/." "${DeployPath}""/"
+cp -r "${OutPutPath}/." "${DeployPath}/"
 
 cd "${DeployPath}" || exit
 
 echo "启动 pm2 服务"
-pm2 start ./"${BuildName}" --name "${StartName}" &&
+pm2 start "./${BuildName}" --name "${StartName}" &&
   exit 0
