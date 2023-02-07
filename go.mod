@@ -3,7 +3,7 @@ module DataCenter.net
 go 1.18
 
 require (
-	github.com/EasyGolang/goTools v1.0.7
+	github.com/EasyGolang/goTools v1.0.9
 	github.com/fasthttp/websocket v1.5.1
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/gofiber/websocket/v2 v2.1.4
@@ -68,7 +68,7 @@ require (
 	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
