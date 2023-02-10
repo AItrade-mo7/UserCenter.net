@@ -13,9 +13,10 @@ var ApiInfo struct {
 }
 
 var SysEnv struct {
-	MongoAddress  string
-	MongoPassword string
-	MongoUserName string
+	MongoAddress   string
+	MongoPassword  string
+	MongoUserName  string
+	MessageBaseUrl string
 }
 
 func LoadSysEnv(envPath string) {
