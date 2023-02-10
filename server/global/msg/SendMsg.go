@@ -11,7 +11,7 @@ var BaseUrl = "http://msg.mo7.cc"
 func SendMsg() {
 	resData, resErr := NewReq(ReqOpt{
 		Origin: BaseUrl,
-		Path:   "/",
+		Path:   "/api/public/InsertTaskQueue",
 		Method: "POST",
 		Data: map[string]interface{}{
 			"jsonrpc": "2.0",
