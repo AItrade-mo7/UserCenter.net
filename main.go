@@ -20,5 +20,5 @@ func main() {
 	// 启动 http 监听服务
 	// router.Start()
 
-	task.SendMsg()
+	task.TestSendMsg()
 }
