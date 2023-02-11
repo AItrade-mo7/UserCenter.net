@@ -4,13 +4,13 @@ import (
 	"os"
 	"time"
 
-	"DataCenter.net/server/global"
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/router/api"
-	"DataCenter.net/server/router/middle"
-	"DataCenter.net/server/router/private"
-	"DataCenter.net/server/router/public"
-	"DataCenter.net/server/router/wss"
+	"UserCenter.net/server/global"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/router/api"
+	"UserCenter.net/server/router/middle"
+	"UserCenter.net/server/router/private"
+	"UserCenter.net/server/router/public"
+	"UserCenter.net/server/router/wss"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
@@ -31,7 +31,7 @@ func Start() {
 
 	// 创建服务
 	app := fiber.New(fiber.Config{
-		ServerHeader: "DataCenter.net",
+		ServerHeader: "UserCenter.net",
 	})
 
 	// 跨域

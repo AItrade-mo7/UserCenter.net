@@ -1,7 +1,7 @@
 package dbUser
 
 import (
-	"DataCenter.net/server/global/dbType"
+	"UserCenter.net/server/global/dbType"
 	"go.mongodb.org/mongo-driver/bson"
 )
 

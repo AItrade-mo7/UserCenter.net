@@ -3,7 +3,7 @@ package reqCoinAI
 import (
 	"time"
 
-	"DataCenter.net/server/global/config"
+	"UserCenter.net/server/global/config"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mJson"

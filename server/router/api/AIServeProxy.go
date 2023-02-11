@@ -3,7 +3,7 @@ package api
 import (
 	"strings"
 
-	"DataCenter.net/server/router/result"
+	"UserCenter.net/server/router/result"
 	"github.com/fasthttp/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/valyala/fasthttp"

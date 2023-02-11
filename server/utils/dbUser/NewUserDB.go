@@ -3,9 +3,9 @@ package dbUser
 import (
 	"fmt"
 
-	"DataCenter.net/server/global"
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/global/dbType"
+	"UserCenter.net/server/global"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/dbType"
 	"github.com/EasyGolang/goTools/mMongo"
 	"go.mongodb.org/mongo-driver/bson"
 )

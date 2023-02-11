@@ -4,8 +4,8 @@ import (
 	"strings"
 	"time"
 
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/router/result"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/router/result"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mRes"
 	"github.com/EasyGolang/goTools/mStr"

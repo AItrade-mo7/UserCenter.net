@@ -3,7 +3,7 @@ package testOkxApi
 import (
 	"fmt"
 
-	"DataCenter.net/server/global"
+	"UserCenter.net/server/global"
 	"github.com/EasyGolang/goTools/mOKX"
 	"github.com/EasyGolang/goTools/mStr"
 	jsoniter "github.com/json-iterator/go"

@@ -1,7 +1,7 @@
 package api
 
 import (
-	"DataCenter.net/server/utils/installShell"
+	"UserCenter.net/server/utils/installShell"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"

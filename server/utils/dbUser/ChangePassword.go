@@ -3,7 +3,7 @@ package dbUser
 import (
 	"fmt"
 
-	"DataCenter.net/server/global"
+	"UserCenter.net/server/global"
 	"github.com/EasyGolang/goTools/mTime"
 	"go.mongodb.org/mongo-driver/bson"
 )

@@ -3,7 +3,7 @@ package global
 import (
 	"time"
 
-	"DataCenter.net/server/global/config"
+	"UserCenter.net/server/global/config"
 	"github.com/EasyGolang/goTools/mCycle"
 	"github.com/EasyGolang/goTools/mJson"
 )

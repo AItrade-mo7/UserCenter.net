@@ -1,4 +1,4 @@
-module DataCenter.net
+module UserCenter.net
 
 go 1.18
 

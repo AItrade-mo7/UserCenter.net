@@ -1,9 +1,9 @@
 package account
 
 import (
-	"DataCenter.net/server/router/result"
-	"DataCenter.net/server/utils/dbUser"
-	"DataCenter.net/server/utils/verifyCode"
+	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/utils/verifyCode"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"

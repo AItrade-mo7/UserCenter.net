@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/tmpl"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mLog"
 	"github.com/EasyGolang/goTools/mTime"
 )

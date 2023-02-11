@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"DataCenter.net/server/global/config"
+	"UserCenter.net/server/global/config"
 	"github.com/gofiber/fiber/v2"
 )
 

@@ -1,8 +1,8 @@
 package private
 
 import (
-	"DataCenter.net/server/router/api/account"
-	"DataCenter.net/server/router/api/coinAI"
+	"UserCenter.net/server/router/api/account"
+	"UserCenter.net/server/router/api/coinAI"
 	"github.com/gofiber/fiber/v2"
 )
 

@@ -1,8 +1,8 @@
 package account
 
 import (
-	"DataCenter.net/server/router/result"
-	"DataCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mVerify"

@@ -1,10 +1,10 @@
 package account
 
 import (
-	"DataCenter.net/server/global/apiType"
-	"DataCenter.net/server/router/middle"
-	"DataCenter.net/server/router/result"
-	"DataCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/global/apiType"
+	"UserCenter.net/server/router/middle"
+	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"

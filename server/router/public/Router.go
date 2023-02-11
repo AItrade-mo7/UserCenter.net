@@ -1,8 +1,8 @@
 package public
 
 import (
-	"DataCenter.net/server/router/api"
-	"DataCenter.net/server/router/api/account"
+	"UserCenter.net/server/router/api"
+	"UserCenter.net/server/router/api/account"
 	"github.com/gofiber/fiber/v2"
 )
 

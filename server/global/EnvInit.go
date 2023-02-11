@@ -3,7 +3,7 @@ package global
 import (
 	"fmt"
 
-	"DataCenter.net/server/global/config"
+	"UserCenter.net/server/global/config"
 	"github.com/EasyGolang/goTools/mPath"
 )
 

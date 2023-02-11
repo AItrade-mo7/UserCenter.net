@@ -1,12 +1,12 @@
 package coinAI
 
 import (
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/global/dbType"
-	"DataCenter.net/server/router/middle"
-	"DataCenter.net/server/router/result"
-	"DataCenter.net/server/utils/dbUser"
-	"DataCenter.net/server/utils/reqCoinAI"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/dbType"
+	"UserCenter.net/server/router/middle"
+	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/utils/reqCoinAI"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"

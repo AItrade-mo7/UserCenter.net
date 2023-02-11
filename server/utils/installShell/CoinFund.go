@@ -5,8 +5,8 @@ import (
 	"os"
 	"text/template"
 
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/tmpl"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFile"
 	"github.com/EasyGolang/goTools/mPath"

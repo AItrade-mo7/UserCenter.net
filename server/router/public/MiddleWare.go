@@ -5,7 +5,7 @@ import (
 )
 
 func MiddleWare(c *fiber.Ctx) error {
-	c.Set("Data-Path", "DataCenter.net/api/public")
+	c.Set("Data-Path", "UserCenter.net/api/public")
 
 	return c.Next()
 }

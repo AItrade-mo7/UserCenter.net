@@ -3,9 +3,8 @@ package main
 import (
 	_ "embed"
 
-	"DataCenter.net/server/global"
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/global/msg"
+	"UserCenter.net/server/global"
+	"UserCenter.net/server/global/config"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -20,5 +19,5 @@ func main() {
 	// 启动 http 监听服务
 	// router.Start()
 
-	msg.SendMsg()
+	// msg.SendMsg()
 }

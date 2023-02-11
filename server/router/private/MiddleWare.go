@@ -1,14 +1,14 @@
 package private
 
 import (
-	"DataCenter.net/server/router/middle"
-	"DataCenter.net/server/router/result"
+	"UserCenter.net/server/router/middle"
+	"UserCenter.net/server/router/result"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
 )
 
 func MiddleWare(c *fiber.Ctx) error {
-	c.Set("Data-Path", "DataCenter.net/api/private")
+	c.Set("Data-Path", "UserCenter.net/api/private")
 
 	// Token 验证
 	_, err := middle.TokenAuth(c)

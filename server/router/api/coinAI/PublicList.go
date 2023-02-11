@@ -3,10 +3,10 @@ package coinAI
 import (
 	"fmt"
 
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/global/dbType"
-	"DataCenter.net/server/router/result"
-	"DataCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/dbType"
+	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"

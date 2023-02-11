@@ -3,8 +3,8 @@ package verifyCode
 import (
 	"fmt"
 
-	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/global/dbType"
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/dbType"
 	"github.com/EasyGolang/goTools/mCount"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mMongo"

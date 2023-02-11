@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"DataCenter.net/server/global"
-	"DataCenter.net/server/global/dbType"
-	"DataCenter.net/server/tmpl"
+	"UserCenter.net/server/global"
+	"UserCenter.net/server/global/dbType"
+	"UserCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mTime"
 )
