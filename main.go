@@ -5,6 +5,7 @@ import (
 
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/task"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -19,5 +20,5 @@ func main() {
 	// 启动 http 监听服务
 	// router.Start()
 
-	// msg.SendMsg()
+	task.SendMsg()
 }
