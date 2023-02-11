@@ -3,22 +3,38 @@ package msg
 import (
 	"fmt"
 
+	"DataCenter.net/server/global/config"
+	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mJson"
+	"github.com/EasyGolang/goTools/mTask"
+	jsoniter "github.com/json-iterator/go"
 )
 
-// var BaseUrl = "http://msg.mo7.cc"
-var BaseUrl = "http://127.0.0.1:8900"
-
 func SendMsg() {
+	Data := NewTask()
+
 	resData, resErr := NewReq(ReqOpt{
-		Origin: BaseUrl,
+		Origin: config.SysEnv.MessageBaseUrl,
 		Path:   "/api/public/InsertTaskQueue",
 		Method: "POST",
-		Data: map[string]any{
-			"jsonrpc": "2.0",
-			"id":      "5",
-		},
+		Data:   Data,
 	})
 
 	fmt.Println(mJson.JsonFormat(resData), resErr)
+}
+
+func NewTask() map[string]any {
+	NewTaskData := mTask.TaskType{
+		TaskID:   mEncrypt.GetUUID(),
+		TaskType: "SendEmail",
+		Source:   "",
+	}
+
+	jsonStr := mJson.ToJson(NewTaskData)
+
+	var returnData map[string]any
+
+	jsoniter.Unmarshal(jsonStr, &returnData)
+
+	return returnData
 }
