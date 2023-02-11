@@ -31,7 +31,7 @@ func Ping(c *fiber.Ctx) error {
 	jsoniter.Unmarshal(ClientFileReqData, &ClientInfo)
 
 	var ApiInfo AppInfoType
-	jsoniter.Unmarshal(mJson.ToJson(config.ApiInfo), &ApiInfo)
+	jsoniter.Unmarshal(mJson.ToJson(config.AppInfo), &ApiInfo)
 
 	ReturnData := make(map[string]any)
 	ReturnData["ResParam"] = json

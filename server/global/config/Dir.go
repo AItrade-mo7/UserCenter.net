@@ -19,7 +19,6 @@ var Dir DirType
 type FileType struct {
 	SysEnv      string // /root/sys_env.yaml
 	LocalSysEnv string // ./sys_env.yaml
-	AppEnv      string // ./app_env.yaml
 }
 
 var File FileType
@@ -50,9 +49,18 @@ func DirInit() {
 		mStr.ToStr(os.PathSeparator),
 		"sys_env.yaml",
 	)
-	File.AppEnv = mStr.Join(
-		Dir.App,
-		mStr.ToStr(os.PathSeparator),
-		"app_env.yaml",
-	)
+
+	// 检测 JsonData 目录
+	isJsonDataPath := mPath.Exists(Dir.JsonData)
+	if !isJsonDataPath {
+		// 不存在则创建 logs 目录
+		os.MkdirAll(Dir.JsonData, 0o777)
+	}
+
+	// 检测 logs 目录
+	isLogPath := mPath.Exists(Dir.Log)
+	if !isLogPath {
+		// 不存在则创建 logs 目录
+		os.MkdirAll(Dir.Log, 0o777)
+	}
 }

@@ -4,31 +4,27 @@ import (
 	"time"
 
 	"DataCenter.net/server/global/config"
-	"DataCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mCycle"
-	"github.com/EasyGolang/goTools/mTime"
+	"github.com/EasyGolang/goTools/mJson"
 )
 
 func Start() {
-	// 初始化目录列表
+	// 初始化项目目录
 	config.DirInit()
 
-	// 初始化日志系统 保证日志可用
+	// 初始化日志系统
 	mCycle.New(mCycle.Opt{
 		Func:      LogInit,
 		SleepTime: time.Hour * 24,
 	}).Start()
 
+	// 加载 SysEnv
 	ServerEnvInit()
 
-	go Email(EmailOpt{
-		To:       config.Email.To,
-		Subject:  "ServeStart",
-		Template: tmpl.SysEmail,
-		SendData: tmpl.SysParam{
-			Message: "系统初始化完成",
-			SysTime: mTime.UnixFormat(mTime.GetUnixInt64()),
-		},
-	}).Send()
-	Log.Println(`系统初始化完成`)
+	Log.Println(
+		`系统初始化完成`,
+		mJson.Format(config.Dir),
+		mJson.Format(config.SysEnv),
+		mJson.Format(config.AppInfo),
+	)
 }
