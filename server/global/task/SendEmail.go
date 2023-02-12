@@ -8,12 +8,13 @@ import (
 )
 
 func TestSendMsg() {
-	Cont := mTask.ToMapData(mTask.SysEmail{
+	Cont := mTask.ToMapData(mTask.SendEmail{
 		From: "AITrade",
 		To: []string{
 			"mo7@mo7.cc",
 		},
-		Subject: "Subjectxxx",
+		Subject:  "Subjectxxx",
+		TmplName: "SysEmail",
 		SendData: mTask.SysEmailParam{
 			Title:        "系统提示",
 			Message:      "启动系统:",
@@ -25,7 +26,7 @@ func TestSendMsg() {
 	})
 
 	err := NewTask(NewTaskOpt{
-		TaskType:    "SysEmail",
+		TaskType:    "SendEmail",
 		Content:     Cont,
 		Description: "测试一波发送",
 	})
