@@ -11,7 +11,7 @@ func TestSendMsg() {
 	Cont := mTask.ToMapData(mTask.SendEmail{
 		From: "AITrade",
 		To: []string{
-			"mo7@mo7.cc",
+			"meichangliang@outlook.com",
 		},
 		Subject:  "Subjectxxx",
 		TmplName: "SysEmail",
