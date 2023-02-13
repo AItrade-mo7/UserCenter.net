@@ -1,4 +1,4 @@
-package task
+package taskPush
 
 import (
 	"fmt"
@@ -14,13 +14,13 @@ import (
 
 const Source = "UserCenter.net"
 
-type NewTaskOpt struct {
+type NewOpt struct {
 	TaskType    string
 	Content     map[string]any
 	Description string
 }
 
-func NewTask(opt NewTaskOpt) error {
+func New(opt NewOpt) error {
 	CreateTime := mTime.GetUnixInt64()
 	CreateTimeStr := mTime.UnixFormat(CreateTime)
 
@@ -39,7 +39,8 @@ func NewTask(opt NewTaskOpt) error {
 	var returnData map[string]any
 	jsoniter.Unmarshal(jsonStr, &returnData)
 
-	resData, err := NewReq(ReqOpt{
+	// 发送任务
+	resData, err := Req(ReqOpt{
 		Origin: config.SysEnv.MessageBaseUrl,
 		Path:   "/api/public/InsertTaskQueue",
 		Method: "POST",

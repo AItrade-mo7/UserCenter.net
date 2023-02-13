@@ -1,4 +1,4 @@
-package task
+package taskPush
 
 import (
 	"UserCenter.net/server/global/config"
@@ -13,7 +13,7 @@ type ReqOpt struct {
 	Data   map[string]any
 }
 
-func NewReq(opt ReqOpt) (resData []byte, resErr error) {
+func Req(opt ReqOpt) (resData []byte, resErr error) {
 	UserAgent := "AITrade.net"
 	fetch := mFetch.NewHttp(mFetch.HttpOpt{
 		Origin: opt.Origin,
