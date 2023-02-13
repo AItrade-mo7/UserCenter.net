@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mLog"
 	"github.com/EasyGolang/goTools/mTime"
 )
@@ -31,15 +30,15 @@ func LogInit() {
 
 func LogErr(sum ...any) {
 	str := fmt.Sprintf("系统错误 : %+v", sum)
-	Email := Email(EmailOpt{
-		To:       config.Email.To,
-		Subject:  "LogErr",
-		Template: tmpl.SysEmail,
-		SendData: tmpl.SysParam{
-			Message: str,
-			SysTime: mTime.UnixFormat(mTime.GetUnixInt64()),
-		},
-	})
+	// Email := Email(EmailOpt{
+	// 	To:       config.Email.To,
+	// 	Subject:  "LogErr",
+	// 	Template: tmpl.SysEmail,
+	// 	SendData: tmpl.SysParam{
+	// 		Message: str,
+	// 		SysTime: mTime.UnixFormat(mTime.GetUnixInt64()),
+	// 	},
+	// })
 	Log.Println(str)
-	go Email.Send()
+	// go Email.Send()
 }

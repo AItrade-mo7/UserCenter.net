@@ -9,7 +9,6 @@ import (
 	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/router/middle"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/tmpl"
 	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/verifyCode"
 	"github.com/EasyGolang/goTools/mFiber"
@@ -55,7 +54,7 @@ func EditProfile(c *fiber.Ctx) error {
 	}
 
 	// 记录老旧的邮箱
-	oldEmail := UserDB.AccountData.Email
+	// oldEmail := UserDB.AccountData.Email
 
 	Email_edit := len(json.NewEmail) > 1 && json.NewEmail != UserDB.AccountData.Email
 	NickName_edit := json.NickName != UserDB.AccountData.NickName
@@ -177,45 +176,45 @@ func EditProfile(c *fiber.Ctx) error {
 	UserDB.Update()
 
 	if Email_edit {
-		message := mStr.Join(
-			"您刚刚修改了登录邮箱! 操作设备: ", c.Get("User-Agent"), "\n",
-			"新的邮箱为: ", UserDB.AccountData.Email,
-		)
+		// message := mStr.Join(
+		// 	"您刚刚修改了登录邮箱! 操作设备: ", c.Get("User-Agent"), "\n",
+		// 	"新的邮箱为: ", UserDB.AccountData.Email,
+		// )
 
-		go global.Email(global.EmailOpt{
-			To: []string{
-				UserDB.AccountData.Email,
-				oldEmail,
-			},
-			Subject:  "邮箱修改提醒",
-			Template: tmpl.SysEmail,
-			SendData: tmpl.SysParam{
-				Message:      message,
-				SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-				SecurityCode: UserDB.AccountData.SecurityCode,
-			},
-		}).Send()
+		// go global.Email(global.EmailOpt{
+		// 	To: []string{
+		// 		UserDB.AccountData.Email,
+		// 		oldEmail,
+		// 	},
+		// 	Subject:  "邮箱修改提醒",
+		// 	Template: tmpl.SysEmail,
+		// 	SendData: tmpl.SysParam{
+		// 		Message:      message,
+		// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
+		// 		SecurityCode: UserDB.AccountData.SecurityCode,
+		// 	},
+		// }).Send()
 	}
 
 	if SecurityCode_edit {
-		message := mStr.Join(
-			"您刚刚修改了防伪标识符! 操作设备: ", c.Get("User-Agent"), "\n",
-			"新的防伪标识符为: ", UserDB.AccountData.SecurityCode,
-		)
+		// message := mStr.Join(
+		// 	"您刚刚修改了防伪标识符! 操作设备: ", c.Get("User-Agent"), "\n",
+		// 	"新的防伪标识符为: ", UserDB.AccountData.SecurityCode,
+		// )
 
-		go global.Email(global.EmailOpt{
-			To: []string{
-				UserDB.AccountData.Email,
-				oldEmail,
-			},
-			Subject:  "防伪标识符修改提醒",
-			Template: tmpl.SysEmail,
-			SendData: tmpl.SysParam{
-				Message:      message,
-				SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-				SecurityCode: UserDB.AccountData.SecurityCode,
-			},
-		}).Send()
+		// go global.Email(global.EmailOpt{
+		// 	To: []string{
+		// 		UserDB.AccountData.Email,
+		// 		oldEmail,
+		// 	},
+		// 	Subject:  "防伪标识符修改提醒",
+		// 	Template: tmpl.SysEmail,
+		// 	SendData: tmpl.SysParam{
+		// 		Message:      message,
+		// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
+		// 		SecurityCode: UserDB.AccountData.SecurityCode,
+		// 	},
+		// }).Send()
 	}
 
 	var userinfoData apiType.UserInfo

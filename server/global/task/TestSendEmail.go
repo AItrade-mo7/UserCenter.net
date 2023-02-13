@@ -1,18 +1,15 @@
 package task
 
 import (
-	"fmt"
-
 	"github.com/EasyGolang/goTools/mTask"
 	"github.com/EasyGolang/goTools/mTime"
 )
 
-func TestSendMsg() {
+func TestSendEmail() {
 	Cont := mTask.ToMapData(mTask.SendEmail{
 		From: "AITrade.net",
 		To: []string{
-			"meichangliang@outlook.com",
-			"mo7@mo7.cc",
+			"trade@mo7.cc",
 		},
 		Subject:  "测试邮件!",
 		TmplName: "SysEmail",
@@ -43,18 +40,9 @@ func TestSendMsg() {
 		// },
 	})
 
-	start := mTime.GetUnixInt64()
-	fmt.Println("开始创建 5 个任务", start)
-	for i := 0; i < 5; i++ {
-		err := NewTask(NewTaskOpt{
-			TaskType:    "SendEmail",
-			Content:     Cont,
-			Description: "测试一波发送",
-		})
-		fmt.Println(i, err)
-	}
-
-	end := mTime.GetUnixInt64()
-	fmt.Println("end", end)
-	fmt.Println("用时", end-start)
+	NewTask(NewTaskOpt{
+		TaskType:    "SendEmail",
+		Content:     Cont,
+		Description: "测试一波发送",
+	})
 }

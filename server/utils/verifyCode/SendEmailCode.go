@@ -6,7 +6,6 @@ import (
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/dbType"
-	"UserCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mCount"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"
@@ -154,29 +153,29 @@ func SendCode(opt SendCodeParam) (vCode string, resErr error) {
 	vCode = ""
 	resErr = nil
 
-	SecurityCode := "trade.mo7.cc-System"
+	// SecurityCode := "trade.mo7.cc-System"
 
-	if len(opt.SecurityCode) > 0 {
-		SecurityCode = opt.SecurityCode
-	}
+	// if len(opt.SecurityCode) > 0 {
+	// 	SecurityCode = opt.SecurityCode
+	// }
 
-	vCode = mVerify.NewCode()
+	// vCode = mVerify.NewCode()
 
-	Email := global.Email(global.EmailOpt{
-		To: []string{
-			opt.Email,
-		},
-		Subject:  "请查收您的验证码",
-		Template: tmpl.CodeEmail,
-		SendData: tmpl.CodeParam{
-			SysTime:      mTime.UnixFormat(""),
-			Action:       opt.Action,
-			VerifyCode:   vCode,
-			SecurityCode: SecurityCode,
-		},
-	})
+	// Email := global.Email(global.EmailOpt{
+	// 	To: []string{
+	// 		opt.Email,
+	// 	},
+	// 	Subject:  "请查收您的验证码",
+	// 	Template: tmpl.CodeEmail,
+	// 	SendData: tmpl.CodeParam{
+	// 		SysTime:      mTime.UnixFormat(""),
+	// 		Action:       opt.Action,
+	// 		VerifyCode:   vCode,
+	// 		SecurityCode: SecurityCode,
+	// 	},
+	// })
 
-	resErr = Email.Send()
+	// resErr = Email.Send()
 
 	return
 }

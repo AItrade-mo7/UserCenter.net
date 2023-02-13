@@ -6,7 +6,6 @@ import (
 
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/dbType"
-	"UserCenter.net/server/tmpl"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mTime"
 )
@@ -80,18 +79,19 @@ type SendPwdType struct {
 }
 
 func SendPwd(opt SendPwdType) error {
-	Email := global.Email(global.EmailOpt{
-		To: []string{
-			opt.Email,
-		},
-		Subject:  "注册成功",
-		Template: tmpl.RegisterSucceedEmail,
-		SendData: tmpl.RegisterSucceedParam{
-			SysTime:      mTime.UnixFormat(""),
-			Password:     opt.Password,
-			SecurityCode: opt.SecurityCode,
-		},
-	})
+	// Email := global.Email(global.EmailOpt{
+	// 	To: []string{
+	// 		opt.Email,
+	// 	},
+	// 	Subject:  "注册成功",
+	// 	Template: tmpl.RegisterSucceedEmail,
+	// 	SendData: tmpl.RegisterSucceedParam{
+	// 		SysTime:      mTime.UnixFormat(""),
+	// 		Password:     opt.Password,
+	// 		SecurityCode: opt.SecurityCode,
+	// 	},
+	// })
 
-	return Email.Send()
+	// return Email.Send()
+	return nil
 }

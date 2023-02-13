@@ -9,7 +9,6 @@ import (
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/tmpl"
 	"UserCenter.net/server/utils/dbUser"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFiber"
@@ -71,18 +70,18 @@ func Login(c *fiber.Ctx) error {
 		Subject:   "UserToken",
 	}).Generate()
 
-	go global.Email(global.EmailOpt{
-		To: []string{
-			loginSucceedData.Email,
-		},
-		Subject:  "登录提醒",
-		Template: tmpl.SysEmail,
-		SendData: tmpl.SysParam{
-			Message:      "您刚刚执行了登录操作，登录设备: " + c.Get("User-Agent"),
-			SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-			SecurityCode: UserDB.AccountData.SecurityCode,
-		},
-	}).Send()
+	// go global.Email(global.EmailOpt{
+	// 	To: []string{
+	// 		loginSucceedData.Email,
+	// 	},
+	// 	Subject:  "登录提醒",
+	// 	Template: tmpl.SysEmail,
+	// 	SendData: tmpl.SysParam{
+	// 		Message:      "您刚刚执行了登录操作，登录设备: " + c.Get("User-Agent"),
+	// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
+	// 		SecurityCode: UserDB.AccountData.SecurityCode,
+	// 	},
+	// }).Send()
 
 	UserDB.DB.Close()
 
