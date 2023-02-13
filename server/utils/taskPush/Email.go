@@ -7,7 +7,8 @@ import (
 
 // === 系统邮件 ====
 type SysEmailOpt struct {
-	To           []string
+	From         string   // 缺省 AItrade
+	To           []string // 缺省 trade@mo7.cc
 	Subject      string
 	Title        string
 	Message      string
@@ -16,13 +17,17 @@ type SysEmailOpt struct {
 	SecurityCode string
 }
 
-func SysEmail(opt SysEmailOpt) {
+func SysEmail(opt SysEmailOpt) error {
 	if len(opt.SecurityCode) < 2 {
 		opt.SecurityCode = "trade.mo7.cc"
 	}
 
+	if len(opt.From) < 2 {
+		opt.From = "AItrade"
+	}
+
 	Cont := mTask.ToMapData(mTask.SendEmail{
-		From:     "AItrade",
+		From:     opt.From,
 		To:       opt.To,
 		Subject:  opt.Subject,
 		TmplName: "SysEmail",
@@ -35,11 +40,13 @@ func SysEmail(opt SysEmailOpt) {
 			SecurityCode: opt.SecurityCode,
 		},
 	})
-	New(NewOpt{
+	err := New(NewOpt{
 		TaskType:    "SendEmail",
 		Content:     Cont,
 		Description: opt.Description,
 	})
+
+	return err
 }
 
 // === 发送验证码 ====
@@ -50,7 +57,7 @@ type CodeEmailOpt struct {
 	SecurityCode string
 }
 
-func CodeEmail(opt CodeEmailOpt) {
+func CodeEmail(opt CodeEmailOpt) error {
 	Cont := mTask.ToMapData(mTask.SendEmail{
 		From:     "AItrade",
 		To:       opt.To,
@@ -64,11 +71,13 @@ func CodeEmail(opt CodeEmailOpt) {
 			SecurityCode: opt.SecurityCode,
 		},
 	})
-	New(NewOpt{
+	err := New(NewOpt{
 		TaskType:    "SendEmail",
 		Content:     Cont,
 		Description: "验证码邮件",
 	})
+
+	return err
 }
 
 // 注册成功通知
@@ -78,7 +87,7 @@ type RegisterEmailOpt struct {
 	Password string
 }
 
-func RegisterEmail(opt RegisterEmailOpt) {
+func RegisterEmail(opt RegisterEmailOpt) error {
 	Cont := mTask.ToMapData(mTask.SendEmail{
 		From:     "AItrade",
 		To:       opt.To,
@@ -91,9 +100,10 @@ func RegisterEmail(opt RegisterEmailOpt) {
 			SecurityCode: "trade.mo7.cc",
 		},
 	})
-	New(NewOpt{
+	err := New(NewOpt{
 		TaskType:    "SendEmail",
 		Content:     Cont,
 		Description: "注册成功邮件通知",
 	})
+	return err
 }
