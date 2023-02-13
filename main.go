@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "embed"
+	"fmt"
 
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
@@ -25,9 +26,11 @@ func main() {
 	// 启动 http 监听服务
 	// router.Start()
 
-	taskPush.CodeEmail(taskPush.CodeEmailOpt{
+	err := taskPush.CodeEmail(taskPush.CodeEmailOpt{
 		To:         []string{"meichangliang@outlook.com"},
 		VerifyCode: mEncrypt.GetUUID(),
 		Action:     "测试",
 	})
+
+	fmt.Println("验证码任务", err)
 }
