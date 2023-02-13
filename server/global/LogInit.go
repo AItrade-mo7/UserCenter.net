@@ -50,15 +50,13 @@ func LogErr(sum ...any) {
 	}
 	content := mJson.Format(sum)
 
-	go func() {
-		err := taskPush.SysEmail(taskPush.SysEmailOpt{
-			From:        taskPush.Source,
-			Subject:     "系统错误",
-			Title:       taskPush.Source + " 系统出错",
-			Message:     message,
-			Content:     content,
-			Description: "出现系统错误",
-		})
-		Log.Println("邮件已发送", err)
-	}()
+	err := taskPush.SysEmail(taskPush.SysEmailOpt{
+		From:        taskPush.Source,
+		Subject:     "系统错误",
+		Title:       taskPush.Source + " 系统出错",
+		Message:     message,
+		Content:     content,
+		Description: "出现系统错误",
+	})
+	Log.Println("邮件已发送", err)
 }
