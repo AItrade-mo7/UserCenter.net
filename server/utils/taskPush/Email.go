@@ -18,11 +18,11 @@ type SysEmailOpt struct {
 }
 
 func SysEmail(opt SysEmailOpt) error {
-	if len(opt.SecurityCode) < 2 {
+	if len(opt.SecurityCode) < 1 {
 		opt.SecurityCode = "trade.mo7.cc"
 	}
 
-	if len(opt.From) < 2 {
+	if len(opt.From) < 1 {
 		opt.From = "AItrade"
 	}
 
@@ -58,6 +58,10 @@ type CodeEmailOpt struct {
 }
 
 func CodeEmail(opt CodeEmailOpt) error {
+	if len(opt.SecurityCode) < 1 {
+		opt.SecurityCode = "trade.mo7.cc"
+	}
+
 	Cont := mTask.ToMapData(mTask.SendEmail{
 		From:     "AItrade",
 		To:       opt.To,
@@ -83,11 +87,16 @@ func CodeEmail(opt CodeEmailOpt) error {
 // 注册成功通知
 
 type RegisterEmailOpt struct {
-	To       []string
-	Password string
+	To           []string
+	Password     string
+	SecurityCode string
 }
 
 func RegisterEmail(opt RegisterEmailOpt) error {
+	if len(opt.SecurityCode) < 1 {
+		opt.SecurityCode = "trade.mo7.cc"
+	}
+
 	Cont := mTask.ToMapData(mTask.SendEmail{
 		From:     "AItrade",
 		To:       opt.To,
@@ -97,7 +106,7 @@ func RegisterEmail(opt RegisterEmailOpt) error {
 			Password:     opt.Password,
 			SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
 			Source:       Source,
-			SecurityCode: "trade.mo7.cc",
+			SecurityCode: opt.SecurityCode,
 		},
 	})
 	err := New(NewOpt{

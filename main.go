@@ -6,7 +6,8 @@ import (
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/ready"
-	"UserCenter.net/server/router"
+	"UserCenter.net/server/utils/taskPush"
+	"github.com/EasyGolang/goTools/mEncrypt"
 	jsoniter "github.com/json-iterator/go"
 )
 
@@ -22,5 +23,11 @@ func main() {
 	ready.Start()
 
 	// 启动 http 监听服务
-	router.Start()
+	// router.Start()
+
+	taskPush.CodeEmail(taskPush.CodeEmailOpt{
+		To:         []string{"meichangliang@outlook.com"},
+		VerifyCode: mEncrypt.GetUUID(),
+		Action:     "测试",
+	})
 }
