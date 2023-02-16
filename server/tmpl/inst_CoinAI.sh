@@ -49,9 +49,9 @@ fi
 
 SystemType=$(arch)
 
-downLoadPath="https://raw.githubusercontent.com/AITrade-mo7/CoinAIPackage/main/CoinAI.net_x86_64"
+downLoadPath="https://raw.githubusercontent.com/AItrade-mo7/CoinAIPackage/main/CoinAI.net_x86_64"
 if [[ ${SystemType} =~ "aarch64" ]]; then
-  downLoadPath="https://raw.githubusercontent.com/AITrade-mo7/CoinAIPackage/main/CoinAI.net_aarch64"
+  downLoadPath="https://raw.githubusercontent.com/AItrade-mo7/CoinAIPackage/main/CoinAI.net_aarch64"
 fi
 
 ################ 启动脚本 ##########################

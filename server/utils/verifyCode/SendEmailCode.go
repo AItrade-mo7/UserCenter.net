@@ -34,7 +34,7 @@ func CheckAndSendCode(opt SendCodeParam) (resErr error) {
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "AITrade",
+		DBName:   "AItrade",
 	}).Connect().Collection("EmailCode")
 
 	err := db.Ping()

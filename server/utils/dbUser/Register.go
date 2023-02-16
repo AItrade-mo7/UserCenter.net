@@ -33,7 +33,7 @@ func (dbObj *AccountType) Register(email string) (resErr error) {
 	Body.Email = email                                 // 插入邮箱
 	Body.UserID = mEncrypt.GetUUID()                   // 生成 UserID
 	Body.Password = mEncrypt.MD5(newPwd)               // 密码加密存储
-	Body.Avatar = "//file.mo7.cc/AITrade/avatar.png"   // 生成默认头像
+	Body.Avatar = "//file.mo7.cc/AItrade/avatar.png"   // 生成默认头像
 	Body.CreateTime = mTime.GetUnixInt64()             // 生成创建时间
 	Body.UpdateTime = mTime.GetUnixInt64()             // 生成更新时间
 	Body.NickName = "AITrade用户"                        // 生成昵称,昵称应该为邮箱前缀

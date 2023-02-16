@@ -14,7 +14,7 @@ type ReqOpt struct {
 }
 
 func Req(opt ReqOpt) (resData []byte, resErr error) {
-	UserAgent := "AITrade.net"
+	UserAgent := "AItrade.net"
 	fetch := mFetch.NewHttp(mFetch.HttpOpt{
 		Origin: opt.Origin,
 		Path:   opt.Path,

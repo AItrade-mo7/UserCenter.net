@@ -2,7 +2,7 @@
 
 服务器结构：
 
-AITrade：
+AItrade：
 
 9000
 9001

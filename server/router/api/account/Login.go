@@ -66,7 +66,7 @@ func Login(c *fiber.Ctx) error {
 		SecretKey: config.SecretKey,
 		ExpiresAt: time.Now().Add(24 * time.Hour),
 		Message:   UserDB.AccountData.UserID,
-		Issuer:    "AITrade.net",
+		Issuer:    "AItrade.net",
 		Subject:   "UserToken",
 	}).Generate()
 
@@ -90,7 +90,7 @@ func Login(c *fiber.Ctx) error {
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "AITrade",
+		DBName:   "AItrade",
 	}).Connect().Collection("Token")
 	defer db.Close()
 	err = db.Ping()

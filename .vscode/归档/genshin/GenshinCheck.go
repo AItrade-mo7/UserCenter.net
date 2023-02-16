@@ -54,7 +54,7 @@ func GenshinCheck(c *fiber.Ctx) error {
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "AITrade",
+		DBName:   "AItrade",
 	}).Connect().Collection("MiYouSheCookie")
 	defer db.Close()
 	err = db.Ping()
@@ -118,7 +118,7 @@ func GetGenshinCookie(c *fiber.Ctx) error {
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "AITrade",
+		DBName:   "AItrade",
 	}).Connect().Collection("MiYouSheCookie")
 	defer db.Close()
 	err = db.Ping()
