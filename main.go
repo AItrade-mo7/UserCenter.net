@@ -27,7 +27,10 @@ func main() {
 	// router.Start()
 
 	err := taskPush.CodeEmail(taskPush.CodeEmailOpt{
-		To:         []string{"meichangliang@outlook.com"},
+		To: []string{
+			"meichangliang@outlook.com",
+			"trade@mo7.cc",
+		},
 		VerifyCode: mEncrypt.GetUUID(),
 		Action:     "测试",
 	})
