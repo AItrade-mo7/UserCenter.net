@@ -42,7 +42,7 @@ func New(opt NewOpt) error {
 	// 发送任务
 	resData, err := Req(ReqOpt{
 		Origin: config.SysEnv.MessageBaseUrl,
-		Path:   "/api/public/InsertTaskQueue",
+		Path:   "/api/async/InsertTaskQueue",
 		Method: "POST",
 		Data:   returnData,
 	})
