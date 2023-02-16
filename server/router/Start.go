@@ -50,7 +50,7 @@ func Start() {
 		Output:     logFile,
 	}), middle.Public, compress.New(), favicon.New())
 
-	// AITrade_net
+	// AItrade_net
 	app.All("/CoinAI/*", api.AIServeProxy)
 	app.All("/StockAI/*", api.AIServeProxy)
 
