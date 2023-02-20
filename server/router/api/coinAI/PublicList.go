@@ -7,7 +7,7 @@ import (
 
 func PublicList(c *fiber.Ctx) error {
 	// UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
-	// 	Email: "trade@mo7.cc",
+	// 	Email: "config.SysEmail",
 	// })
 	// if err != nil {
 	// 	return c.JSON(result.ErrDB.WithData(err))

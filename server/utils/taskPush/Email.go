@@ -12,7 +12,7 @@ import (
 // ==== 系统邮件 ====
 type SysEmailOpt struct {
 	From         string   // 缺省 AItrade
-	To           []string // 缺省 trade@mo7.cc
+	To           []string // 缺省 config.SysEmail
 	Subject      string
 	Title        string
 	Message      string
@@ -31,7 +31,7 @@ func SysEmail(opt SysEmailOpt) error {
 	}
 
 	if len(opt.To) < 1 {
-		opt.To = []string{"trade@mo7.cc"}
+		opt.To = []string{config.SysEmail}
 	}
 
 	Cont := mJson.StructToMap(mTask.SysEmail{
