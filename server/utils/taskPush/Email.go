@@ -1,6 +1,8 @@
 package taskPush
 
 import (
+	"fmt"
+
 	"UserCenter.net/server/global/config"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mTask"
@@ -29,7 +31,7 @@ func SysEmail(opt SysEmailOpt) error {
 	}
 
 	if len(opt.To) < 1 {
-		opt.From = "trade@mo7.cc"
+		opt.To = []string{"trade@mo7.cc"}
 	}
 
 	Cont := mJson.StructToMap(mTask.SysEmail{
@@ -63,6 +65,10 @@ type CodeEmailOpt struct {
 }
 
 func CodeEmail(opt CodeEmailOpt) error {
+	if len(opt.To) < 1 || len(opt.VerifyCode) < 1 || len(opt.Action) < 1 {
+		return fmt.Errorf("缺少属性 %v", mJson.Format(opt))
+	}
+
 	if len(opt.SecurityCode) < 1 {
 		opt.SecurityCode = "trade.mo7.cc"
 	}
@@ -99,6 +105,10 @@ type RegisterEmailOpt struct {
 func RegisterEmail(opt RegisterEmailOpt) error {
 	if len(opt.SecurityCode) < 1 {
 		opt.SecurityCode = "trade.mo7.cc"
+	}
+
+	if len(opt.To) < 1 || len(opt.Password) < 1 {
+		return fmt.Errorf("缺少属性 %v", mJson.Format(opt))
 	}
 
 	Cont := mJson.StructToMap(mTask.RegisterSucceedEmail{
