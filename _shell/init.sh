@@ -23,4 +23,4 @@ BuildName=${StartName}
 OutPutPath=${NowPath}"/dist"
 
 # 部署目录
-DeployPath="/root/ProdProject/DataCenter"
+DeployPath="/root/ProdProject/UserCenter"
