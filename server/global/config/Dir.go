@@ -7,21 +7,17 @@ import (
 	"github.com/EasyGolang/goTools/mStr"
 )
 
-type DirType struct {
+var Dir struct {
 	Home     string // Home 根目录
 	App      string // APP 根目录
 	Log      string // 日志文件目录
 	JsonData string // json 数据存放目录
 }
 
-var Dir DirType
-
-type FileType struct {
-	SysEnv      string // /root/sys_env.yaml
+var File struct {
+	SysEnv      string // ~/sys_env.yaml
 	LocalSysEnv string // ./sys_env.yaml
 }
-
-var File FileType
 
 func DirInit() {
 	Dir.Home = mPath.HomePath()
@@ -33,6 +29,7 @@ func DirInit() {
 		mStr.ToStr(os.PathSeparator),
 		"logs",
 	)
+
 	Dir.JsonData = mStr.Join(
 		Dir.App,
 		mStr.ToStr(os.PathSeparator),
