@@ -1,4 +1,4 @@
-package middle
+package private
 
 /*
 func TokenAuth(c *fiber.Ctx) (Message string, err error) {

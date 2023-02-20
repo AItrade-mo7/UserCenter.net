@@ -6,12 +6,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-/*
-/api/public
-*/
-
 func Router(router fiber.Router) {
 	r := router.Group("/public", MiddleWare)
+
+	/*
+		/api/public
+	*/
 
 	r.Post("/send_code", account.SendEmailCode)
 	r.Post("/register", account.Register)

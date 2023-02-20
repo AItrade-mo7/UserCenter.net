@@ -38,8 +38,6 @@ func New(opt NewOpt) error {
 		return err
 	}
 
-	fmt.Println(string(resData), err)
-
 	var resObj mRes.ResType
 	jsoniter.Unmarshal(resData, &resObj)
 

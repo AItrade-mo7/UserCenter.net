@@ -6,15 +6,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-/*
-
-/api/private
-
-*/
-
 func Router(router fiber.Router) {
 	r := router.Group("/private", MiddleWare)
 
+	/*
+		/api/private
+	*/
 	r.Get("/get_user_info", account.GetUserInfo)
 	r.Post("/edit_profile", account.EditProfile)
 
