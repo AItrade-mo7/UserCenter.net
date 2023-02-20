@@ -1,15 +1,6 @@
 package dbUser
 
-import (
-	"fmt"
-
-	"UserCenter.net/server/global"
-	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
-	"github.com/EasyGolang/goTools/mMongo"
-	"go.mongodb.org/mongo-driver/bson"
-)
-
+/*
 type NewUserOpt struct {
 	Email  string
 	UserID string
@@ -61,3 +52,4 @@ func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 
 	return
 }
+*/

@@ -1,15 +1,6 @@
 package dbUser
 
-import (
-	"fmt"
-	"strings"
-
-	"UserCenter.net/server/global"
-	"UserCenter.net/server/global/dbType"
-	"github.com/EasyGolang/goTools/mEncrypt"
-	"github.com/EasyGolang/goTools/mTime"
-)
-
+/*
 func (dbObj *AccountType) Register(email string) (resErr error) {
 	resErr = nil
 
@@ -95,3 +86,4 @@ func SendPwd(opt SendPwdType) error {
 	// return Email.Send()
 	return nil
 }
+*/

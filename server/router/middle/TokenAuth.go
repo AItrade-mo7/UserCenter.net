@@ -1,18 +1,6 @@
 package middle
 
-import (
-	"errors"
-	"fmt"
-	"time"
-
-	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
-	"github.com/EasyGolang/goTools/mEncrypt"
-	"github.com/EasyGolang/goTools/mMongo"
-	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson"
-)
-
+/*
 func TokenAuth(c *fiber.Ctx) (Message string, err error) {
 	Message = ""
 	err = nil
@@ -76,3 +64,4 @@ func TokenAuth(c *fiber.Ctx) (Message string, err error) {
 
 	return
 }
+*/

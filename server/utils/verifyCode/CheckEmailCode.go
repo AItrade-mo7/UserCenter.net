@@ -1,18 +1,6 @@
 package verifyCode
 
-import (
-	"fmt"
-
-	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
-	"github.com/EasyGolang/goTools/mCount"
-	"github.com/EasyGolang/goTools/mEncrypt"
-	"github.com/EasyGolang/goTools/mMongo"
-	"github.com/EasyGolang/goTools/mStr"
-	"github.com/EasyGolang/goTools/mTime"
-	"go.mongodb.org/mongo-driver/bson"
-)
-
+/*
 type CheckEmailCodeParam struct {
 	Email string
 	Code  string
@@ -66,3 +54,4 @@ func CheckEmailCode(opt CheckEmailCodeParam) (resErr error) {
 
 	return
 }
+*/

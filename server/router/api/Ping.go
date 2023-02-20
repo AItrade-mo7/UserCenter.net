@@ -2,12 +2,10 @@ package api
 
 import (
 	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/router/middle"
 	"UserCenter.net/server/router/result"
 	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
-	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mTime"
 	"github.com/gofiber/fiber/v2"
 	jsoniter "github.com/json-iterator/go"
@@ -48,15 +46,15 @@ func Ping(c *fiber.Ctx) error {
 	}
 
 	// 获取 token
-	token := c.Get("Token")
-	if len(token) > 0 {
-		// Token 验证
-		_, err := middle.TokenAuth(c)
-		if err != nil {
-			return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
-		}
-		ReturnData["Token"] = token
-	}
+	// token := c.Get("Token")
+	// if len(token) > 0 {
+	// Token 验证
+	// _, err := middle.TokenAuth(c)
+	// if err != nil {
+	// 	return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
+	// }
+	// ReturnData["Token"] = token
+	// }
 
 	return c.JSON(result.Succeed.WithData(ReturnData))
 }
