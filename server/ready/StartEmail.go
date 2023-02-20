@@ -9,9 +9,9 @@ import (
 
 func StartEmail() {
 	err := taskPush.SysEmail(taskPush.SysEmailOpt{
-		From:        taskPush.Source,
+		From:        config.SysName,
 		Subject:     "系统启动",
-		Title:       taskPush.Source + " 系统启动",
+		Title:       config.SysName + " 系统启动",
 		Message:     "系统启动",
 		Content:     mJson.Format(config.AppInfo),
 		Description: "系统启动邮件",

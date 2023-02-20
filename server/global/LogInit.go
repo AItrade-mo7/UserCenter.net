@@ -51,9 +51,9 @@ func LogErr(sum ...any) {
 	content := mJson.Format(sum)
 
 	err := taskPush.SysEmail(taskPush.SysEmailOpt{
-		From:        taskPush.Source,
+		From:        config.SysName,
 		Subject:     "系统错误",
-		Title:       taskPush.Source + " 系统出错",
+		Title:       config.SysName + " 系统出错",
 		Message:     message,
 		Content:     content,
 		Description: "出现系统错误",
