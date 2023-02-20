@@ -1,11 +1,13 @@
 package taskPush
 
 import (
+	"UserCenter.net/server/global/config"
+	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mTask"
 	"github.com/EasyGolang/goTools/mTime"
 )
 
-// === 系统邮件 ====
+// ==== 系统邮件 ====
 type SysEmailOpt struct {
 	From         string   // 缺省 AItrade
 	To           []string // 缺省 trade@mo7.cc
@@ -14,7 +16,7 @@ type SysEmailOpt struct {
 	Message      string
 	Content      string
 	Description  string
-	SecurityCode string
+	SecurityCode string // 默认安全码 trade.mo7.cc
 }
 
 func SysEmail(opt SysEmailOpt) error {
@@ -26,22 +28,25 @@ func SysEmail(opt SysEmailOpt) error {
 		opt.From = "AItrade"
 	}
 
-	Cont := mTask.ToMapData(mTask.SendEmail{
-		From:     opt.From,
-		To:       opt.To,
-		Subject:  opt.Subject,
-		TmplName: "SysEmail",
+	if len(opt.To) < 1 {
+		opt.From = "trade@mo7.cc"
+	}
+
+	Cont := mJson.StructToMap(mTask.SysEmail{
+		To:      opt.To,
+		From:    opt.From,
+		Subject: opt.Subject,
 		SendData: mTask.SysEmailParam{
 			Title:        opt.Title,
 			Message:      opt.Message,
 			Content:      opt.Content,
-			SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-			Source:       Source,
+			SysTime:      mTime.GetTime().TimeStr,
+			Source:       config.SysName,
 			SecurityCode: opt.SecurityCode,
 		},
 	})
 	err := New(NewOpt{
-		TaskType:    "SendEmail",
+		TaskType:    "SysEmail",
 		Content:     Cont,
 		Description: opt.Description,
 	})
@@ -54,7 +59,7 @@ type CodeEmailOpt struct {
 	To           []string
 	VerifyCode   string
 	Action       string
-	SecurityCode string
+	SecurityCode string // 缺省值 "trade.mo7.cc"
 }
 
 func CodeEmail(opt CodeEmailOpt) error {
@@ -62,21 +67,20 @@ func CodeEmail(opt CodeEmailOpt) error {
 		opt.SecurityCode = "trade.mo7.cc"
 	}
 
-	Cont := mTask.ToMapData(mTask.SendEmail{
-		From:     "AItrade",
-		To:       opt.To,
-		Subject:  "请查收您的验证码",
-		TmplName: "CodeEmail",
+	Cont := mJson.StructToMap(mTask.CodeEmail{
+		From:    "AItrade",
+		To:      opt.To,
+		Subject: "请查收您的验证码",
 		SendData: mTask.CodeEmailParam{
 			VerifyCode:   opt.VerifyCode,
 			Action:       opt.Action,
-			SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-			Source:       Source,
+			SysTime:      mTime.GetTime().TimeStr,
+			Source:       config.SysName,
 			SecurityCode: opt.SecurityCode,
 		},
 	})
 	err := New(NewOpt{
-		TaskType:    "SendEmail",
+		TaskType:    "CodeEmail",
 		Content:     Cont,
 		Description: "验证码邮件",
 	})
@@ -89,7 +93,7 @@ func CodeEmail(opt CodeEmailOpt) error {
 type RegisterEmailOpt struct {
 	To           []string
 	Password     string
-	SecurityCode string
+	SecurityCode string // 缺省值 "trade.mo7.cc"
 }
 
 func RegisterEmail(opt RegisterEmailOpt) error {
@@ -97,22 +101,23 @@ func RegisterEmail(opt RegisterEmailOpt) error {
 		opt.SecurityCode = "trade.mo7.cc"
 	}
 
-	Cont := mTask.ToMapData(mTask.SendEmail{
-		From:     "AItrade",
-		To:       opt.To,
-		Subject:  "注册成功！",
-		TmplName: "RegisterEmail",
-		SendData: mTask.RegisterParam{
+	Cont := mJson.StructToMap(mTask.RegisterSucceedEmail{
+		From:    "AItrade",
+		To:      opt.To,
+		Subject: "注册成功！",
+		SendData: mTask.RegisterSucceedEmailParam{
 			Password:     opt.Password,
 			SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-			Source:       Source,
+			Source:       config.SysName,
 			SecurityCode: opt.SecurityCode,
 		},
 	})
+
 	err := New(NewOpt{
-		TaskType:    "SendEmail",
+		TaskType:    "RegisterSucceedEmail",
 		Content:     Cont,
 		Description: "注册成功邮件通知",
 	})
+
 	return err
 }

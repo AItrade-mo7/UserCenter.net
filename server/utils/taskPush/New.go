@@ -5,6 +5,7 @@ import (
 
 	"UserCenter.net/server/global/config"
 	"github.com/EasyGolang/goTools/mEncrypt"
+	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mRes"
 	"github.com/EasyGolang/goTools/mTask"
@@ -12,40 +13,27 @@ import (
 	jsoniter "github.com/json-iterator/go"
 )
 
-const Source = "UserCenter.net"
-
 type NewOpt struct {
-	TaskType    string
-	Content     map[string]any
-	Description string
+	TaskType    string         // 任务类型
+	Content     map[string]any // 任务内容
+	Description string         // 任务描述
 }
 
 func New(opt NewOpt) error {
-	CreateTime := mTime.GetUnixInt64()
-	CreateTimeStr := mTime.UnixFormat(CreateTime)
+	now := mTime.GetTime()
 
 	NewTaskData := mTask.TaskType{
 		TaskID:        mEncrypt.GetUUID(),
 		TaskType:      opt.TaskType,
-		Source:        Source,
-		Description:   opt.Description, // 任务描述
-		CreateTime:    CreateTime,
-		CreateTimeStr: CreateTimeStr,
 		Content:       opt.Content,
+		Source:        config.SysName,
+		Description:   opt.Description, // 任务描述
+		CreateTime:    now.TimeUnix,
+		CreateTimeStr: now.TimeStr,
 	}
 
-	jsonStr := mJson.ToJson(NewTaskData)
-
-	var returnData map[string]any
-	jsoniter.Unmarshal(jsonStr, &returnData)
-
 	// 发送任务
-	resData, err := Req(ReqOpt{
-		Origin: config.SysEnv.MessageBaseUrl,
-		Path:   "/api/async/InsertTaskQueue",
-		Method: "POST",
-		Data:   returnData,
-	})
+	resData, err := SendAsync(NewTaskData)
 	if err != nil {
 		return err
 	}
@@ -58,4 +46,21 @@ func New(opt NewOpt) error {
 	}
 
 	return err
+}
+
+// ======== 请求方法 ========
+func SendAsync(data mTask.TaskType) (resData []byte, resErr error) {
+	UserAgent := "AItrade.net"
+	Path := "/api/async/InsertTaskQueue"
+	fetch := mFetch.NewHttp(mFetch.HttpOpt{
+		Origin: config.SysEnv.MessageBaseUrl,
+		Path:   Path,
+		Data:   mJson.ToJson(data),
+		Header: map[string]string{
+			"Auth-Encrypt": config.ClientEncrypt(Path + UserAgent),
+			"User-Agent":   UserAgent,
+		},
+	})
+
+	return fetch.Post()
 }
