@@ -56,7 +56,7 @@ func SysEmail(opt SysEmailOpt) error {
 
 // === 发送验证码 ====
 type CodeEmailOpt struct {
-	To           []string
+	To           string
 	VerifyCode   string
 	Action       string
 	SecurityCode string // 缺省值 "trade.mo7.cc"
@@ -91,7 +91,7 @@ func CodeEmail(opt CodeEmailOpt) error {
 // 注册成功通知
 
 type RegisterEmailOpt struct {
-	To           []string
+	To           string
 	Password     string
 	SecurityCode string // 缺省值 "trade.mo7.cc"
 }
