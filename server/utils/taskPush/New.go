@@ -38,10 +38,12 @@ func New(opt NewOpt) error {
 		return err
 	}
 
+	fmt.Println(string(resData), err)
+
 	var resObj mRes.ResType
 	jsoniter.Unmarshal(resData, &resObj)
 
-	if resObj.Code != 0 {
+	if resObj.Code < 0 {
 		return fmt.Errorf(resObj.Msg)
 	}
 

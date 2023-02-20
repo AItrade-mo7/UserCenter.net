@@ -15,7 +15,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
@@ -31,24 +30,24 @@ func Start() {
 
 	// 创建服务
 	app := fiber.New(fiber.Config{
-		ServerHeader: "UserCenter.net",
+		ServerHeader: config.SysName,
 	})
 
-	// 跨域
-	app.Use(cors.New())
-
-	// 限流
-	app.Use(limiter.New(limiter.Config{
-		Max:        200,
-		Expiration: 1 * time.Second,
-	}))
-
 	// 日志中间件
-	app.Use(logger.New(logger.Config{
-		Format:     "[${time}] [${ip}:${port}] ${status} - ${method} ${latency} ${path} \n",
-		TimeFormat: "2006-01-02 - 15:04:05",
-		Output:     logFile,
-	}), middle.Public, compress.New(), favicon.New())
+	app.Use(
+		limiter.New(limiter.Config{
+			Max:        200,
+			Expiration: 1 * time.Second,
+		}), // 限流
+		logger.New(logger.Config{
+			Format:     "[${time}] [${ip}:${port}] ${status} - ${method} ${latency} ${path} \n",
+			TimeFormat: "2006-01-02 - 15:04:05",
+			Output:     logFile,
+		}), // 日志
+		cors.New(),     // 允许跨域
+		compress.New(), // 压缩
+		middle.Public,  // 授权验证
+	)
 
 	// AItrade_net
 	app.All("/CoinAI/*", api.AIServeProxy)
@@ -64,7 +63,7 @@ func Start() {
 	// /api/private
 	private.Router(r_api)
 
-	// 静态文件服务器
+	// 默认返回 && 文件服务器
 	app.Use(api.Ping)
 
 	listenHost := mStr.Join(":", config.AppInfo.Port)
