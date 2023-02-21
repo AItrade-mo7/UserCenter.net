@@ -1,11 +1,20 @@
 package dbUser
 
-/*
+import (
+	"fmt"
+	"strings"
+
+	"UserCenter.net/server/global"
+	"UserCenter.net/server/global/dbType"
+	"github.com/EasyGolang/goTools/mEncrypt"
+	"github.com/EasyGolang/goTools/mTime"
+)
+
 func (dbObj *AccountType) Register(email string) (resErr error) {
 	resErr = nil
 
 	db := dbObj.DB
-	if len(dbObj.UserID) > 20 {
+	if len(dbObj.Data.UserID) > 20 {
 		resErr = fmt.Errorf("该账号已注册，请直接登录")
 		return
 	}
@@ -20,7 +29,7 @@ func (dbObj *AccountType) Register(email string) (resErr error) {
 
 	newPwd := mEncrypt.RandStr(8) // 生成密码
 
-	var Body dbType.AccountTable
+	var Body dbType.UserTable
 	Body.Email = email                                 // 插入邮箱
 	Body.UserID = mEncrypt.GetUUID()                   // 生成 UserID
 	Body.Password = mEncrypt.MD5(newPwd)               // 密码加密存储
@@ -57,7 +66,6 @@ func (dbObj *AccountType) Register(email string) (resErr error) {
 		return
 	}
 
-	dbObj.UserID = Body.UserID
 	dbObj.Update()
 
 	return
@@ -86,4 +94,3 @@ func SendPwd(opt SendPwdType) error {
 	// return Email.Send()
 	return nil
 }
-*/

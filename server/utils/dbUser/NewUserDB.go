@@ -1,55 +1,53 @@
 package dbUser
 
-/*
+import (
+	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/dbType"
+	"github.com/EasyGolang/goTools/mMongo"
+	"go.mongodb.org/mongo-driver/bson"
+)
+
 type NewUserOpt struct {
 	Email  string
 	UserID string
 }
 
 type AccountType struct {
-	UserID      string `bson:"UserID"`
-	AccountData dbType.AccountTable
-	DB          *mMongo.DB
+	UserID string `bson:"UserID"` // 用户 ID
+	Data   dbType.UserTable
+	DB     *mMongo.DB
 }
 
 func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 	resData = &AccountType{}
 	resErr = nil
-
 	db := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
-		DBName:   "AItrade",
-	}).Connect().Collection("Account")
+		DBName:   "Account",
+	}).Connect().Collection("User")
 
 	resData.DB = db
 
-	err := db.Ping()
-	if err != nil {
-		db.Close()
-		errStr := fmt.Errorf("用户数据读取失败,数据库连接错误 %+v", err)
-		global.LogErr(errStr)
-		resErr = errStr
-		return
-	}
+	var result dbType.UserTable
 
-	var result dbType.AccountTable
 	FK := bson.D{{
-		Key:   "Email",
+		Key:   "UserEmail",
 		Value: opt.Email,
 	}}
+
 	if len(opt.UserID) > 3 {
 		FK = bson.D{{
 			Key:   "UserID",
 			Value: opt.UserID,
 		}}
 	}
+
 	db.Table.FindOne(db.Ctx, FK).Decode(&result)
 
 	resData.UserID = result.UserID
-	resData.AccountData = result
+	resData.Data = result
 
 	return
 }
-*/

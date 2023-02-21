@@ -1,6 +1,13 @@
 package dbUser
 
-/*
+import (
+	"fmt"
+
+	"UserCenter.net/server/global"
+	"github.com/EasyGolang/goTools/mTime"
+	"go.mongodb.org/mongo-driver/bson"
+)
+
 func (dbObj *AccountType) ChangePassword(Password string) (resErr error) {
 	resErr = nil
 
@@ -50,4 +57,3 @@ func (dbObj *AccountType) ChangePassword(Password string) (resErr error) {
 
 	return
 }
-*/

@@ -1,10 +1,11 @@
 package dbUser
 
-/*
+import "fmt"
+
 func (dbObj *AccountType) CheckPassword(Password string) (resErr error) {
 	resErr = nil
 
-	AccountData := dbObj.AccountData
+	AccountData := dbObj.Data
 
 	if AccountData.Password != Password {
 		dbObj.DB.Close()
@@ -13,4 +14,3 @@ func (dbObj *AccountType) CheckPassword(Password string) (resErr error) {
 
 	return
 }
-*/
