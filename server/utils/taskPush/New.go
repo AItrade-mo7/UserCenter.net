@@ -5,10 +5,8 @@ import (
 
 	"UserCenter.net/server/global/config"
 	"github.com/EasyGolang/goTools/mEncrypt"
-	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mRes"
-	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mTask"
 	"github.com/EasyGolang/goTools/mTime"
 	jsoniter "github.com/json-iterator/go"
@@ -34,7 +32,11 @@ func New(opt NewOpt) error {
 	}
 
 	// 发送任务
-	resData, err := SendAsync(NewTaskData)
+	resData, err := Request(RequestOpt{
+		Origin: config.SysEnv.MessageBaseUrl,
+		Path:   "/api/async/InsertTaskQueue",
+		Data:   mJson.ToJson(NewTaskData),
+	})
 	if err != nil {
 		return err
 	}
@@ -45,27 +47,5 @@ func New(opt NewOpt) error {
 	if resObj.Code < 0 {
 		return fmt.Errorf(resObj.Msg)
 	}
-
 	return err
-}
-
-// ======== 请求方法 ========
-func SendAsync(data mTask.TaskType) (resData []byte, resErr error) {
-	UserAgent := "AItrade.net"
-	Path := "/api/async/InsertTaskQueue"
-
-	Data := mJson.ToJson(data)
-	enData := mEncrypt.MD5(mStr.ToStr(Data))
-
-	fetch := mFetch.NewHttp(mFetch.HttpOpt{
-		Origin: config.SysEnv.MessageBaseUrl,
-		Path:   Path,
-		Data:   Data,
-		Header: map[string]string{
-			"Auth-Encrypt": config.ClientEncrypt(Path + UserAgent + enData),
-			"User-Agent":   UserAgent,
-		},
-	})
-
-	return fetch.Post()
 }

@@ -3,7 +3,7 @@ package account
 import (
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/router/result"
-	"github.com/EasyGolang/goTools/mFetch"
+	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mRes"
@@ -20,18 +20,11 @@ func SendEmailCode(c *fiber.Ctx) error {
 	var json SendEmailCodeParam
 	mFiber.Parser(c, &json)
 
-	UserAgent := config.SysName
-	Path := "/api/await/SendEmailCode"
-	fetch := mFetch.NewHttp(mFetch.HttpOpt{
+	resData, err := taskPush.Request(taskPush.RequestOpt{
 		Origin: config.SysEnv.MessageBaseUrl,
-		Path:   Path,
+		Path:   "/api/await/SendEmailCode",
 		Data:   mJson.ToJson(json),
-		Header: map[string]string{
-			"Auth-Encrypt": config.ClientEncrypt(Path + UserAgent),
-			"User-Agent":   UserAgent,
-		},
 	})
-	resData, err := fetch.Post()
 	if err != nil {
 		return c.JSON(result.ErrEmailCode.WithMsg(err))
 	}
