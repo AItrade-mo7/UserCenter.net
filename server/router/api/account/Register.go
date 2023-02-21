@@ -2,6 +2,8 @@ package account
 
 import (
 	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/taskPush"
+	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,16 +13,17 @@ type RegisterParam struct {
 }
 
 func Register(c *fiber.Ctx) error {
-	// var json RegisterParam
-	// mFiber.Parser(c, &json)
+	var json RegisterParam
+	mFiber.Parser(c, &json)
 
-	// err := verifyCode.CheckEmailCode(verifyCode.CheckEmailCodeParam{
-	// 	Email: json.Email,
-	// 	Code:  json.Code,
-	// })
-	// if err != nil {
-	// 	return c.JSON(result.ErrEmailCode.WithMsg(err))
-	// }
+	// 在这里检查验证码
+	err := taskPush.CheckEmailCode(taskPush.CheckEmailCodeParam{
+		Email: json.Email,
+		Code:  json.Code,
+	})
+	if err != nil {
+		return c.JSON(result.ErrEmailCode.WithMsg(err))
+	}
 
 	// UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
 	// 	Email: json.Email,
@@ -42,5 +45,5 @@ func Register(c *fiber.Ctx) error {
 	// }
 
 	// UserDB.DB.Close()
-	return c.JSON(result.Succeed.With("注册成功", "密码已发送至您的邮箱，请注意查收"))
+	return c.JSON(result.ErrDB.With("注册成功", "密码已发送至您的邮箱，请注意查收"))
 }
