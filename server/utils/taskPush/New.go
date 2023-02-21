@@ -8,6 +8,7 @@ import (
 	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mRes"
+	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mTask"
 	"github.com/EasyGolang/goTools/mTime"
 	jsoniter "github.com/json-iterator/go"
@@ -52,12 +53,16 @@ func New(opt NewOpt) error {
 func SendAsync(data mTask.TaskType) (resData []byte, resErr error) {
 	UserAgent := "AItrade.net"
 	Path := "/api/async/InsertTaskQueue"
+
+	Data := mJson.ToJson(data)
+	enData := mEncrypt.MD5(mStr.ToStr(Data))
+
 	fetch := mFetch.NewHttp(mFetch.HttpOpt{
 		Origin: config.SysEnv.MessageBaseUrl,
 		Path:   Path,
-		Data:   mJson.ToJson(data),
+		Data:   Data,
 		Header: map[string]string{
-			"Auth-Encrypt": config.ClientEncrypt(Path + UserAgent),
+			"Auth-Encrypt": config.ClientEncrypt(Path + UserAgent + enData),
 			"User-Agent":   UserAgent,
 		},
 	})
