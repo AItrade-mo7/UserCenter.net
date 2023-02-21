@@ -1,37 +1,47 @@
 package account
 
 import (
+	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/router/result"
+	"github.com/EasyGolang/goTools/mFetch"
+	"github.com/EasyGolang/goTools/mFiber"
+	"github.com/EasyGolang/goTools/mJson"
+	"github.com/EasyGolang/goTools/mRes"
 	"github.com/gofiber/fiber/v2"
+	jsoniter "github.com/json-iterator/go"
 )
 
+type SendEmailCodeParam struct {
+	Email  string
+	Action string
+}
+
 func SendEmailCode(c *fiber.Ctx) error {
-	// var json verifyCode.SendCodeParam
-	// mFiber.Parser(c, &json)
+	var json SendEmailCodeParam
+	mFiber.Parser(c, &json)
 
-	// isEmail := mVerify.IsEmail(json.Email)
-	// if !isEmail {
-	// 	emailErr := fmt.Errorf("email 格式不正确 %+v", json.Email)
-	// 	return c.JSON(result.ErrEmail.WithMsg(emailErr))
-	// }
+	UserAgent := config.SysName
+	Path := "/api/await/SendEmailCode"
+	fetch := mFetch.NewHttp(mFetch.HttpOpt{
+		Origin: config.SysEnv.MessageBaseUrl,
+		Path:   Path,
+		Data:   mJson.ToJson(json),
+		Header: map[string]string{
+			"Auth-Encrypt": config.ClientEncrypt(Path + UserAgent),
+			"User-Agent":   UserAgent,
+		},
+	})
+	resData, err := fetch.Post()
+	if err != nil {
+		return c.JSON(result.ErrEmailCode.WithMsg(err))
+	}
 
-	// UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
-	// 	Email: json.Email,
-	// })
-	// if err != nil {
-	// 	UserDB.DB.Close()
-	// 	return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
-	// }
-	// if len(UserDB.UserID) == 32 {
-	// 	json.SecurityCode = UserDB.AccountData.SecurityCode
-	// }
+	var resObj mRes.ResType
+	jsoniter.Unmarshal(resData, &resObj)
 
-	// err = verifyCode.CheckAndSendCode(json)
-	// if err != nil {
-	// 	UserDB.DB.Close()
-	// 	return c.JSON(result.ErrEmail.WithMsg(err))
-	// }
+	if resObj.Code < 0 {
+		return c.JSON(result.ErrEmailCode.WithMsg(resObj.Msg))
+	}
 
-	// UserDB.DB.Close()
 	return c.JSON(result.Succeed.WithMsg("验证码已发送"))
 }
