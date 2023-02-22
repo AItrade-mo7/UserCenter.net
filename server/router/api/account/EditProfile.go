@@ -7,13 +7,13 @@ import (
 )
 
 type EditUserType struct {
-	OldEmailCode string
-	NewEmail     string
-	NewEmailCode string
-	Avatar       string
-	NickName     string
-	SecurityCode string
-	Password     string
+	OldEmailCode   string
+	NewEmail       string
+	NewEmailCode   string
+	Avatar         string
+	NickName       string
+	EntrapmentCode string
+	Password       string
 }
 
 func EditProfile(c *fiber.Ctx) error {
@@ -45,7 +45,7 @@ func EditProfile(c *fiber.Ctx) error {
 	// Email_edit := len(json.NewEmail) > 1 && json.NewEmail != UserDB.AccountData.Email
 	// NickName_edit := json.NickName != UserDB.AccountData.NickName
 	// Avatar_edit := len(json.Avatar) > 2 && json.Avatar != UserDB.AccountData.Avatar
-	// SecurityCode_edit := len(json.SecurityCode) > 2 && json.SecurityCode != UserDB.AccountData.SecurityCode
+	// EntrapmentCode_edit := len(json.EntrapmentCode) > 2 && json.EntrapmentCode != UserDB.AccountData.EntrapmentCode
 
 	// FK := bson.D{{
 	// 	Key:   "UserID",
@@ -77,7 +77,7 @@ func EditProfile(c *fiber.Ctx) error {
 	// }
 
 	// // 验证老邮箱验证码
-	// if Email_edit || SecurityCode_edit {
+	// if Email_edit || EntrapmentCode_edit {
 	// 	// 密码验证
 	// 	err = UserDB.CheckPassword(json.Password)
 	// 	if err != nil {
@@ -95,13 +95,13 @@ func EditProfile(c *fiber.Ctx) error {
 	// 	}
 	// }
 
-	// if SecurityCode_edit {
+	// if EntrapmentCode_edit {
 	// 	UK = append(UK, bson.E{
 	// 		Key: "$set",
 	// 		Value: bson.D{
 	// 			{
-	// 				Key:   "SecurityCode",
-	// 				Value: json.SecurityCode,
+	// 				Key:   "EntrapmentCode",
+	// 				Value: json.EntrapmentCode,
 	// 			},
 	// 		},
 	// 	})
@@ -177,15 +177,15 @@ func EditProfile(c *fiber.Ctx) error {
 	// 	SendData: tmpl.SysParam{
 	// 		Message:      message,
 	// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-	// 		SecurityCode: UserDB.AccountData.SecurityCode,
+	// 		EntrapmentCode: UserDB.AccountData.EntrapmentCode,
 	// 	},
 	// }).Send()
 	// }
 
-	// if SecurityCode_edit {
+	// if EntrapmentCode_edit {
 	// message := mStr.Join(
 	// 	"您刚刚修改了防伪标识符! 操作设备: ", c.Get("User-Agent"), "\n",
-	// 	"新的防伪标识符为: ", UserDB.AccountData.SecurityCode,
+	// 	"新的防伪标识符为: ", UserDB.AccountData.EntrapmentCode,
 	// )
 
 	// go global.Email(global.EmailOpt{
@@ -198,7 +198,7 @@ func EditProfile(c *fiber.Ctx) error {
 	// 	SendData: tmpl.SysParam{
 	// 		Message:      message,
 	// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-	// 		SecurityCode: UserDB.AccountData.SecurityCode,
+	// 		EntrapmentCode: UserDB.AccountData.EntrapmentCode,
 	// 	},
 	// }).Send()
 	// }

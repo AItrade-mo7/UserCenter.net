@@ -71,9 +71,9 @@ func MiYouSheSign() {
 				Subject:  "米游社自动签到未知错误",
 				Template: tmpl.SysEmail,
 				SendData: tmpl.SysParam{
-					Message:      resData,
-					SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-					SecurityCode: "米游社自动签到",
+					Message:        resData,
+					SysTime:        mTime.UnixFormat(mTime.GetUnixInt64()),
+					EntrapmentCode: "米游社自动签到",
 				},
 			})
 		}

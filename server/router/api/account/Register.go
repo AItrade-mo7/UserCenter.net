@@ -5,6 +5,7 @@ import (
 
 	"UserCenter.net/server/router/result"
 	"UserCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mVerify"
@@ -12,9 +13,9 @@ import (
 )
 
 type RegisterParam struct {
-	Email        string `bson:"Email"`
-	Code         string `bson:"Code"`
-	SecurityCode string `bson:"SecurityCode"` // 防伪标识
+	Email          string `bson:"Email"`
+	Code           string `bson:"Code"`
+	EntrapmentCode string `bson:"EntrapmentCode"` // 防钓鱼码
 }
 
 func Register(c *fiber.Ctx) error {
@@ -32,19 +33,19 @@ func Register(c *fiber.Ctx) error {
 		return c.JSON(result.ErrEmailCode.WithMsg(err))
 	}
 
-	if len(json.SecurityCode) < 1 {
+	if len(json.EntrapmentCode) < 1 {
 		err := fmt.Errorf("需要安全码")
 		return c.JSON(result.ErrRmUser.WithMsg(err))
 	}
 
 	// 在这里检查验证码
-	// err := taskPush.CheckEmailCode(taskPush.CheckEmailCodeParam{
-	// 	Email: json.Email,
-	// 	Code:  json.Code,
-	// })
-	// if err != nil {
-	// 	return c.JSON(result.ErrEmailCode.WithMsg(err))
-	// }
+	err := taskPush.CheckEmailCode(taskPush.CheckEmailCodeParam{
+		Email: json.Email,
+		Code:  json.Code,
+	})
+	if err != nil {
+		return c.JSON(result.ErrEmailCode.WithMsg(err))
+	}
 
 	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
 		Email: json.Email,
@@ -60,7 +61,10 @@ func Register(c *fiber.Ctx) error {
 		return c.JSON(result.ErrAccountRepeat.WithData("该邮箱已注册"))
 	}
 
-	err = UserDB.Register(json.Email)
+	err = UserDB.Register(dbUser.RegisterOpt{
+		Email:          json.Email,
+		EntrapmentCode: json.EntrapmentCode,
+	})
 	if err != nil {
 		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
