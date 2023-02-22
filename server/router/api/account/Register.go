@@ -34,8 +34,13 @@ func Register(c *fiber.Ctx) error {
 	}
 
 	if len(json.EntrapmentCode) < 1 {
-		err := fmt.Errorf("需要安全码")
-		return c.JSON(result.ErrRmUser.WithMsg(err))
+		emailErr := fmt.Errorf("防钓鱼码不能为空")
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
+	}
+
+	if len(json.EntrapmentCode) < 24 {
+		emailErr := fmt.Errorf("防钓鱼码不能大于24位")
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
 	}
 
 	// 在这里检查验证码

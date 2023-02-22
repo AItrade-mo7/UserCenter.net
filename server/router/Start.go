@@ -6,8 +6,8 @@ import (
 
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/api"
-	"UserCenter.net/server/router/middle"
 	"UserCenter.net/server/router/private"
 	"UserCenter.net/server/router/public"
 	"UserCenter.net/server/router/wss"

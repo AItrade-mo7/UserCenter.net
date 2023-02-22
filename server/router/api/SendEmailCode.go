@@ -1,24 +1,67 @@
 package api
 
 import (
+	"fmt"
+
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mRes"
+	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 	jsoniter "github.com/json-iterator/go"
 )
 
 type SendEmailCodeParam struct {
-	Email  string
-	Action string
+	Email          string
+	Action         string
+	EntrapmentCode string // 非必填
 }
 
 func SendEmailCode(c *fiber.Ctx) error {
 	var json SendEmailCodeParam
 	mFiber.Parser(c, &json)
+
+	isEmail := mVerify.IsEmail(json.Email)
+	if !isEmail {
+		emailErr := fmt.Errorf("邮箱格式不正确 %+v", json.Email)
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
+	}
+
+	if len(json.Action) < 1 {
+		emailErr := fmt.Errorf("Action不能为空")
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
+	}
+
+	// 优先去数据库寻找防钓鱼码
+	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+		Email: json.Email,
+	})
+	if err != nil {
+		UserDB.DB.Close()
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+	}
+	defer UserDB.DB.Close()
+	// 如果存在防钓鱼码则优先使用 数据库的 否则使用传入的
+	if len(UserDB.Data.EntrapmentCode) > 0 {
+		json.EntrapmentCode = UserDB.Data.EntrapmentCode
+	}
+
+	fmt.Println(len([]rune(json.EntrapmentCode)))
+
+	if len([]rune(json.EntrapmentCode)) < 1 {
+		emailErr := fmt.Errorf("防钓鱼码不能为空")
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
+	}
+
+	if len(json.EntrapmentCode) > 24 {
+		emailErr := fmt.Errorf("防钓鱼码不能大于24位")
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
+	}
 
 	resData, err := taskPush.Request(taskPush.RequestOpt{
 		Origin: config.SysEnv.MessageBaseUrl,
