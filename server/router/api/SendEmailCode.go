@@ -1,4 +1,4 @@
-package account
+package api
 
 import (
 	"UserCenter.net/server/global/config"

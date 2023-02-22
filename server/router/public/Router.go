@@ -13,7 +13,7 @@ func Router(router fiber.Router) {
 		/api/public
 	*/
 
-	r.Post("/send_code", account.SendEmailCode)
+	r.Post("/send_code", api.SendEmailCode)
 	r.Post("/register", account.Register)
 	r.Post("/change_password", account.ChangePassword)
 	r.Post("/login", account.Login)
