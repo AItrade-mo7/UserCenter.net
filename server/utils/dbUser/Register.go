@@ -10,15 +10,17 @@ import (
 	"github.com/EasyGolang/goTools/mTime"
 )
 
-func (dbObj *AccountType) Register(email string) (resErr error) {
+type RegisterOpt struct {
+	Email        string
+	SecurityCode string
+}
+
+func (dbObj *AccountType) Register(opt RegisterOpt) (resErr error) {
 	resErr = nil
 
+	// 检查数据库连接状态
 	db := dbObj.DB
-	if len(dbObj.Data.UserID) > 20 {
-		resErr = fmt.Errorf("该账号已注册，请直接登录")
-		return
-	}
-
+	defer db.Close()
 	err := db.Ping()
 	if err != nil {
 		db.Close()
@@ -27,17 +29,25 @@ func (dbObj *AccountType) Register(email string) (resErr error) {
 		return
 	}
 
+	if len(dbObj.Data.UserID) > 10 {
+		resErr = fmt.Errorf("该账号已注册，请直接登录")
+		return
+	}
+
 	newPwd := mEncrypt.RandStr(8) // 生成密码
+	UserEmail := []string{}
+	UserEmail = append(UserEmail, opt.Email)
 
 	var Body dbType.UserTable
-	Body.Email = email                                 // 插入邮箱
-	Body.UserID = mEncrypt.GetUUID()                   // 生成 UserID
-	Body.Password = mEncrypt.MD5(newPwd)               // 密码加密存储
-	Body.Avatar = "//file.mo7.cc/AItrade/avatar.png"   // 生成默认头像
-	Body.CreateTime = mTime.GetUnixInt64()             // 生成创建时间
-	Body.UpdateTime = mTime.GetUnixInt64()             // 生成更新时间
-	Body.NickName = "AItrade用户"                        // 生成昵称,昵称应该为邮箱前缀
-	Body.SecurityCode = "trade.mo7.cc" + Body.NickName // 防伪标识符
+	Body.UserID = mEncrypt.GetUUID()                 // 生成 UserID
+	Body.Email = opt.Email                           // 插入邮箱
+	Body.UserEmail = UserEmail                       // 插入邮箱
+	Body.Avatar = "//file.mo7.cc/AItrade/avatar.png" // 生成默认头像
+	Body.NickName = "AItrade用户"                      // 生成昵称,昵称应该为邮箱前缀
+	Body.CreateTime = mTime.GetTime().TimeUnix       // 生成创建时间
+	Body.UpdateTime = mTime.GetTime().TimeUnix       // 生成更新时间
+	Body.SecurityCode = opt.SecurityCode             // 防伪标识符
+	Body.Password = mEncrypt.MD5(newPwd)             // 密码加密存储
 
 	str_arr := strings.Split(email, `@`)
 	if len(str_arr) > 0 {
