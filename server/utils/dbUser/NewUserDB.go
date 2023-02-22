@@ -37,7 +37,7 @@ func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 		Value: opt.Email,
 	}}
 
-	if len(opt.UserID) > 3 {
+	if len(opt.UserID) > 0 {
 		FK = bson.D{{
 			Key:   "UserID",
 			Value: opt.UserID,

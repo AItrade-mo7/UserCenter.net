@@ -30,7 +30,7 @@ func (dbObj *AccountType) Register(opt RegisterOpt) (resErr error) {
 		return
 	}
 
-	if len(dbObj.Data.UserID) > 10 {
+	if len(dbObj.Data.UserID) > 0 {
 		resErr = fmt.Errorf("该账号已注册，请直接登录")
 		return
 	}

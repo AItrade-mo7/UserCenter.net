@@ -61,7 +61,7 @@ func verifyCode(data []byte) mRes.ResType {
 	}
 
 	UserID := Claims.Message
-	if len(UserID) != 32 {
+	if len([]rune(UserID)) != 32 {
 		return result.ErrToken.WithData("Token解析失败")
 	}
 

@@ -38,7 +38,7 @@ func Register(c *fiber.Ctx) error {
 		return c.JSON(result.ErrEmail.WithMsg(emailErr))
 	}
 
-	if len(json.EntrapmentCode) < 24 {
+	if len([]rune(json.EntrapmentCode)) < 24 {
 		emailErr := fmt.Errorf("防钓鱼码不能大于24位")
 		return c.JSON(result.ErrEmail.WithMsg(emailErr))
 	}
@@ -61,7 +61,7 @@ func Register(c *fiber.Ctx) error {
 	}
 	defer UserDB.DB.Close()
 
-	if len(UserDB.UserID) > 10 {
+	if len(UserDB.UserID) > 0 {
 		UserDB.DB.Close()
 		return c.JSON(result.ErrAccountRepeat.WithData("该邮箱已注册"))
 	}

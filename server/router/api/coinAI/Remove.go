@@ -15,7 +15,7 @@ func Remove(c *fiber.Ctx) error {
 	var json RemoveCoinAIParam
 	mFiber.Parser(c, &json)
 
-	if len(json.ServeID) < 3 {
+	if len(json.ServeID) < 1 {
 		return c.JSON(result.Fail.WithMsg("缺少 ServeID"))
 	}
 
