@@ -51,8 +51,6 @@ func SendEmailCode(c *fiber.Ctx) error {
 		json.EntrapmentCode = UserDB.Data.EntrapmentCode
 	}
 
-	fmt.Println(len([]rune(json.EntrapmentCode)))
-
 	if len(json.EntrapmentCode) < 1 {
 		emailErr := fmt.Errorf("防钓鱼码不能为空")
 		return c.JSON(result.ErrEmail.WithMsg(emailErr))
