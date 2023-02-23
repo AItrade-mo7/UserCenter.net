@@ -3,7 +3,7 @@ module UserCenter.net
 go 1.18
 
 require (
-	github.com/EasyGolang/goTools v1.0.14
+	github.com/EasyGolang/goTools v1.0.15
 	github.com/fasthttp/websocket v1.5.1
 	github.com/gofiber/fiber/v2 v2.42.0
 	github.com/gofiber/websocket/v2 v2.1.4
@@ -58,6 +58,7 @@ require (
 	github.com/tinylib/msgp v1.1.8 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
+	github.com/wenlng/go-user-agent v1.0.2 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
