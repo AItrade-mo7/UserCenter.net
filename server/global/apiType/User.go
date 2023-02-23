@@ -10,14 +10,3 @@ type UserInfo struct {
 	CreateTime int64  `bson:"CreateTime"` // 创建时间
 	UpdateTime int64  `bson:"UpdateTime"` // 更新时间
 }
-
-type LoginSucceedType struct {
-	UserID      string `bson:"UserID"`
-	Email       string `bson:"Email"`
-	BrowserName string `bson:"BrowserName"`
-	OsName      string `bson:"OsName"`
-	Hostname    string `bson:"Hostname"`
-	ISP         string `bson:"ISP"`
-	Operators   string `bson:"Operators"`
-	Token       string `bson:"Token"`
-}

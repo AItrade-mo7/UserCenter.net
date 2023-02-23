@@ -1,23 +1,25 @@
 package account
 
 import (
-	"fmt"
 	"time"
 
-	"UserCenter.net/server/global/apiType"
+	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFiber"
-	"github.com/EasyGolang/goTools/mJson"
-	"github.com/EasyGolang/goTools/mRes"
+	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mStruct"
+	"github.com/EasyGolang/goTools/mTime"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
-	jsoniter "github.com/json-iterator/go"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type LoginParam struct {
@@ -44,6 +46,7 @@ func Login(c *fiber.Ctx) error {
 		return c.JSON(result.ErrLogin.With("密码格式不正确", "可能原因:密码没有加密传输！"))
 	}
 
+	// 检测账号与密码
 	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
 		Email: json.Email,
 	})
@@ -58,15 +61,12 @@ func Login(c *fiber.Ctx) error {
 		return c.JSON(result.ErrAccount.WithData("该邮箱尚未注册"))
 	}
 
-	IPInfoList := mVerify.GetIPS(c.IPs())
-	var IPInfo mVerify.IPAddressType
-	if len(IPInfoList) > 0 {
-		IPInfo = IPInfoList[0]
-	}
-	if len(IPInfo.Hostname) > 0 {
-		mJson.Println(IPInfo)
+	err = UserDB.CheckPassword(json.Password)
+	if err != nil {
+		return c.JSON(result.ErrLogin.WithMsg(err))
 	}
 
+	// 生成Token
 	NewToken := mEncrypt.NewToken(mEncrypt.NewTokenOpt{
 		SecretKey: config.SecretKey,
 		ExpiresAt: time.Now().Add(24 * time.Hour),
@@ -74,109 +74,106 @@ func Login(c *fiber.Ctx) error {
 		Issuer:    "AItrade.net",
 		Subject:   "UserToken",
 	}).Generate()
-	LoginInfo := apiType.LoginSucceedType{
-		Token: NewToken,
+
+	// 生成 登录信息
+	DeviceInfo := mVerify.DeviceToUA(c.Get("User-Agent"))
+	IPInfoList := mVerify.GetIPS(c.IPs())
+	var IPInfo mVerify.IPAddressType
+	if len(IPInfoList) > 0 {
+		IPInfo = IPInfoList[0]
 	}
+
+	nowTime := mTime.GetTime()
+	LoginInfo := dbType.LoginSucceedType{
+		UserID:         UserDB.Data.UserID,
+		Email:          UserDB.Data.Email,
+		BrowserName:    DeviceInfo.BrowserName,
+		OsName:         DeviceInfo.OsName,
+		Hostname:       IPInfo.Hostname,
+		ISP:            IPInfo.ISP,
+		Operators:      IPInfo.Operators,
+		CreateTimeUnix: nowTime.TimeUnix,
+		CreateTimeStr:  nowTime.TimeStr,
+		Token:          NewToken,
+	}
+	UserDB.DB.Close()
+
+	// 生成邮件
+	EmailCont := mStr.Join(
+		"<br />",
+		"时间: ", LoginInfo.CreateTimeStr, "<br />",
+		"地区: ", LoginInfo.ISP, "<br />",
+		"运营商: ", LoginInfo.Operators, "<br />",
+		"系统: ", LoginInfo.OsName, "<br />",
+		"设备: ", LoginInfo.BrowserName, "<br />",
+		"IP: ", LoginInfo.Hostname, "<br />",
+	)
 
 	taskPush.SysEmail(taskPush.SysEmailOpt{
 		To:             []string{json.Email},
-		Subject:        "您已登录",
-		Title:          "登录成功",
-		Message:        "新的令牌已生成，登录设备信息：",
-		Content:        c.Get("User-Agent"),
-		Description:    "账号登录",
+		Subject:        "登录信息",
+		Title:          "令牌已生成",
+		Message:        "系统检测到如下登录信息:",
+		Content:        EmailCont,
+		Description:    "登录邮件",
 		EntrapmentCode: UserDB.Data.EntrapmentCode,
 	})
 
-	err = UserDB.CheckPassword(json.Password)
+	// 登录记录存储
+	dbLogin := mMongo.New(mMongo.Opt{
+		UserName: config.SysEnv.MongoUserName,
+		Password: config.SysEnv.MongoPassword,
+		Address:  config.SysEnv.MongoAddress,
+		DBName:   "Account",
+	}).Connect().Collection("LoginInfo")
+	defer dbLogin.Close()
+	_, err = dbLogin.Table.InsertOne(dbLogin.Ctx, LoginInfo)
 	if err != nil {
-		return c.JSON(result.ErrLogin.WithMsg(err))
+		global.LogErr("account.Login, 登录信息存储失败", err)
+		return c.JSON(result.ErrDB.WithData("Token存储失败"))
 	}
+	dbLogin.Close()
 
-	UserDB.DB.Close()
+	// 验证 Token 的存储
+	db := mMongo.New(mMongo.Opt{
+		UserName: config.SysEnv.MongoUserName,
+		Password: config.SysEnv.MongoPassword,
+		Address:  config.SysEnv.MongoAddress,
+		DBName:   "Message",
+	}).Connect().Collection("VerifyToken")
+	defer db.Close()
 
-	// 需要在这里把 登录信息 存起来
-	// db := mMongo.New(mMongo.Opt{
-	// 	UserName: config.SysEnv.MongoUserName,
-	// 	Password: config.SysEnv.MongoPassword,
-	// 	Address:  config.SysEnv.MongoAddress,
-	// 	DBName:   "AItrade",
-	// }).Connect().Collection("Token")
-	// defer db.Close()
-	// err = db.Ping()
-	// if err != nil {
-	// 	db.Close()
-	// 	resErr := fmt.Errorf("MiYouSheCookie,数据库连接错误 %+v", err)
-	// 	return c.JSON(result.ErrDB.WithData(resErr))
-	// }
-	// var dbRes dbType.TokenTable
-	// FK := bson.D{{
-	// 	Key:   "UserID",
-	// 	Value: loginSucceedData.UserID,
-	// }}
+	FK := bson.D{{
+		Key:   "UserID",
+		Value: LoginInfo.UserID,
+	}}
 
-	// db.Table.FindOne(db.Ctx, FK).Decode(&dbRes)
-	// dbRes.Token = loginSucceedData.Token
-	// dbRes.UserID = loginSucceedData.UserID
-	// dbRes.CreateTime = mTime.GetUnixInt64()
+	var dbRes dbType.TokenTable
+	db.Table.FindOne(db.Ctx, FK).Decode(&dbRes)
+	dbRes.UserID = LoginInfo.UserID
+	dbRes.Token = LoginInfo.Token
+	dbRes.CreateTime = mTime.GetUnixInt64()
 
-	// UK := bson.D{}
-	// mStruct.Traverse(dbRes, func(key string, val any) {
-	// 	UK = append(UK, bson.E{
-	// 		Key: "$set",
-	// 		Value: bson.D{
-	// 			{
-	// 				Key:   key,
-	// 				Value: val,
-	// 			},
-	// 		},
-	// 	})
-	// })
-
-	// upOpt := options.Update()
-	// upOpt.SetUpsert(true)
-	// _, err = db.Table.UpdateOne(db.Ctx, FK, UK, upOpt)
-	// if err != nil {
-	// 	global.LogErr("Login Token,数据更插失败", err)
-	// 	return c.JSON(result.ErrDB.WithData("数据更插失败"))
-	// }
-
-	// return c.JSON(result.RightLogin.WithData(loginSucceedData))
-	return c.JSON(result.RightLogin.WithData(LoginInfo))
-}
-
-type IPAddressType struct {
-	ISP      string
-	Hostname string
-	Country  string
-	Region   string
-	City     string
-}
-
-func IPAddr(ips []string) (resData []IPAddressType, resErr error) {
-	ipArr := struct {
-		IP []string
-	}{
-		IP: ips,
-	}
-	res, err := taskPush.Request(taskPush.RequestOpt{
-		Origin: config.SysEnv.MessageBaseUrl,
-		Path:   "/api/public/GetAddressIP",
-		Data:   mJson.ToJson(ipArr),
+	UK := bson.D{}
+	mStruct.Traverse(dbRes, func(key string, val any) {
+		UK = append(UK, bson.E{
+			Key: "$set",
+			Value: bson.D{
+				{
+					Key:   key,
+					Value: val,
+				},
+			},
+		})
 	})
+
+	upOpt := options.Update()
+	upOpt.SetUpsert(true)
+	_, err = db.Table.UpdateOne(db.Ctx, FK, UK, upOpt)
 	if err != nil {
-		resErr = err
-		return
+		global.LogErr("account.Login, Token存储失败", err)
+		return c.JSON(result.ErrDB.WithData("Token存储失败"))
 	}
 
-	var resObj mRes.ResType
-	jsoniter.Unmarshal(res, &resObj)
-	if resObj.Code < 0 {
-		resErr = fmt.Errorf(resObj.Msg)
-		return
-	}
-
-	fmt.Println(resObj.Data)
-
-	return
+	return c.JSON(result.RightLogin.WithData(LoginInfo))
 }

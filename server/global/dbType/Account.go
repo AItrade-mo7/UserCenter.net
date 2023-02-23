@@ -17,3 +17,21 @@ type UserTable struct {
 	EntrapmentCode string   `bson:"EntrapmentCode"` // 防钓鱼码
 	Password       string   `bson:"Password"`       // 用户密码
 }
+
+/*
+用来存储 登录信息
+db: Account
+collection : LoginInfo
+*/
+type LoginSucceedType struct {
+	UserID         string `bson:"UserID"`
+	Email          string `bson:"Email"`
+	BrowserName    string `bson:"BrowserName"`
+	OsName         string `bson:"OsName"`
+	Hostname       string `bson:"Hostname"`
+	ISP            string `bson:"ISP"`
+	Operators      string `bson:"Operators"`
+	CreateTimeUnix int64  `bson:"CreateTimeUnix"`
+	CreateTimeStr  string `bson:"CreateTimeStr"`
+	Token          string `bson:"Token"`
+}
