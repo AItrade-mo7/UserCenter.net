@@ -30,8 +30,6 @@ func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 
 	resData.DB = db
 
-	var result dbType.UserTable
-
 	FK := bson.D{{
 		Key:   "UserEmail",
 		Value: opt.Email,
@@ -44,6 +42,7 @@ func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 		}}
 	}
 
+	var result dbType.UserTable
 	db.Table.FindOne(db.Ctx, FK).Decode(&result)
 
 	resData.UserID = result.UserID
