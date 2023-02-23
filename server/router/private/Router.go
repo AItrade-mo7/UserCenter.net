@@ -12,6 +12,7 @@ func Router(router fiber.Router) {
 	/*
 		/api/private
 	*/
+	r.Post("/loginOut", account.LoginOut)
 	r.Get("/get_user_info", account.GetUserInfo)
 	r.Post("/edit_profile", account.EditProfile)
 
