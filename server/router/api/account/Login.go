@@ -6,6 +6,7 @@ import (
 
 	"UserCenter.net/server/global/apiType"
 	"UserCenter.net/server/global/config"
+	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
@@ -25,6 +26,11 @@ type LoginParam struct {
 }
 
 func Login(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.ErrLogin.With("登录失败", "设备异常"))
+	}
+
 	var json LoginParam
 	mFiber.Parser(c, &json)
 
@@ -51,7 +57,6 @@ func Login(c *fiber.Ctx) error {
 		UserDB.DB.Close()
 		return c.JSON(result.ErrAccount.WithData("该邮箱尚未注册"))
 	}
-
 
 	IPInfoList := mVerify.GetIPS(c.IPs())
 	var IPInfo mVerify.IPAddressType

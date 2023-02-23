@@ -1,11 +1,17 @@
 package account
 
 import (
+	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"github.com/gofiber/fiber/v2"
 )
 
 func ChangePassword(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.ErrLogin.With("密码修改失败", "设备异常"))
+	}
+
 	// var json struct {
 	// 	Email         string `bson:"Email"`
 	// 	Code          string `bson:"Code"`

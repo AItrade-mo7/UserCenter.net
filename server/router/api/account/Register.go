@@ -3,6 +3,7 @@ package account
 import (
 	"fmt"
 
+	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
@@ -19,6 +20,11 @@ type RegisterParam struct {
 }
 
 func Register(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.ErrLogin.With("注册失败", "设备异常"))
+	}
+
 	var json RegisterParam
 	mFiber.Parser(c, &json)
 
