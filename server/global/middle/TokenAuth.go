@@ -32,6 +32,7 @@ func TokenAuth(c *fiber.Ctx) (UserID string, err error) {
 	}
 
 	Message = Claims.Message
+	UserID = Message
 	if len(UserID) != 32 {
 		err = errors.New("Token解析失败")
 		return
@@ -76,6 +77,5 @@ func TokenAuth(c *fiber.Ctx) (UserID string, err error) {
 	if nowUnix-dbRes.CreateTime > mTime.UnixTimeInt64.Day {
 		err = errors.New("Token过期")
 	}
-	UserID = Message
 	return
 }

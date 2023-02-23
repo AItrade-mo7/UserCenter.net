@@ -1,8 +1,11 @@
 package account
 
 import (
+	"fmt"
+
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
+	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -12,10 +15,12 @@ func GetUserInfo(c *fiber.Ctx) error {
 		return c.JSON(result.ErrLogin.With("获取用户信息失败", "设备异常"))
 	}
 
-	// userID, err := middle.TokenAuth(c)
-	// if err != nil {
-	// 	return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
-	// }
+	userID, err := middle.TokenAuth(c)
+	if err != nil {
+		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
+	}
+
+	fmt.Println(userID)
 
 	// UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
 	// 	UserID: userID,
