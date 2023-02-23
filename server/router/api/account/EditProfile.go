@@ -1,20 +1,32 @@
 package account
 
 import (
+	"fmt"
+	"regexp"
+
+	"UserCenter.net/server/global"
+	"UserCenter.net/server/global/apiType"
+	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFiber"
+	"github.com/EasyGolang/goTools/mJson"
+	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mTime"
+	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
+	jsoniter "github.com/json-iterator/go"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type EditUserType struct {
-	OldEmailCode   string
-	NewEmail       string
-	NewEmailCode   string
 	Avatar         string
 	NickName       string
 	EntrapmentCode string
 	Password       string
+	EmailCode      string
 }
 
 func EditProfile(c *fiber.Ctx) error {
@@ -26,193 +38,166 @@ func EditProfile(c *fiber.Ctx) error {
 	var json EditUserType
 	mFiber.Parser(c, &json)
 
-	// UserID, err := middle.TokenAuth(c)
-	// if err != nil {
-	// 	return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
-	// }
-	// UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
-	// 	UserID: UserID,
-	// })
-	// if err != nil {
-	// 	UserDB.DB.Close()
-	// 	return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
-	// }
+	UserID, err := middle.TokenAuth(c)
+	if err != nil {
+		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
+	}
+	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+		UserID: UserID,
+	})
+	if err != nil {
+		UserDB.DB.Close()
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+	}
+	defer UserDB.DB.Close()
 
-	// reg, _ := regexp.Compile("[\u4e00-\u9fa5_a-zA-Z0-9_]{2,12}")
-	// match := reg.MatchString(json.NickName)
-	// if match {
-	// } else {
-	// 	return c.JSON(result.Fail.WithMsg("昵称不符合规范"))
-	// }
+	reg, _ := regexp.Compile("[\u4e00-\u9fa5_a-zA-Z0-9_]{2,12}")
+	match := reg.MatchString(json.NickName)
+	if match {
+	} else {
+		return c.JSON(result.Fail.WithMsg("昵称不符合规范"))
+	}
 
-	// // 记录老旧的邮箱
-	// // oldEmail := UserDB.AccountData.Email
+	// 记录老旧的邮箱
 
-	// Email_edit := len(json.NewEmail) > 1 && json.NewEmail != UserDB.AccountData.Email
-	// NickName_edit := json.NickName != UserDB.AccountData.NickName
-	// Avatar_edit := len(json.Avatar) > 2 && json.Avatar != UserDB.AccountData.Avatar
-	// EntrapmentCode_edit := len(json.EntrapmentCode) > 2 && json.EntrapmentCode != UserDB.AccountData.EntrapmentCode
+	NickName_edit := json.NickName != UserDB.Data.NickName
+	Avatar_edit := len(json.Avatar) > 2 && json.Avatar != UserDB.Data.Avatar
+	EntrapmentCode_edit := len(json.EntrapmentCode) > 2 && json.EntrapmentCode != UserDB.Data.EntrapmentCode
 
-	// FK := bson.D{{
-	// 	Key:   "UserID",
-	// 	Value: UserDB.UserID,
-	// }}
-	// UK := bson.D{}
+	FK := bson.D{{
+		Key:   "UserID",
+		Value: UserDB.UserID,
+	}}
+	UK := bson.D{}
 
-	// if NickName_edit {
-	// 	UK = append(UK, bson.E{
-	// 		Key: "$set",
-	// 		Value: bson.D{
-	// 			{
-	// 				Key:   "NickName",
-	// 				Value: json.NickName,
-	// 			},
-	// 		},
-	// 	})
-	// }
-	// if Avatar_edit {
-	// 	UK = append(UK, bson.E{
-	// 		Key: "$set",
-	// 		Value: bson.D{
-	// 			{
-	// 				Key:   "Avatar",
-	// 				Value: json.Avatar,
-	// 			},
-	// 		},
-	// 	})
-	// }
+	if NickName_edit {
+		UK = append(UK, bson.E{
+			Key: "$set",
+			Value: bson.D{
+				{
+					Key:   "NickName",
+					Value: json.NickName,
+				},
+			},
+		})
+	}
 
-	// // 验证老邮箱验证码
-	// if Email_edit || EntrapmentCode_edit {
-	// 	// 密码验证
-	// 	err = UserDB.CheckPassword(json.Password)
-	// 	if err != nil {
-	// 		return c.JSON(result.ErrLogin.WithMsg(err))
-	// 	}
+	if Avatar_edit {
+		UK = append(UK, bson.E{
+			Key: "$set",
+			Value: bson.D{
+				{
+					Key:   "Avatar",
+					Value: json.Avatar,
+				},
+			},
+		})
+	}
 
-	// 	// 验证码验证
-	// 	err = verifyCode.CheckEmailCode(verifyCode.CheckEmailCodeParam{
-	// 		Email: UserDB.AccountData.Email,
-	// 		Code:  json.OldEmailCode,
-	// 	})
-	// 	if err != nil {
-	// 		UserDB.DB.Close()
-	// 		return c.JSON(result.ErrEmailCode.WithData(mStr.ToStr(err)))
-	// 	}
-	// }
+	// 需要验证老邮箱验证码 和 密码
+	if EntrapmentCode_edit {
+		// 密码验证
+		err = UserDB.CheckPassword(json.Password)
+		if err != nil {
+			return c.JSON(result.ErrLogin.WithMsg(err))
+		}
+		// 验证码验证
+		err := taskPush.CheckEmailCode(taskPush.CheckEmailCodeParam{
+			Email: UserDB.Data.Email,
+			Code:  json.EmailCode,
+		})
+		if err != nil {
+			return c.JSON(result.ErrEmailCode.WithMsg(err))
+		}
 
-	// if EntrapmentCode_edit {
-	// 	UK = append(UK, bson.E{
-	// 		Key: "$set",
-	// 		Value: bson.D{
-	// 			{
-	// 				Key:   "EntrapmentCode",
-	// 				Value: json.EntrapmentCode,
-	// 			},
-	// 		},
-	// 	})
-	// }
+	}
 
-	// if Email_edit {
+	if EntrapmentCode_edit {
+		UK = append(UK, bson.E{
+			Key: "$set",
+			Value: bson.D{
+				{
+					Key:   "EntrapmentCode",
+					Value: json.EntrapmentCode,
+				},
+			},
+		})
+	}
 
-	// 	if err != nil {
-	// 		UserDB.DB.Close()
-	// 		return c.JSON(result.ErrEmailCode.WithData(mStr.ToStr(err)))
-	// 	}
-	// 	// 验证新邮箱存不存在
-	// 	var dbData dbType.AccountTable
-	// 	FK := bson.D{{
-	// 		Key:   "Email",
-	// 		Value: json.NewEmail,
-	// 	}}
-	// 	UserDB.DB.Table.FindOne(UserDB.DB.Ctx, FK).Decode(&dbData)
+	if len(UK) < 1 {
+		UserDB.DB.Close()
+		return c.JSON(result.Fail.WithMsg("未作出任何更改"))
+	}
 
-	// 	if len(dbData.UserID) == 32 {
-	// 		UserDB.DB.Close()
-	// 		return c.JSON(result.Fail.WithMsg("新邮箱已存在"))
-	// 	}
+	UK = append(UK, bson.E{
+		Key: "$set",
+		Value: bson.D{
+			{
+				Key:   "UpdateTime",
+				Value: mTime.GetUnixInt64(),
+			},
+		},
+	})
 
-	// 	UK = append(UK, bson.E{
-	// 		Key: "$set",
-	// 		Value: bson.D{
-	// 			{
-	// 				Key:   "Email",
-	// 				Value: json.NewEmail,
-	// 			},
-	// 		},
-	// 	})
-	// }
+	_, err = UserDB.DB.Table.UpdateOne(UserDB.DB.Ctx, FK, UK)
+	if err != nil {
+		errStr := fmt.Errorf("account.EditProfile %+v", err)
+		global.LogErr(errStr)
+		UserDB.DB.Close()
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(errStr)))
+	}
 
-	// if len(UK) < 1 {
-	// 	UserDB.DB.Close()
-	// 	return c.JSON(result.Fail.WithMsg("未作出任何更改"))
-	// }
+	// 更新标识
+	UserDB.Update()
 
-	// UK = append(UK, bson.E{
-	// 	Key: "$set",
-	// 	Value: bson.D{
-	// 		{
-	// 			Key:   "UpdateTime",
-	// 			Value: mTime.GetUnixInt64(),
-	// 		},
-	// 	},
-	// })
+	if EntrapmentCode_edit {
 
-	// _, err = UserDB.DB.Table.UpdateOne(UserDB.DB.Ctx, FK, UK)
-	// if err != nil {
-	// 	errStr := fmt.Errorf("数据库更新失败 %+v", err)
-	// 	global.LogErr(errStr)
-	// 	UserDB.DB.Close()
-	// 	return c.JSON(result.ErrDB.WithData(mStr.ToStr(errStr)))
-	// }
-	// UserDB.Update()
+		// 生成 登录信息
+		DeviceInfo := mVerify.DeviceToUA(c.Get("User-Agent"))
+		IPInfoList := mVerify.GetIPS(c.IPs())
+		var IPInfo mVerify.IPAddressType
+		if len(IPInfoList) > 0 {
+			IPInfo = IPInfoList[0]
+		}
+		nowTime := mTime.GetTime()
+		LoginInfo := dbType.LoginSucceedType{
+			UserID:         UserDB.Data.UserID,
+			Email:          UserDB.Data.Email,
+			BrowserName:    DeviceInfo.BrowserName,
+			OsName:         DeviceInfo.OsName,
+			Hostname:       IPInfo.Hostname,
+			ISP:            IPInfo.ISP,
+			Operators:      IPInfo.Operators,
+			CreateTimeUnix: nowTime.TimeUnix,
+			CreateTimeStr:  nowTime.TimeStr,
+		}
+		EmailCont := mStr.Join(
+			"<br />",
+			"新的防钓鱼码为: 【"+UserDB.Data.EntrapmentCode, "】<br />",
+			"<br />",
+			"时间: ", LoginInfo.CreateTimeStr, "<br />",
+			"地区: ", LoginInfo.ISP, "<br />",
+			"运营商: ", LoginInfo.Operators, "<br />",
+			"系统: ", LoginInfo.OsName, "<br />",
+			"设备: ", LoginInfo.BrowserName, "<br />",
+			"IP: ", LoginInfo.Hostname, "<br />",
+		)
 
-	// if Email_edit {
-	// message := mStr.Join(
-	// 	"您刚刚修改了登录邮箱! 操作设备: ", c.Get("User-Agent"), "\n",
-	// 	"新的邮箱为: ", UserDB.AccountData.Email,
-	// )
+		taskPush.SysEmail(taskPush.SysEmailOpt{
+			To:             []string{UserDB.Data.Email},
+			Subject:        "防钓鱼码修改",
+			Title:          "防钓鱼码修改提醒",
+			Message:        "您刚刚修改了自己的防钓鱼码",
+			Content:        EmailCont,
+			Description:    "防钓鱼码修改",
+			EntrapmentCode: UserDB.Data.EntrapmentCode,
+		})
+	}
 
-	// go global.Email(global.EmailOpt{
-	// 	To: []string{
-	// 		UserDB.AccountData.Email,
-	// 		oldEmail,
-	// 	},
-	// 	Subject:  "邮箱修改提醒",
-	// 	Template: tmpl.SysEmail,
-	// 	SendData: tmpl.SysParam{
-	// 		Message:      message,
-	// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-	// 		EntrapmentCode: UserDB.AccountData.EntrapmentCode,
-	// 	},
-	// }).Send()
-	// }
+	var userinfoData apiType.UserInfo
+	jsonStr := mJson.ToJson(UserDB.Data)
+	jsoniter.Unmarshal(jsonStr, &userinfoData)
 
-	// if EntrapmentCode_edit {
-	// message := mStr.Join(
-	// 	"您刚刚修改了防伪标识符! 操作设备: ", c.Get("User-Agent"), "\n",
-	// 	"新的防伪标识符为: ", UserDB.AccountData.EntrapmentCode,
-	// )
-
-	// go global.Email(global.EmailOpt{
-	// 	To: []string{
-	// 		UserDB.AccountData.Email,
-	// 		oldEmail,
-	// 	},
-	// 	Subject:  "防伪标识符修改提醒",
-	// 	Template: tmpl.SysEmail,
-	// 	SendData: tmpl.SysParam{
-	// 		Message:      message,
-	// 		SysTime:      mTime.UnixFormat(mTime.GetUnixInt64()),
-	// 		EntrapmentCode: UserDB.AccountData.EntrapmentCode,
-	// 	},
-	// }).Send()
-	// }
-
-	// var userinfoData apiType.UserInfo
-	// jsonStr := mJson.ToJson(UserDB.AccountData)
-	// jsoniter.Unmarshal(jsonStr, &userinfoData)
-
-	// UserDB.DB.Close()
-	return c.JSON(result.Succeed.WithMsg("修改成功"))
+	UserDB.DB.Close()
+	return c.JSON(result.Succeed.With("修改成功", userinfoData))
 }
