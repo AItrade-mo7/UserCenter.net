@@ -76,6 +76,7 @@ func SetMainEmail(c *fiber.Ctx) error {
 	}
 
 	if !isUserEmail {
+		UserDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg("当前邮箱未添加！"))
 	}
 
@@ -104,8 +105,10 @@ func SetMainEmail(c *fiber.Ctx) error {
 
 	_, err = UserDB.DB.Table.UpdateOne(UserDB.DB.Ctx, FK, UK)
 	if err != nil {
+		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
+	UserDB.DB.Close()
 
-	return c.JSON(result.Succeed.WithMsg("设置主要的Email"))
+	return c.JSON(result.Succeed.WithData("Email设置成功"))
 }

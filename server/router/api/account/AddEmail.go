@@ -57,6 +57,7 @@ func AddEmail(c *fiber.Ctx) error {
 	}
 	defer NewEmailDB.DB.Close()
 	if len(NewEmailDB.UserID) > 0 {
+		NewEmailDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg("当前邮箱已被使用"))
 	}
 	NewEmailDB.DB.Close()
