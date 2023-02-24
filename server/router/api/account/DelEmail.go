@@ -95,7 +95,7 @@ func DelEmail(c *fiber.Ctx) error {
 		Key: "$set",
 		Value: bson.D{
 			{
-				Key:   "Email",
+				Key:   "UserEmail",
 				Value: NewEmailList,
 			},
 		},
