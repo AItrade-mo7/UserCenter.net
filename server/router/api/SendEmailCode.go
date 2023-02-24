@@ -39,22 +39,24 @@ func SendEmailCode(c *fiber.Ctx) error {
 	}
 
 	// 优先去数据库寻找防钓鱼码
-	userID, err := middle.TokenAuth(c)
-	if err != nil {
-		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
-	}
-	UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
-		UserID: userID,
-	})
-	if err != nil {
-		UserDB.DB.Close()
-		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
-	}
-	defer UserDB.DB.Close()
-
-	// 如果存在防钓鱼码则优先使用 数据库的 否则使用传入的
-	if len(UserDB.Data.EntrapmentCode) > 0 {
-		json.EntrapmentCode = UserDB.Data.EntrapmentCode
+	Token := c.Get("Token") // 如果登录了，则使用登录的验证码
+	if len(Token) > 0 {
+		userID, err := middle.TokenAuth(c)
+		if err != nil {
+			return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
+		}
+		UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+			UserID: userID,
+		})
+		if err != nil {
+			UserDB.DB.Close()
+			return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+		}
+		defer UserDB.DB.Close()
+		// 如果存在防钓鱼码则优先使用 数据库的 否则使用传入的
+		if len(UserDB.Data.EntrapmentCode) > 0 {
+			json.EntrapmentCode = UserDB.Data.EntrapmentCode
+		}
 	}
 
 	if len(json.EntrapmentCode) < 1 {
