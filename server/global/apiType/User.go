@@ -11,3 +11,11 @@ type UserInfo struct {
 	UpdateTime     int64  `bson:"UpdateTime"`     // 更新时间
 	EntrapmentCode string `bson:"EntrapmentCode"` // 防钓鱼码
 }
+
+type UserEmailInfo struct {
+	UserID    string   `bson:"UserID"`    // 用户 ID
+	Email     string   `bson:"Email"`     // 用户主要的 Email
+	UserEmail []string `bson:"UserEmail"` // 用户的 Email 列表
+	Avatar    string   `bson:"Avatar"`    // 用户头像
+	NickName  string   `bson:"NickName"`  // 用户昵称
+}

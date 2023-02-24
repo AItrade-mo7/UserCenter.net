@@ -7,6 +7,7 @@ import (
 	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
+	"github.com/EasyGolang/goTools/mTime"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -76,6 +77,7 @@ func AddEmail(c *fiber.Ctx) error {
 	// 密码验证
 	err = UserDB.CheckPassword(json.Password)
 	if err != nil {
+		UserDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg(err))
 	}
 
@@ -94,10 +96,20 @@ func AddEmail(c *fiber.Ctx) error {
 			},
 		},
 	}}
+	UK = append(UK, bson.E{
+		Key: "$set",
+		Value: bson.D{
+			{
+				Key:   "UpdateTime",
+				Value: mTime.GetUnixInt64(),
+			},
+		},
+	})
 	_, err = UserDB.DB.Table.UpdateOne(UserDB.DB.Ctx, FK, UK)
 	if err != nil {
+		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
-
+	UserDB.DB.Close()
 	return c.JSON(result.Succeed.WithMsg("Email已新增"))
 }
