@@ -110,5 +110,7 @@ func SetMainEmail(c *fiber.Ctx) error {
 	}
 	UserDB.DB.Close()
 
+	taskPush.DelEmailCode(json.Email)
+
 	return c.JSON(result.Succeed.WithData("Email设置成功"))
 }

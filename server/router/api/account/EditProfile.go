@@ -199,5 +199,8 @@ func EditProfile(c *fiber.Ctx) error {
 	jsoniter.Unmarshal(jsonStr, &userinfoData)
 
 	UserDB.DB.Close()
+
+	taskPush.DelEmailCode(UserDB.Data.Email)
+
 	return c.JSON(result.Succeed.With("修改成功", userinfoData))
 }

@@ -81,5 +81,7 @@ func Register(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 
+	taskPush.DelEmailCode(json.Email)
+
 	return c.JSON(result.Succeed.With("注册成功", "密码已发送至您的邮箱，请注意查收"))
 }

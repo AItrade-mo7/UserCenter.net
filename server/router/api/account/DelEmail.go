@@ -117,5 +117,6 @@ func DelEmail(c *fiber.Ctx) error {
 	}
 	UserDB.DB.Close()
 
+	taskPush.DelEmailCode(UserDB.Data.Email)
 	return c.JSON(result.Succeed.WithData("删除成功"))
 }

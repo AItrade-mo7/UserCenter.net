@@ -112,5 +112,7 @@ func AddEmail(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
 	UserDB.DB.Close()
+
+	taskPush.DelEmailCode(json.Email)
 	return c.JSON(result.Succeed.WithMsg("Email已新增"))
 }
