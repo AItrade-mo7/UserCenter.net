@@ -98,27 +98,6 @@ func Login(c *fiber.Ctx) error {
 	}
 	UserDB.DB.Close()
 
-	// 生成邮件
-	EmailCont := mStr.Join(
-		"<br />",
-		"时间: ", LoginInfo.CreateTimeStr, "<br />",
-		"地区: ", LoginInfo.ISP, "<br />",
-		"运营商: ", LoginInfo.Operators, "<br />",
-		"系统: ", LoginInfo.OsName, "<br />",
-		"设备: ", LoginInfo.BrowserName, "<br />",
-		"IP: ", LoginInfo.Hostname, "<br />",
-	)
-
-	taskPush.SysEmail(taskPush.SysEmailOpt{
-		To:             []string{json.Email},
-		Subject:        "登录信息",
-		Title:          "令牌已生成",
-		Message:        "系统检测到如下登录信息:",
-		Content:        EmailCont,
-		Description:    "登录邮件",
-		EntrapmentCode: UserDB.Data.EntrapmentCode,
-	})
-
 	// 登录记录存储
 	dbLogin := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
@@ -127,6 +106,55 @@ func Login(c *fiber.Ctx) error {
 		DBName:   "Account",
 	}).Connect().Collection("LoginInfo")
 	defer dbLogin.Close()
+
+	// 记录查询,取出最近的一条登录数据
+	findOpt := options.FindOne()
+	findOpt.SetSort(map[string]int{
+		"CreateTimeUnix": -1,
+	})
+	FK := bson.D{{
+		Key:   "UserID",
+		Value: LoginInfo.UserID,
+	}}
+	var RecentLogin dbType.LoginSucceedType
+	dbLogin.Table.FindOne(dbLogin.Ctx, FK, findOpt).Decode(&RecentLogin)
+
+	// 判断是否需要发送新邮件提醒
+	NewLoginTitle := ""
+	switch {
+	case LoginInfo.ISP != RecentLogin.ISP:
+		NewLoginTitle = "新的登录区域"
+	case LoginInfo.OsName != RecentLogin.OsName, LoginInfo.BrowserName != RecentLogin.BrowserName:
+		NewLoginTitle = "新的登录设备"
+	case LoginInfo.Operators != RecentLogin.Operators, LoginInfo.Hostname != RecentLogin.Hostname:
+		NewLoginTitle = "新的网络环境"
+	default:
+		NewLoginTitle = ""
+	}
+
+	if len(NewLoginTitle) > 0 {
+		// 生成邮件
+		EmailCont := mStr.Join(
+			"<br />",
+			"时间: ", LoginInfo.CreateTimeStr, "<br />",
+			"地区: ", LoginInfo.ISP, "<br />",
+			"运营商: ", LoginInfo.Operators, "<br />",
+			"系统: ", LoginInfo.OsName, "<br />",
+			"设备: ", LoginInfo.BrowserName, "<br />",
+			"IP: ", LoginInfo.Hostname, "<br />",
+		)
+		taskPush.SysEmail(taskPush.SysEmailOpt{
+			To:             []string{json.Email},
+			Subject:        "登录提醒",
+			Title:          NewLoginTitle,
+			Message:        "系统检测到如下登录信息:",
+			Content:        EmailCont,
+			Description:    "登录邮件",
+			EntrapmentCode: UserDB.Data.EntrapmentCode,
+		})
+	}
+
+	// 存储最新的登录数据
 	_, err = dbLogin.Table.InsertOne(dbLogin.Ctx, LoginInfo)
 	if err != nil {
 		global.LogErr("account.Login, 登录信息存储失败", err)
@@ -143,7 +171,7 @@ func Login(c *fiber.Ctx) error {
 	}).Connect().Collection("VerifyToken")
 	defer db.Close()
 
-	FK := bson.D{{
+	FK = bson.D{{
 		Key:   "UserID",
 		Value: LoginInfo.UserID,
 	}}
