@@ -15,6 +15,9 @@ func Router(router fiber.Router) {
 	r.Post("/loginOut", account.LoginOut)
 	r.Get("/get_user_info", account.GetUserInfo)
 	r.Post("/edit_profile", account.EditProfile)
+	r.Post("/SetMainEmail", account.SetMainEmail)
+	r.Post("/AddEmail", account.AddEmail)
+	r.Post("/GetEmailList", account.GetEmailList)
 
 	r.Post("/coinAI/List", coinAI.List)
 	r.Post("/coinAI/PublicList", coinAI.PublicList)
