@@ -1,6 +1,6 @@
 {
   "name": "user-center",
-  "version": "0.9.24",
+  "version": "0.9.25",
   "Port": 8999,
   "private": true,
   "scripts": {
