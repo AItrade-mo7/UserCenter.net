@@ -9,9 +9,10 @@ type ApiKeyType struct {
 
 type AppEnv struct {
 	Name       string       `bson:"Name"`
+	Type       string       `bson:"Type"` // 服务类型
 	Version    string       `bson:"Version"`
-	Port       string       `bson:"Port"`
 	IP         string       `bson:"IP"`
+	Port       string       `bson:"Port"`
 	ServeID    string       `bson:"ServeID"`
 	UserID     string       `bson:"UserID"`
 	ApiKeyList []ApiKeyType `bson:"ApiKeyList"`
