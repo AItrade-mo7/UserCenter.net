@@ -1,6 +1,7 @@
 package coinAI
 
 import (
+	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/router/result"
 	"github.com/gofiber/fiber/v2"
 )
@@ -45,5 +46,5 @@ func PublicList(c *fiber.Ctx) error {
 	// }
 
 	// return c.JSON(result.Succeed.WithData(CoinAIList))
-	return c.JSON(result.Succeed.WithData("CoinAIList"))
+	return c.JSON(result.Succeed.WithData([]dbType.AppEnv{}))
 }
