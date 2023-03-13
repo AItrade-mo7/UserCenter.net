@@ -4,6 +4,7 @@ import (
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"UserCenter.net/server/utils/dbUser"
+	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mVerify"
@@ -47,6 +48,15 @@ func ChangePassword(c *fiber.Ctx) error {
 
 	if len(UserDB.UserID) != 32 {
 		return c.JSON(result.ErrAccount.WithData("该邮箱尚未注册"))
+	}
+
+	// 验证 新邮箱的 验证码
+	err = taskPush.CheckEmailCode(taskPush.CheckEmailCodeParam{
+		Email: json.Email,
+		Code:  json.Code,
+	})
+	if err != nil {
+		return c.JSON(result.Fail.WithMsg(err))
 	}
 
 	err = UserDB.ChangePassword(json.Password)
