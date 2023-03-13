@@ -1,19 +1,27 @@
 package dbType
 
-type ApiKeyType struct {
+/*
+用来存储 用户信息
+db: AIServe
+collection : CoinAI
+*/
+
+type OkxKeyType struct {
 	Name       string `bson:"Name"`
 	ApiKey     string `bson:"ApiKey"`
 	SecretKey  string `bson:"SecretKey"`
 	Passphrase string `bson:"Passphrase"`
 }
 
-type AppEnv struct {
-	Name       string       `bson:"Name"`
-	Type       string       `bson:"Type"` // 服务类型
-	Version    string       `bson:"Version"`
-	IP         string       `bson:"IP"`
-	Port       string       `bson:"Port"`
-	ServeID    string       `bson:"ServeID"`
-	UserID     string       `bson:"UserID"`
-	ApiKeyList []ApiKeyType `bson:"ApiKeyList"`
+type AppEnvType struct {
+	SysName      string       `bson:"SysName"`      // 系统的名字  ， 自动生成项
+	SysVersion   string       `bson:"SysVersion"`   // 系统的版本  ， 自动回填
+	UserID       string       `bson:"UserID"`       // 用户名字 必填项  ， 禁止野生主机的存在
+	Port         string       `bson:"Port"`         // 系统运行的端口 , 用户必填项
+	IP           string       `bson:"IP"`           // 系统运行的 IP, 为自动获取回填
+	ServeID      string       `bson:"ServeID"`      // ServeID ，  ip+端口
+	MaxApiKeyNum int          `bson:"MaxApiKeyNum"` // 最大 Api 数量限制
+	IsPublic     bool         `bson:"IsPublic"`     // 是否公开
+	Type         string       `bson:"Type"`
+	ApiKeyList   []OkxKeyType `bson:"ApiKeyList"` // ApiKey 列表
 }

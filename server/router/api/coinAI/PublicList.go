@@ -46,5 +46,5 @@ func PublicList(c *fiber.Ctx) error {
 	// }
 
 	// return c.JSON(result.Succeed.WithData(CoinAIList))
-	return c.JSON(result.Succeed.WithData([]dbType.AppEnv{}))
+	return c.JSON(result.Succeed.WithData([]dbType.AppEnvType{}))
 }
