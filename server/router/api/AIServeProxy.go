@@ -17,7 +17,7 @@ func AIServeProxy(c *fiber.Ctx) error {
 	if findWss {
 		return AIServeProxy_wss(c)
 	}
-	host := c.Get("Coin-Serve-ID")
+	host := c.Get("Satellite-Serve")
 
 	if len([]rune(host)) < 6 {
 		return c.JSON(result.Fail.WithMsg("缺少代理地址"))
