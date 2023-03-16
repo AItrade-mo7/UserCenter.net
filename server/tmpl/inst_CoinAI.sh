@@ -2,7 +2,9 @@
 
 Port="{{.Port}}"
 UserID="{{.UserID}}"
+NowPath=$(pwd)
 StartName="CoinAI.net-${Port}"
+DirPath="${NowPath}/${StartName}"
 
 rm -rf ${StartName}
 mkdir ${StartName}
@@ -48,26 +50,26 @@ fi
 
 SystemType=$(arch)
 
-downLoadPath="https://raw.githubusercontent.com/AItrade-mo7/CoinAIPackage/main/CoinAI.net_x86_64"
+DownLoadPath="https://raw.githubusercontent.com/AItrade-mo7/CoinAIPackage/main/CoinAI.net_x86_64"
 if [[ ${SystemType} =~ "aarch64" ]]; then
-  downLoadPath="https://raw.githubusercontent.com/AItrade-mo7/CoinAIPackage/main/CoinAI.net_aarch64"
+  DownLoadPath="https://raw.githubusercontent.com/AItrade-mo7/CoinAIPackage/main/CoinAI.net_aarch64"
 fi
 
 ################ 启动脚本 ##########################
 echo "======== 生成 启动脚本 ========"
-StartShellPath="${StartName}/ReBoot.sh"
+StartShellPath="${DirPath}/Reboot.sh"
 
 cat >"${StartShellPath}" <<END
 #!/bin/bash
 
 echo "===== 下载可执行文件 ====="
 
-cd "$(pwd)"
+cd "${DirPath}" || exit
 
 pm2 delete "${StartName}"
 
 rm -rf "${StartName}" &&
-  curl -O "${StartName}" "${downLoadPath}?time=$(date +%s%3N)"
+  curl -o "${StartName}" "${DownLoadPath}"
 
 sudo chmod 777 "${StartName}"
 
@@ -79,9 +81,9 @@ END
 
 ################ 停止脚本 ##########################
 echo "======== 生成 停止脚本 ========"
-StopShellPath="${StartName}/Shutdown.sh"
+StopShellPath="${DirPath}/Shutdown.sh"
 
-cat >${StopShellPath} <<END
+cat >"${StopShellPath}" <<END
 #!/bin/bash
 
 pm2 delete "${StartName}"
@@ -91,7 +93,7 @@ END
 
 ################ 配置文件 ##########################
 echo "======== 生成 配置文件 ========"
-ConfigFilePath="${StartName}/app_env.json"
+ConfigFilePath="${DirPath}/app_env.json"
 
 cat >"${ConfigFilePath}" <<END
 {
@@ -102,5 +104,5 @@ END
 
 sudo chmod -R 777 "$(pwd)"
 
-echo "======== 启动服务 ========"
-source "${StartShellPath}"
+# echo "======== 启动服务 ========"
+# source "${StartShellPath}"
