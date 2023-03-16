@@ -2,7 +2,7 @@
 
 Port="{{.Port}}"
 UserID="{{.UserID}}"
-StartName="CoinAI.net-"${Port}
+StartName="CoinAI.net-${Port}"
 
 rm -rf ${StartName}
 mkdir ${StartName}
@@ -67,7 +67,7 @@ cd "$(pwd)"
 pm2 delete "${StartName}"
 
 rm -rf "${StartName}" &&
-  wget -O "${StartName}" "${downLoadPath}?time=$(date +%s%3N)"
+  curl -O "${StartName}" "${downLoadPath}?time=$(date +%s%3N)"
 
 sudo chmod 777 "${StartName}"
 
