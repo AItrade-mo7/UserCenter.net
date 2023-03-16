@@ -105,4 +105,4 @@ END
 sudo chmod -R 777 "$(pwd)"
 
 # echo "======== 启动服务 ========"
-# source "${StartShellPath}"
+source "${StartShellPath}"
