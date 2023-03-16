@@ -2,11 +2,11 @@
 
 Port="{{.Port}}"
 UserID="{{.UserID}}"
-startName="CoinAI.net-"${Port}
+StartName="CoinAI.net-"${Port}
 
-rm -rf ${startName}
-mkdir ${startName}
-cd ${startName}
+rm -rf ${StartName}
+mkdir ${StartName}
+cd ${StartName} || exit
 
 ################## 环境搭建环节 ########################
 echo "======== 环境检测 ========"
@@ -15,8 +15,8 @@ if [[ $(command -v npm) ]]; then
   echo "检测到已安装 npm , 继续执行"
 else
   echo "未安装 npm , 开始安装 nodejs"
-  curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-  sudo apt-get install -y nodejs
+  curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&
+    sudo apt-get install -y nodejs
 fi
 
 if [[ $(command -v pm2) ]]; then
@@ -34,9 +34,8 @@ pm2 安装失败
 请手动依次执行以下命令,然后再重新执行该脚本:
 \033[32m
 
-  curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-
-  sudo apt-get install -y nodejs
+  curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&
+    sudo apt-get install -y nodejs
 
   npm install -g pm2
 
@@ -56,45 +55,45 @@ fi
 
 ################ 启动脚本 ##########################
 echo "======== 生成 启动脚本 ========"
-startFilePath="./ReBoot.sh"
+StartShellPath="${StartName}/ReBoot.sh"
 
-sudo cat >${startFilePath} <<END
+cat >"${StartShellPath}" <<END
 #!/bin/bash
 
 echo "===== 下载可执行文件 ====="
 
 cd "$(pwd)"
 
-pm2 delete "${startName}"
+pm2 delete "${StartName}"
 
-rm -rf "${startName}" &&
-  wget -O "${startName}" "${downLoadPath}?time=$(date +%s%3N)"
+rm -rf "${StartName}" &&
+  wget -O "${StartName}" "${downLoadPath}?time=$(date +%s%3N)"
 
-sudo chmod 777 "${startName}"
+sudo chmod 777 "${StartName}"
 
 echo "===== 启动服务 ====="
 
-pm2 start "${startName}" --name "${startName}"
+pm2 start "${StartName}" --name "${StartName}"
 
 END
 
 ################ 停止脚本 ##########################
 echo "======== 生成 停止脚本 ========"
-stopFilePath="./Shutdown.sh"
+StopShellPath="${StartName}/Shutdown.sh"
 
-sudo cat >${stopFilePath} <<END
+cat >${StopShellPath} <<END
 #!/bin/bash
 
-pm2 delete "${startName}"
+pm2 delete "${StartName}"
 rm -rf "$(pwd)"
 
 END
 
 ################ 配置文件 ##########################
 echo "======== 生成 配置文件 ========"
-configFilePath="./app_env.json"
+ConfigFilePath="${StartName}/app_env.json"
 
-sudo cat >${configFilePath} <<END
+cat >"${ConfigFilePath}" <<END
 {
   "Port": "${Port}",
   "UserID": "${UserID}"
@@ -104,4 +103,4 @@ END
 sudo chmod -R 777 "$(pwd)"
 
 echo "======== 启动服务 ========"
-source "${startFilePath}"
+source "${StartShellPath}"

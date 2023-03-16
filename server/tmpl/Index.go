@@ -11,10 +11,3 @@ type InstCoinServeParam struct {
 	Port   string
 	UserID string
 }
-
-//go:embed FreedomShell.sh
-var FreedomShell string
-
-type FreedomShellParam struct {
-	ShellContent string
-}
