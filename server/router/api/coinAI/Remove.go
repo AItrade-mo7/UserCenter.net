@@ -105,5 +105,7 @@ func Remove(c *fiber.Ctx) error {
 	db.Table.DeleteOne(db.Ctx, findFK)
 	db.Close()
 
+	taskPush.DelEmailCode(UserDB.Data.Email)
+
 	return c.JSON(result.Succeed.WithMsg("已删除"))
 }

@@ -64,5 +64,7 @@ func ChangePassword(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 
+	taskPush.DelEmailCode(json.Email)
+
 	return c.JSON(result.Succeed.WithMsg("修改成功"))
 }
