@@ -3,6 +3,7 @@ package api
 import (
 	"strings"
 
+	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"github.com/fasthttp/websocket"
 	"github.com/gofiber/fiber/v2"
@@ -11,6 +12,11 @@ import (
 )
 
 func AIServeProxy(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.ErrLogin.With("访问失败", "设备异常"))
+	}
+
 	fastProxy.SetProduction()
 	// 代理 wss
 	findWss := strings.Contains(c.Path(), "/wss")
