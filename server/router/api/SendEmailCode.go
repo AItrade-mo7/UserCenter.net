@@ -24,6 +24,11 @@ type SendEmailCodeParam struct {
 }
 
 func SendEmailCode(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.Fail.With("发送失败", "设备异常"))
+	}
+
 	var json SendEmailCodeParam
 	mFiber.Parser(c, &json)
 

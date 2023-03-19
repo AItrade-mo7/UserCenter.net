@@ -13,6 +13,11 @@ import (
 )
 
 func List(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.Fail.With("获取失败", "设备异常"))
+	}
+
 	userID, err := middle.TokenAuth(c)
 	if err != nil {
 		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))

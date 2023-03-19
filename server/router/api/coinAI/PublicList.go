@@ -2,11 +2,17 @@ package coinAI
 
 import (
 	"UserCenter.net/server/global/dbType"
+	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"github.com/gofiber/fiber/v2"
 )
 
 func PublicList(c *fiber.Ctx) error {
+	isCrawler := middle.CrawlerIS(c)
+	if isCrawler {
+		return c.JSON(result.Fail.With("获取失败", "设备异常"))
+	}
+
 	// UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
 	// 	Email: "config.SysEmail",
 	// })
