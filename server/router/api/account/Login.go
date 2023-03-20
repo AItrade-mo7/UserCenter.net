@@ -143,8 +143,9 @@ func Login(c *fiber.Ctx) error {
 			"设备: ", LoginInfo.BrowserName, "<br />",
 			"IP: ", LoginInfo.Hostname, "<br />",
 		)
+
 		taskPush.SysEmail(taskPush.SysEmailOpt{
-			To:             []string{json.Email},
+			To:             UserDB.Data.UserEmail,
 			Subject:        "登录提醒",
 			Title:          NewLoginTitle,
 			Message:        "系统检测到如下登录信息:",
@@ -152,6 +153,7 @@ func Login(c *fiber.Ctx) error {
 			Description:    "登录邮件",
 			EntrapmentCode: UserDB.Data.EntrapmentCode,
 		})
+
 	}
 
 	// 存储最新的登录数据

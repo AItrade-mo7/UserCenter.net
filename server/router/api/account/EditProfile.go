@@ -181,7 +181,7 @@ func EditProfile(c *fiber.Ctx) error {
 		)
 
 		taskPush.SysEmail(taskPush.SysEmailOpt{
-			To:             []string{UserDB.Data.Email},
+			To:             UserDB.Data.UserEmail,
 			Subject:        "防钓鱼码修改",
 			Title:          "防钓鱼码修改提醒",
 			Message:        "您刚刚修改了自己的防钓鱼码",
