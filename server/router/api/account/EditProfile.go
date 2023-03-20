@@ -2,7 +2,6 @@ package account
 
 import (
 	"fmt"
-	"regexp"
 
 	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/apiType"
@@ -51,10 +50,8 @@ func EditProfile(c *fiber.Ctx) error {
 	}
 	defer UserDB.DB.Close()
 
-	reg, _ := regexp.Compile("[\u4e00-\u9fa5_a-zA-Z0-9_]{2,12}")
-	match := reg.MatchString(json.NickName)
-	if match {
-	} else {
+	isName := mVerify.IsNickName(json.NickName)
+	if !isName {
 		return c.JSON(result.Fail.WithMsg("昵称不符合规范"))
 	}
 
