@@ -37,7 +37,7 @@ func Ping(c *fiber.Ctx) error {
 	jsoniter.Unmarshal(ClientFileReqData, &ClientInfo)
 
 	var CoinAIInfo AppInfoType
-	jsoniter.Unmarshal(CoinAIFileReqData, &ClientInfo)
+	jsoniter.Unmarshal(CoinAIFileReqData, &CoinAIInfo)
 
 	var ApiInfo AppInfoType
 	jsoniter.Unmarshal(mJson.ToJson(config.AppInfo), &ApiInfo)
