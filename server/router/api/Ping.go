@@ -24,12 +24,20 @@ func Ping(c *fiber.Ctx) error {
 
 	// 在这里请求数据
 	ClientFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
-		Origin: "http://trade.mo7.cc",
-		Path:   "/package.json?tmp=" + mTime.GetUnix(),
+		Origin: "https://raw.githubusercontent.com",
+		Path:   "/mo7cc/trade.mo7.cc/main/package.json?tmp=" + mTime.GetUnix(),
+	}).Get()
+
+	CoinAIFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
+		Origin: "https://raw.githubusercontent.com",
+		Path:   "/AItrade-mo7/CoinAIPackage/main/package.json?tmp=" + mTime.GetUnix(),
 	}).Get()
 
 	var ClientInfo AppInfoType
 	jsoniter.Unmarshal(ClientFileReqData, &ClientInfo)
+
+	var CoinAIInfo AppInfoType
+	jsoniter.Unmarshal(CoinAIFileReqData, &ClientInfo)
 
 	var ApiInfo AppInfoType
 	jsoniter.Unmarshal(mJson.ToJson(config.AppInfo), &ApiInfo)
@@ -39,6 +47,7 @@ func Ping(c *fiber.Ctx) error {
 	ReturnData["Method"] = c.Method()
 	ReturnData["ApiInfo"] = ApiInfo
 	ReturnData["ClientInfo"] = ClientInfo
+	ReturnData["CoinAIInfo"] = CoinAIInfo
 
 	ReturnData["UserAgent"] = c.Get("User-Agent")
 	ReturnData["Path"] = c.OriginalURL()
