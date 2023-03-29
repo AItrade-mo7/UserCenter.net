@@ -50,7 +50,7 @@ func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 	resData.UserID = result.UserID
 	resData.Data = result
 
-	global.Run.Println("调取用户信息", resData.UserID, mJson.Format(result))
+	global.Run.Println(mJson.Format(opt), "调取用户信息", mJson.Format(result))
 
 	return
 }
