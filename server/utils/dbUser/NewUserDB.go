@@ -1,10 +1,8 @@
 package dbUser
 
 import (
-	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/dbType"
-	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mMongo"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -49,8 +47,6 @@ func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 
 	resData.UserID = result.UserID
 	resData.Data = result
-
-	global.Run.Println(mJson.Format(opt), "调取用户信息", mJson.Format(result))
 
 	return
 }
