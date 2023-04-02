@@ -129,8 +129,11 @@ func RemoveAccount(c *fiber.Ctx) error {
 		Key:   "UserID",
 		Value: UserID,
 	}}
+	_, err = dbAccount.Table.DeleteOne(dbAccount.Ctx, FK)
+	if err != nil {
+		return c.JSON(result.Fail.WithMsg(err))
+	}
 
-	dbAccount.Table.DeleteOne(db.Ctx, FK)
 	taskPush.DelEmailCode(UserDB.Data.Email)
 
 	taskPush.SysEmail(taskPush.SysEmailOpt{
