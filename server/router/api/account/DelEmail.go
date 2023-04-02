@@ -87,6 +87,16 @@ func DelEmail(c *fiber.Ctx) error {
 		return c.JSON(result.Fail.WithMsg("当前邮箱不在列表当中"))
 	}
 
+	taskPush.SysEmail(taskPush.SysEmailOpt{
+		To:             UserDB.Data.UserEmail,
+		Subject:        "登录提醒",
+		Title:          "你正在删除邮箱地址！",
+		Message:        "系统侦测到您正在删除如下邮箱地址:",
+		Content:        json.Email,
+		Description:    "删除邮件通知",
+		EntrapmentCode: UserDB.Data.EntrapmentCode,
+	})
+
 	FK := bson.D{{
 		Key:   "UserID",
 		Value: UserDB.Data.UserID,

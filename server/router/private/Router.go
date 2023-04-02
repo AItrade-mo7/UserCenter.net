@@ -19,7 +19,8 @@ func Router(router fiber.Router) {
 	r.Post("/AddEmail", account.AddEmail)
 	r.Post("/GetEmailList", account.GetEmailList)
 	r.Post("/DelEmail", account.DelEmail)
-	
+	r.Post("/RemoveAccount", account.RemoveAccount)
+
 	r.Post("/coinAI/List", coinAI.List)
 	r.Post("/coinAI/PublicList", coinAI.PublicList)
 	r.Post("/coinAI/Remove", coinAI.Remove)
