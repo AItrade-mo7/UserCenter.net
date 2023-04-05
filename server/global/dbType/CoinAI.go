@@ -15,7 +15,6 @@ type AppEnvType struct {
 	IP           string `bson:"IP"`           // 系统运行的 IP, 为自动获取回填
 	ServeID      string `bson:"ServeID"`      // ServeID ，  ip+端口
 	MaxApiKeyNum int    `bson:"MaxApiKeyNum"` // 最大 Api 数量限制
-	Type         string `bson:"Type"`         // 策略类型 目前是随意值
 	IsPublic     bool   `bson:"IsPublic"`     // 是否公开此服务
 	CreateTime   int64  `bson:"CreateTime"`   // 创建时间
 	UpdateTime   int64  `bson:"UpdateTime"`   // 更新时间
