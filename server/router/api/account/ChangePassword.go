@@ -1,10 +1,14 @@
 package account
 
 import (
+	"fmt"
+
+	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
 	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
+	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mVerify"
@@ -59,7 +63,11 @@ func ChangePassword(c *fiber.Ctx) error {
 		return c.JSON(result.Fail.WithMsg(err))
 	}
 
-	err = UserDB.ChangePassword(json.Password)
+	NewPwd := mEncrypt.AseDecrypt(json.Password, config.SecretKey)
+
+	fmt.Println(NewPwd, json.Password)
+
+	err = UserDB.ChangePassword(NewPwd)
 	if err != nil {
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
