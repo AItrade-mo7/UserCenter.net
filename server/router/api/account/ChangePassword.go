@@ -1,8 +1,6 @@
 package account
 
 import (
-	"fmt"
-
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
@@ -64,8 +62,6 @@ func ChangePassword(c *fiber.Ctx) error {
 	}
 
 	NewPwd := mEncrypt.AseDecrypt(json.Password, config.SecretKey)
-
-	fmt.Println(NewPwd, json.Password)
 
 	err = UserDB.ChangePassword(NewPwd)
 	if err != nil {
