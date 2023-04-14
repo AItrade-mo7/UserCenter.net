@@ -62,6 +62,24 @@ func SendEmailCode(c *fiber.Ctx) error {
 		if len(UserDB.Data.EntrapmentCode) > 0 {
 			json.EntrapmentCode = UserDB.Data.EntrapmentCode
 		}
+	} else {
+		UserDB, err := dbUser.NewUserDB(dbUser.NewUserOpt{
+			Email: json.Email,
+		})
+		if err != nil {
+			UserDB.DB.Close()
+			return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+		}
+		defer UserDB.DB.Close()
+		// 如果存在防钓鱼码则优先使用 数据库的 否则使用传入的
+		if len(UserDB.Data.EntrapmentCode) > 0 {
+			json.EntrapmentCode = UserDB.Data.EntrapmentCode
+		}
+	}
+
+	if len(json.EntrapmentCode) < 1 {
+		emailErr := fmt.Errorf("防钓鱼码不能为空")
+		return c.JSON(result.ErrEmail.WithMsg(emailErr))
 	}
 
 	if len([]rune(json.EntrapmentCode)) > 24 {
