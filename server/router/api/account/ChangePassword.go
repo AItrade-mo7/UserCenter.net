@@ -31,7 +31,7 @@ func ChangePassword(c *fiber.Ctx) error {
 		return c.JSON(result.Fail.With("邮箱格式不正确", json.Email))
 	}
 
-	if len(json.Password) != 32 {
+	if len(json.Password) < 16 {
 		return c.JSON(result.Fail.With("密码格式不正确", "可能原因:密码没有加密传输！"))
 	}
 

@@ -32,7 +32,7 @@ func Remove(c *fiber.Ctx) error {
 	if len(json.ServeID) < 1 {
 		return c.JSON(result.Fail.WithMsg("缺少 ServeID"))
 	}
-	if len(json.Password) != 32 {
+	if len(json.Password) < 16 {
 		return c.JSON(result.Fail.With("密码格式不正确", "可能原因:没有加密传输！"))
 	}
 	if len(json.EmailCode) != 32 {
