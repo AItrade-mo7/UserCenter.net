@@ -23,13 +23,17 @@ func List(c *fiber.Ctx) error {
 		return c.JSON(result.ErrToken.WithData(mStr.ToStr(err)))
 	}
 
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "AIServe",
-	}).Connect().Collection("CoinAI")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+	}
 	defer db.Close()
+	db.Collection("CoinAI")
 
 	findOpt := options.Find()
 	findOpt.SetAllowDiskUse(true)

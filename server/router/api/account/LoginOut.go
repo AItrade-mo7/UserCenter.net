@@ -17,13 +17,17 @@ func LoginOut(c *fiber.Ctx) error {
 	}
 
 	// 验证 Token 的删除
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "Message",
-	}).Connect().Collection("VerifyToken")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
+	}
 	defer db.Close()
+	db.Collection("VerifyToken")
 
 	FK := bson.D{{
 		Key:   "UserID",

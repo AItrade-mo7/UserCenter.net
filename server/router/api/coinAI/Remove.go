@@ -78,13 +78,18 @@ func Remove(c *fiber.Ctx) error {
 	}
 
 	// 开始删除数据
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "AIServe",
-	}).Connect().Collection("CoinAI")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
 	defer db.Close()
+	db.Collection("CoinAI")
+
 	findOpt := options.FindOne()
 	findOpt.SetSort(map[string]int{
 		"TimeUnix": -1,

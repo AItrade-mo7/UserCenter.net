@@ -61,13 +61,17 @@ func RemoveAccount(c *fiber.Ctx) error {
 
 	UserDB.DB.Close()
 
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "AIServe",
-	}).Connect().Collection("CoinAI")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
 	defer db.Close()
+	db.Collection("CoinAI")
 
 	findOpt := options.Find()
 	findOpt.SetAllowDiskUse(true)
@@ -117,13 +121,17 @@ func RemoveAccount(c *fiber.Ctx) error {
 	db.Close()
 
 	// 删除账户
-	dbAccount := mMongo.New(mMongo.Opt{
+	dbAccount, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "Account",
-	}).Connect().Collection("User")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
 	defer dbAccount.Close()
+	dbAccount.Collection("User")
 
 	FK := bson.D{{
 		Key:   "UserID",

@@ -99,13 +99,17 @@ func Login(c *fiber.Ctx) error {
 	UserDB.DB.Close()
 
 	// 登录记录存储
-	dbLogin := mMongo.New(mMongo.Opt{
+	dbLogin, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "Account",
-	}).Connect().Collection("LoginInfo")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
 	defer dbLogin.Close()
+	dbLogin.Collection("LoginInfo")
 
 	// 记录查询,取出最近的一条登录数据
 	findOpt := options.FindOne()
@@ -165,13 +169,17 @@ func Login(c *fiber.Ctx) error {
 	dbLogin.Close()
 
 	// 验证 Token 的存储
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "Message",
-	}).Connect().Collection("VerifyToken")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
 	defer db.Close()
+	db.Collection("VerifyToken")
 
 	FK = bson.D{{
 		Key:   "UserID",

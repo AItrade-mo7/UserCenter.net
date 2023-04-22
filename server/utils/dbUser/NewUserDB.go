@@ -1,6 +1,7 @@
 package dbUser
 
 import (
+	"UserCenter.net/server/global"
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/dbType"
 	"github.com/EasyGolang/goTools/mMongo"
@@ -21,12 +22,19 @@ type AccountType struct {
 func NewUserDB(opt NewUserOpt) (resData *AccountType, resErr error) {
 	resData = &AccountType{}
 	resErr = nil
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "Account",
-	}).Connect().Collection("User")
+	}).Connect()
+	if err != nil {
+		global.LogErr("dbUser.NewUserDB", err)
+		resErr = err
+		return
+	}
+	defer db.Close()
+	db.Collection("User")
 
 	resData.DB = db
 

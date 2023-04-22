@@ -17,13 +17,17 @@ func PublicList(c *fiber.Ctx) error {
 		return c.JSON(result.Fail.With("获取失败", "设备异常"))
 	}
 
-	db := mMongo.New(mMongo.Opt{
+	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
 		Address:  config.SysEnv.MongoAddress,
 		DBName:   "AIServe",
-	}).Connect().Collection("CoinAI")
+	}).Connect()
+	if err != nil {
+		return c.JSON(result.ErrDB.WithData(err))
+	}
 	defer db.Close()
+	db.Collection("CoinAI")
 
 	findOpt := options.Find()
 	findOpt.SetAllowDiskUse(true)
