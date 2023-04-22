@@ -70,5 +70,15 @@ func ChangePassword(c *fiber.Ctx) error {
 
 	taskPush.DelEmailCode(json.Email)
 
+	taskPush.SysEmail(taskPush.SysEmailOpt{
+		To:             UserDB.Data.UserEmail,
+		Subject:        "密码修改提醒",
+		Title:          "密码修改成功",
+		Message:        "密码修改提醒",
+		Content:        "您的密码已被修改,若非本人操作,请注意账户安全。",
+		Description:    "密码修改通知",
+		EntrapmentCode: UserDB.Data.EntrapmentCode,
+	})
+
 	return c.JSON(result.Succeed.WithMsg("修改成功"))
 }
