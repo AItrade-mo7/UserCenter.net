@@ -47,6 +47,7 @@ func ChangePassword(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
+	defer UserDB.DB.Close()
 
 	if len(UserDB.UserID) != 32 {
 		return c.JSON(result.ErrAccount.WithData("该邮箱尚未注册"))
