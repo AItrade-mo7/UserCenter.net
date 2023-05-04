@@ -47,14 +47,12 @@ func Remove(c *fiber.Ctx) error {
 		UserID: userID,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
 	// 密码验证
 	err = UserDB.CheckPassword(json.Password)
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg(err))
 	}
 	// 验证验证码
@@ -65,7 +63,6 @@ func Remove(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(result.Fail.WithMsg(err))
 	}
-	UserDB.DB.Close()
 
 	// 检测服务是否在使用
 	Origin := mStr.Join("http://", json.ServeID)
@@ -108,7 +105,6 @@ func Remove(c *fiber.Ctx) error {
 		return c.JSON(result.Fail.WithMsg("该 CoinAI 不属于当前用户"))
 	}
 	db.Table.DeleteOne(db.Ctx, findFK)
-	db.Close()
 
 	taskPush.DelEmailCode(UserDB.Data.Email)
 

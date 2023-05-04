@@ -51,13 +51,11 @@ func Login(c *fiber.Ctx) error {
 		Email: json.Email,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
 
 	if len(UserDB.UserID) != 32 {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrAccount.WithData("该邮箱尚未注册"))
 	}
 
@@ -96,7 +94,6 @@ func Login(c *fiber.Ctx) error {
 		CreateTimeStr:  nowTime.TimeStr,
 		Token:          NewToken,
 	}
-	UserDB.DB.Close()
 
 	// 登录记录存储
 	dbLogin, err := mMongo.New(mMongo.Opt{

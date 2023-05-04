@@ -28,20 +28,17 @@ func GetEmailList(c *fiber.Ctx) error {
 		UserID: userID,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
 
 	if len(UserDB.UserID) < 32 {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrToken.WithData("该用户不存在"))
 	}
 
 	var UserEmailInfo apiType.UserEmailInfo
 	jsonStr := mJson.ToJson(UserDB.Data)
 	jsoniter.Unmarshal(jsonStr, &UserEmailInfo)
-	UserDB.DB.Close()
 
 	return c.JSON(result.Succeed.WithData(UserEmailInfo))
 }

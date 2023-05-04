@@ -45,7 +45,6 @@ func EditProfile(c *fiber.Ctx) error {
 		UserID: UserID,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
@@ -122,7 +121,6 @@ func EditProfile(c *fiber.Ctx) error {
 	}
 
 	if len(UK) < 1 {
-		UserDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg("未作出任何更改"))
 	}
 
@@ -140,7 +138,6 @@ func EditProfile(c *fiber.Ctx) error {
 	if err != nil {
 		errStr := fmt.Errorf("account.EditProfile %+v", err)
 		global.LogErr(errStr)
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(errStr)))
 	}
 
@@ -194,8 +191,6 @@ func EditProfile(c *fiber.Ctx) error {
 	var userinfoData apiType.UserInfo
 	jsonStr := mJson.ToJson(UserDB.Data)
 	jsoniter.Unmarshal(jsonStr, &userinfoData)
-
-	UserDB.DB.Close()
 
 	taskPush.DelEmailCode(UserDB.Data.Email)
 

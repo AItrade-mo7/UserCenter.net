@@ -38,9 +38,9 @@ func RemoveAccount(c *fiber.Ctx) error {
 		UserID: UserID,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
+	defer UserDB.DB.Close()
 	// 密码验证
 	err = UserDB.CheckPassword(json.Password)
 	if err != nil {
@@ -58,8 +58,6 @@ func RemoveAccount(c *fiber.Ctx) error {
 	if len(UserDB.Data.UserEmail) > 1 {
 		return c.JSON(result.Fail.WithMsg("存在未解绑的邮箱"))
 	}
-
-	UserDB.DB.Close()
 
 	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
@@ -118,7 +116,6 @@ func RemoveAccount(c *fiber.Ctx) error {
 	if len(CoinAIList2) > 0 {
 		return c.JSON(result.Fail.WithMsg("存在未删除的卫星服务!"))
 	}
-	db.Close()
 
 	// 删除账户
 	dbAccount, err := mMongo.New(mMongo.Opt{

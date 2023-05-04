@@ -15,7 +15,6 @@ func (dbObj *AccountType) ChangePassword(Password string) (resErr error) {
 
 	err := db.Ping()
 	if err != nil {
-		db.Close()
 		resErr = fmt.Errorf("修改密码,数据库连接错误 %+v", err)
 		global.LogErr(resErr)
 		return

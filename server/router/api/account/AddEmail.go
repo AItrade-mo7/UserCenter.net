@@ -52,15 +52,12 @@ func AddEmail(c *fiber.Ctx) error {
 		Email: json.Email,
 	})
 	if err != nil {
-		NewEmailDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer NewEmailDB.DB.Close()
 	if len(NewEmailDB.UserID) > 0 {
-		NewEmailDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg("当前邮箱已被使用"))
 	}
-	NewEmailDB.DB.Close()
 
 	// 当前登录账户信息
 	userID, err := middle.TokenAuth(c)
@@ -71,14 +68,12 @@ func AddEmail(c *fiber.Ctx) error {
 		UserID: userID,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
 	// 密码验证
 	err = UserDB.CheckPassword(json.Password)
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg(err))
 	}
 
@@ -108,10 +103,8 @@ func AddEmail(c *fiber.Ctx) error {
 	})
 	_, err = UserDB.DB.Table.UpdateOne(UserDB.DB.Ctx, FK, UK)
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
-	UserDB.DB.Close()
 
 	taskPush.DelEmailCode(json.Email)
 	return c.JSON(result.Succeed.WithMsg("Email已新增"))

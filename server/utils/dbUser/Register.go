@@ -21,10 +21,8 @@ func (dbObj *AccountType) Register(opt RegisterOpt) (resErr error) {
 
 	// 检查数据库连接状态
 	db := dbObj.DB
-	defer db.Close()
 	err := db.Ping()
 	if err != nil {
-		db.Close()
 		resErr = fmt.Errorf("注册用户,数据库连接错误 %+v", err)
 		global.LogErr(resErr)
 		return
@@ -60,7 +58,6 @@ func (dbObj *AccountType) Register(opt RegisterOpt) (resErr error) {
 	if err != nil {
 		resErr = fmt.Errorf("注册,插入数据失败 %+v", err)
 		global.LogErr(resErr)
-		db.Close()
 		return
 	}
 

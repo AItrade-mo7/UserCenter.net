@@ -54,7 +54,6 @@ func SendEmailCode(c *fiber.Ctx) error {
 			UserID: userID,
 		})
 		if err != nil {
-			UserDB.DB.Close()
 			return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 		}
 		defer UserDB.DB.Close()
@@ -67,7 +66,6 @@ func SendEmailCode(c *fiber.Ctx) error {
 			Email: json.Email,
 		})
 		if err != nil {
-			UserDB.DB.Close()
 			return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 		}
 		defer UserDB.DB.Close()

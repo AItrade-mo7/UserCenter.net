@@ -56,7 +56,6 @@ func SetMainEmail(c *fiber.Ctx) error {
 		UserID: userID,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
@@ -76,7 +75,6 @@ func SetMainEmail(c *fiber.Ctx) error {
 	}
 
 	if !isUserEmail {
-		UserDB.DB.Close()
 		return c.JSON(result.Fail.WithMsg("当前邮箱未添加！"))
 	}
 
@@ -105,10 +103,8 @@ func SetMainEmail(c *fiber.Ctx) error {
 
 	_, err = UserDB.DB.Table.UpdateOne(UserDB.DB.Ctx, FK, UK)
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithMsg(err))
 	}
-	UserDB.DB.Close()
 
 	taskPush.DelEmailCode(json.Email)
 

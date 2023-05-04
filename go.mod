@@ -3,7 +3,7 @@ module UserCenter.net
 go 1.20
 
 require (
-	github.com/EasyGolang/goTools v1.0.31
+	github.com/EasyGolang/goTools v1.0.35
 	github.com/fasthttp/websocket v1.5.3
 	github.com/gofiber/fiber/v2 v2.44.0
 	github.com/gofiber/websocket/v2 v2.1.6

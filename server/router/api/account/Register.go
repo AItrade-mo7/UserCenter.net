@@ -62,13 +62,11 @@ func Register(c *fiber.Ctx) error {
 		Email: json.Email,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 	defer UserDB.DB.Close()
 
 	if len(UserDB.UserID) > 0 {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrAccountRepeat.WithData("该邮箱已注册"))
 	}
 
@@ -77,7 +75,6 @@ func Register(c *fiber.Ctx) error {
 		EntrapmentCode: json.EntrapmentCode,
 	})
 	if err != nil {
-		UserDB.DB.Close()
 		return c.JSON(result.ErrDB.WithData(mStr.ToStr(err)))
 	}
 
