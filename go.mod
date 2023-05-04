@@ -4,12 +4,12 @@ go 1.20
 
 require (
 	github.com/EasyGolang/goTools v1.0.31
-	github.com/fasthttp/websocket v1.5.2
+	github.com/fasthttp/websocket v1.5.3
 	github.com/gofiber/fiber/v2 v2.44.0
 	github.com/gofiber/websocket/v2 v2.1.6
 	github.com/json-iterator/go v1.1.12
 	github.com/spf13/viper v1.15.0
-	github.com/valyala/fasthttp v1.46.0
+	github.com/valyala/fasthttp v1.47.0
 	github.com/yeqown/fasthttp-reverse-proxy v0.0.0-20200930023507-ed73ac32bc64
 	go.mongodb.org/mongo-driver v1.11.4
 )
