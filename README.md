@@ -6,9 +6,10 @@ AItrade 的数据中心,用来进行用户账户的数据管理
 
 ```yaml
 # Mongodb
-MongoAddress: "xxxx.xxxx.xxxx:79456"
-MongoUserName: "sssss"
+MongoAddress: "test-mongo.mo7.cc:17017"
+MongoUserName: "tester"
 MongoPassword: "123456"
+MessageBaseUrl: "http://test-msg.mo7.cc"
 ```
 
 ## go work
