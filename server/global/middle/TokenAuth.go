@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
+	"UserCenter.net/sysPublic/dbType"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mTime"

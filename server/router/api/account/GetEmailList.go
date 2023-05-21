@@ -4,7 +4,7 @@ import (
 	"UserCenter.net/server/global/apiType"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/utils/dbUser"
+	"UserCenter.net/sysPublic/dbUser"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"

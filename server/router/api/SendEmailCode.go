@@ -6,8 +6,8 @@ import (
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
+	"UserCenter.net/sysPublic/dbUser"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
 	"github.com/EasyGolang/goTools/mRes"
@@ -15,7 +15,7 @@ import (
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
 	jsoniter "github.com/json-iterator/go"
-)
+)  
 
 type SendEmailCodeParam struct {
 	Email          string

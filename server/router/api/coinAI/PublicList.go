@@ -2,9 +2,9 @@ package coinAI
 
 import (
 	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
+	"UserCenter.net/sysPublic/dbType"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -16,7 +16,7 @@ func PublicList(c *fiber.Ctx) error {
 	if isCrawler {
 		return c.JSON(result.Fail.With("获取失败", "设备异常"))
 	}
-
+ 
 	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,

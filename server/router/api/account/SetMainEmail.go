@@ -3,8 +3,8 @@ package account
 import (
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
+	"UserCenter.net/sysPublic/dbUser"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mTime"

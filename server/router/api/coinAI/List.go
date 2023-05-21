@@ -2,9 +2,9 @@ package coinAI
 
 import (
 	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
+	"UserCenter.net/sysPublic/dbType"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/gofiber/fiber/v2"
@@ -16,7 +16,7 @@ func List(c *fiber.Ctx) error {
 	isCrawler := middle.CrawlerIS(c)
 	if isCrawler {
 		return c.JSON(result.Fail.With("获取失败", "设备异常"))
-	}
+	} 
 
 	userID, err := middle.TokenAuth(c)
 	if err != nil {

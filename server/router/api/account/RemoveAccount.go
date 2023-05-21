@@ -2,11 +2,11 @@ package account
 
 import (
 	"UserCenter.net/server/global/config"
-	"UserCenter.net/server/global/dbType"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
+	"UserCenter.net/sysPublic/dbType"
+	"UserCenter.net/sysPublic/dbUser"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mMongo"
 	"github.com/EasyGolang/goTools/mStr"

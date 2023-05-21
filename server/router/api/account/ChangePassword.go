@@ -4,14 +4,14 @@ import (
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
-	"UserCenter.net/server/utils/dbUser"
 	"UserCenter.net/server/utils/taskPush"
+	"UserCenter.net/sysPublic/dbUser"
 	"github.com/EasyGolang/goTools/mEncrypt"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mStr"
 	"github.com/EasyGolang/goTools/mVerify"
 	"github.com/gofiber/fiber/v2"
-)
+) 
 
 func ChangePassword(c *fiber.Ctx) error {
 	isCrawler := middle.CrawlerIS(c)
