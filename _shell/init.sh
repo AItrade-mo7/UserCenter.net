@@ -24,6 +24,9 @@ OutPutPath="${NowPath}/dist"
 # 部署目录
 DeployPath="/root/ProdProject/UserCenter"
 
+# sysPublic
+sysPublicPath="${NowPath}/sysPublic"
+
 echo "
 ===== 初始化变量 =====
 
@@ -32,5 +35,6 @@ echo "
 编译后的二进制包的名字: ${BuildName}
 输出目录: ${OutPutPath}
 远程仓库目录: ${DeployPath}
+公共模块目录: ${sysPublicPath}
 
 "

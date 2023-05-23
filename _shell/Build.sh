@@ -4,6 +4,14 @@
 source "./_shell/init.sh"
 BuildName=${BuildName}
 OutPutPath=${OutPutPath}
+sysPublicPath=${sysPublicPath}
+NowPath=${NowPath}
+
+echo " =========== 同步公共模块  =========== "
+
+cd "${sysPublicPath}" &&
+  git pull &&
+  cd "${NowPath}" || exit
 
 echo " =========== go build  =========== "
 
