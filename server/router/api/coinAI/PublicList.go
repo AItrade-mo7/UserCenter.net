@@ -16,7 +16,7 @@ func PublicList(c *fiber.Ctx) error {
 	if isCrawler {
 		return c.JSON(result.Fail.With("获取失败", "设备异常"))
 	}
- 
+
 	db, err := mMongo.New(mMongo.Opt{
 		UserName: config.SysEnv.MongoUserName,
 		Password: config.SysEnv.MongoPassword,
@@ -44,9 +44,9 @@ func PublicList(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithData(err))
 	}
 
-	CoinAIList := []dbType.AppEnvType{}
+	CoinAIList := []dbType.CoinAIType{}
 	for cursor.Next(db.Ctx) {
-		var CoinServe dbType.AppEnvType
+		var CoinServe dbType.CoinAIType
 		cursor.Decode(&CoinServe)
 		CoinAIList = append(CoinAIList, CoinServe)
 	}

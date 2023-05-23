@@ -13,7 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
-) 
+)
 
 type RemoveCoinAIParam struct {
 	ServeID   string
@@ -96,7 +96,7 @@ func Remove(c *fiber.Ctx) error {
 		Key:   "ServeID",
 		Value: json.ServeID,
 	}}
-	var CoinServe dbType.AppEnvType
+	var CoinServe dbType.CoinAIType
 	db.Table.FindOne(db.Ctx, findFK, findOpt).Decode(&CoinServe)
 	if len(CoinServe.ServeID) < 3 {
 		return c.JSON(result.Fail.WithMsg("未找到该服务"))

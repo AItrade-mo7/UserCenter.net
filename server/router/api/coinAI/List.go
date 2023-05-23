@@ -16,7 +16,7 @@ func List(c *fiber.Ctx) error {
 	isCrawler := middle.CrawlerIS(c)
 	if isCrawler {
 		return c.JSON(result.Fail.With("获取失败", "设备异常"))
-	} 
+	}
 
 	userID, err := middle.TokenAuth(c)
 	if err != nil {
@@ -51,9 +51,9 @@ func List(c *fiber.Ctx) error {
 		return c.JSON(result.ErrDB.WithData(err))
 	}
 
-	CoinAIList := []dbType.AppEnvType{}
+	CoinAIList := []dbType.CoinAIType{}
 	for cursor.Next(db.Ctx) {
-		var CoinServe dbType.AppEnvType
+		var CoinServe dbType.CoinAIType
 		cursor.Decode(&CoinServe)
 		CoinAIList = append(CoinAIList, CoinServe)
 	}

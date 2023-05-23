@@ -86,9 +86,9 @@ func RemoveAccount(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(result.ErrDB.WithData(err))
 	}
-	CoinAIList := []dbType.AppEnvType{}
+	CoinAIList := []dbType.CoinAIType{}
 	for cursor.Next(db.Ctx) {
-		var CoinServe dbType.AppEnvType
+		var CoinServe dbType.CoinAIType
 		cursor.Decode(&CoinServe)
 		CoinAIList = append(CoinAIList, CoinServe)
 	}
@@ -106,9 +106,9 @@ func RemoveAccount(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(result.ErrDB.WithData(err))
 	}
-	CoinAIList2 := []dbType.AppEnvType{}
+	CoinAIList2 := []dbType.CoinAIType{}
 	for cursor2.Next(db.Ctx) {
-		var CoinServe dbType.AppEnvType
+		var CoinServe dbType.CoinAIType
 		cursor2.Decode(&CoinServe)
 		CoinAIList2 = append(CoinAIList2, CoinServe)
 	}
