@@ -1,7 +1,16 @@
 #!/bin/bash
 
 ## 设置并加载变量
-source "./_shell/init.sh"
+source "./_shell/init.sh"、
+sysPublicPath=${sysPublicPath}
+NowPath=${NowPath}
+
+echo " =========== 同步公共模块  =========== "
+cd "${sysPublicPath}" &&
+  git pull &&
+  cd "${NowPath}" || exit
+
+echo " =========== 同步当前项目  =========== "
 
 ## 判断参数
 desc=$1
