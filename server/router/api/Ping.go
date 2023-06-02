@@ -4,6 +4,7 @@ import (
 	"UserCenter.net/server/global/config"
 	"UserCenter.net/server/global/middle"
 	"UserCenter.net/server/router/result"
+	"UserCenter.net/server/utils/taskPush"
 	"github.com/EasyGolang/goTools/mFetch"
 	"github.com/EasyGolang/goTools/mFiber"
 	"github.com/EasyGolang/goTools/mJson"
@@ -17,6 +18,21 @@ import (
 type AppInfoType struct {
 	Name    string `bson:"name"`
 	Version string `bson:"version"`
+}
+
+type MsgPingType struct {
+	Code int `json:"Code"`
+	Data struct {
+		APIInfo struct {
+			Name    string `json:"Name"`
+			Version string `json:"Version"`
+		} `json:"ApiInfo"`
+		Method    string   `json:"Method"`
+		Path      string   `json:"Path"`
+		ResParam  struct{} `json:"ResParam"`
+		UserAgent string   `json:"UserAgent"`
+	} `json:"Data"`
+	Msg string `json:"Msg"`
 }
 
 func Ping(c *fiber.Ctx) error {
@@ -42,12 +58,21 @@ func Ping(c *fiber.Ctx) error {
 	var ApiInfo AppInfoType
 	jsoniter.Unmarshal(mJson.ToJson(config.AppInfo), &ApiInfo)
 
+	MsgRes, _ := taskPush.Request(taskPush.RequestOpt{
+		Origin: config.SysEnv.MessageBaseUrl,
+		Path:   "/ping",
+	})
+
+	var MsgInfo MsgPingType
+	jsoniter.Unmarshal(MsgRes, &MsgInfo)
+
 	ReturnData := make(map[string]any)
 	ReturnData["ResParam"] = json
 	ReturnData["Method"] = c.Method()
 	ReturnData["ApiInfo"] = ApiInfo
 	ReturnData["ClientInfo"] = ClientInfo
 	ReturnData["CoinAIInfo"] = CoinAIInfo
+	ReturnData["MsgInfo"] = MsgInfo.Data.APIInfo
 
 	ReturnData["UserAgent"] = c.Get("User-Agent")
 	ReturnData["Path"] = c.OriginalURL()
