@@ -25,7 +25,7 @@ func Ping(c *fiber.Ctx) error {
 	// 在这里请求数据
 	ClientFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
 		Origin: "https://raw.githubusercontent.com",
-		Path:   "/mo7cc/trade.mo7.cc/main/package.json?tmp=" + mTime.GetUnix(),
+		Path:   "/AItrade-mo7/WebClientPackage/main/package.json?tmp=" + mTime.GetUnix(),
 	}).Get()
 
 	CoinAIFileReqData, _ := mFetch.NewHttp(mFetch.HttpOpt{
